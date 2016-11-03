@@ -6,6 +6,15 @@ node v7.0.0
 
 npm install --save react react-dom redux react-redux immutable
 
-npm install --save-dev webpack babel-loader babel-preset-es2015 babel-preset-react
+npm install --save-dev webpack babel-loader babel-preset-es2015 babel-preset-react babel-core
 
 npm install react-bootstrap --save
+
+npm install static
+
+#Run 
+
+webpack
+
+static &
+
