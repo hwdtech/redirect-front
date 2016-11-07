@@ -2,9 +2,14 @@ import * as actionTypes from '../actions/actionTypes'
 
 
 const selectMainLink = (state = false, action) => {
+  //console.log(state, action)
   switch (action.type) {
     case actionTypes.SELECT_MAIN_LINK:
-        return action.id
+      if (state === action.selectedMainLink) {
+        return false
+      } else {
+        return action.selectedMainLink
+      }
     default:
       return state
   }

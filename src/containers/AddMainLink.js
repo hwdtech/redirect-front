@@ -30,13 +30,6 @@ let AddMainLink = ({ dispatch }) => {
         defaultLink.value = ''
       }}>
 
-        <FieldGroup
-          id="formControlsText"
-          type="text"
-          label="Text"
-          placeholder="Enter text"
-        />
-
         <input ref={node => {
           title = node
         }} />

@@ -1,14 +1,18 @@
 import React, { PropTypes } from 'react'
 
-const MainLink = ({ title, defaultLink }) => (
-  <li>
+const MainLink = ({ onClick, title, defaultLink }) => (
+  <li
+  	onClick={onClick}
+  >
     {title} -> {defaultLink}
   </li>
 )
 
 MainLink.propTypes = {
-  title: PropTypes.string.isRequired,
-  defaultLink: PropTypes.string.isRequired
+	onClick: PropTypes.func.isRequired,
+  	title: PropTypes.string.isRequired,
+  	defaultLink: PropTypes.string.isRequired,
+  	//subLinkIdList: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired
 }
 
 export default MainLink

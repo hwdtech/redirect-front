@@ -25,6 +25,7 @@ export const addSubLink = (title, rules) => {
 
 export const selectMainLink = (id) => {
 	return {
+		type: actionTypes.SELECT_MAIN_LINK,
 		selectedMainLink: id
 	}
 }
