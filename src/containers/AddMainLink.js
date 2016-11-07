@@ -3,6 +3,7 @@ import { Button, FormGroup, ControlLabel, FormControl, HelpBlock} from 'react-bo
 import { connect } from 'react-redux'
 import { addMainLink } from '../actions'
 
+
 function FieldGroup({ id, label, help, props }) {
   console.log(props)
   return (

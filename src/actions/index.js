@@ -12,6 +12,14 @@ export const addMainLink = (title, defaultLink) => {
 	}
 }
 
+export const connectSubToMain = (mainId, subId) => {
+	return {
+		type: actionTypes.CONNECT_SUB_TO_MAIN,
+		mainId,
+		subId
+	}
+}
+
 let nextSubId = 0;
 export const addSubLink = (title, rules) => {
 	//console.log(nextMainId)

@@ -1,4 +1,5 @@
 export const ADD_MAIN_LINK = 'ADD_MAIN_LINK'
+export const CONNECT_SUB_TO_MAIN = 'CONNECT_SUB_TO_MAIN'
 
 export const ADD_SUB_LINK = 'ADD_SUB_LINK'
 export const DELETE_SUB_LINK = 'DELETE_SUB_LINK'

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Input, Button, FormGroup, ControlLabel, FormControl, HelpBlock} from 'react-bootstrap';
 import { connect } from 'react-redux'
-import { addSubLink } from '../actions'
+import { addSubLink, connectSubToMain } from '../actions'
 
 function FieldGroup({ id, label, help, placeholder}) {
   console.log(placeholder);
@@ -20,8 +20,8 @@ let AddSubLink = ({ dispatch }) => {
       <form onSubmit={e => {
         e.preventDefault()
         console.log();
-        dispatch(addSubLink('Title', "rules.value"))
-
+        dispatch(addSubLink('Title', "rules.value"))//stub
+        dispatch(connectSubToMain(0, 0))//stub
       }}>
 
         <FieldGroup
