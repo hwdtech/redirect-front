@@ -3,7 +3,7 @@ import { selectMainLink } from '../actions'
 import MainLinkList from '../components/MainLinkList'
 
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
   console.log(state)
   return {
     mainLinks: state.mainLinks

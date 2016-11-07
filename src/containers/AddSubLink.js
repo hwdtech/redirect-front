@@ -14,14 +14,14 @@ function FieldGroup({ id, label, help, placeholder}) {
   );
 }
 
-let AddSubLink = ({ dispatch }) => {
+let AddSubLink = ({ dispatch, selectedMainLink, currentSubLink }) => {
   return (
     <div>
       <form onSubmit={e => {
         e.preventDefault()
-        console.log();
+        //console.log(selectedMainLink);
         dispatch(addSubLink('Title', "rules.value"))//stub
-        dispatch(connectSubToMain(0, 0))//stub
+        dispatch(connectSubToMain(selectedMainLink, currentSubLink))
       }}>
 
         <FieldGroup
@@ -38,6 +38,24 @@ let AddSubLink = ({ dispatch }) => {
     </div>
   )
 }
-AddSubLink = connect()(AddSubLink)
+
+
+const mapStateToProps = (state) => {
+  return {
+  selectedMainLink: state.selectedMainLink,
+  currentSubLink: state.subLinks.length  // bad solution
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    dispatch
+  }
+}
+
+AddSubLink = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AddSubLink)
 
 export default AddSubLink
