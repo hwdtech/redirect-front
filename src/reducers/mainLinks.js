@@ -6,7 +6,8 @@ const mainLink = (state, action) => {
       return {
         id: action.id,
         title: action.title,
-        defaultLink: action.defaultLink
+        defaultLink: action.defaultLink,
+        subLinkIdList: action.subLinkIdList
       }
     default:
       return state

@@ -7,6 +7,24 @@ export const addMainLink = (title, defaultLink) => {
 		type: actionTypes.ADD_MAIN_LINK,
 		id: nextMainId++,
 		title,
-		defaultLink
+		defaultLink,
+		subLinkIdList: []
+	}
+}
+
+let nextSubId = 0;
+export const addSubLink = (title, rules) => {
+	//console.log(nextMainId)
+	return {
+		type: actionTypes.ADD_SUB_LINK,
+		id: nextSubId++,
+		title,
+		rules
+	}
+}
+
+export const selectMainLink = (id) => {
+	return {
+		selectedMainLink: id
 	}
 }
