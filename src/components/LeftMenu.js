@@ -1,5 +1,8 @@
 import React, { PropTypes } from 'react'
-import { Nav, NavItem } from 'react-bootstrap'
+import { connect } from 'react-redux'
+import { Button } from 'react-bootstrap'
+import * as CONSTANTS from './CONSTANTS'
+import { viewContent } from '../actions'
 
 const leftMenuStyles = {
 	maxWidth: 200, 
@@ -13,16 +16,41 @@ const menuItemStyles = {
   width: 160,
 }
 
-function handleSelect(selectedKey) {
-  console.log('selected ' + selectedKey);
-}
-
-const LeftMenu = () => (
-  <Nav className="well" style={leftMenuStyles} bsStyle="pills" activeKey={1} onSelect={handleSelect}>
-    <NavItem style={menuItemStyles} eventKey={1} href="/home"> Home </NavItem>
-    <NavItem style={menuItemStyles} eventKey={2} > Main link List </NavItem>
-    <NavItem style={menuItemStyles} eventKey={3} disabled> ... </NavItem>
-  </Nav>
+let LeftMenu = ({dispatch}) => (
+  <div className="well" style={leftMenuStyles} >
+    <Button style={menuItemStyles} type="submit" bsStyle="primary" 
+      onClick={e => {
+      e.preventDefault()
+      dispatch(viewContent(CONSTANTS.VIEW_HOME_CONTENT))
+    }}>
+       home </Button>
+    <Button style={menuItemStyles} type="submit" bsStyle="primary" 
+      onClick={e => {
+      e.preventDefault()
+      //dispatch(viewContent(CONSTANTS.VIEW_SUB_LINK_LIST))
+    }}>
+       view main link form (-)</Button>
+    <Button style={menuItemStyles} type="submit" bsStyle="primary" 
+      onClick={e => {
+      e.preventDefault()
+      //dispatch(viewContent(CONSTANTS.VIEW_SUB_LINK_LIST))
+    }}>
+       view main link list (-)</Button>
+    <Button style={menuItemStyles} type="submit" bsStyle="primary" 
+      onClick={e => {
+      e.preventDefault()
+      dispatch(viewContent(CONSTANTS.VIEW_SUB_LINK_FORM))
+    }}>
+       view sub link form (-)</Button>
+    <Button style={menuItemStyles} type="submit" bsStyle="primary" 
+      onClick={e => {
+      e.preventDefault()
+      dispatch(viewContent(CONSTANTS.VIEW_SUB_LINK_LIST))
+    }}>
+       view sub link list </Button>
+    </div>
 )
+
+LeftMenu = connect()(LeftMenu)
 
 export default LeftMenu

@@ -37,3 +37,10 @@ export const selectMainLink = (id) => {
 		selectedMainLink: id
 	}
 }
+
+export const viewContent = (content) => {
+	return {
+		type: actionTypes.VIEW_CONTENT,
+		visibleContent: content
+	}
+}
