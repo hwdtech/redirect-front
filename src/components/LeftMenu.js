@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { Button } from 'react-bootstrap'
 import * as CONSTANTS from './CONSTANTS'
-import { viewContent } from '../actions'
+import { viewContent, selectMainLink} from '../actions'
 
 const leftMenuStyles = {
 	maxWidth: 200, 
@@ -22,6 +22,7 @@ let LeftMenu = ({dispatch}) => (
       onClick={e => {
       e.preventDefault()
       dispatch(viewContent(CONSTANTS.VIEW_HOME_CONTENT))
+      dispatch(selectMainLink(false))
     }}>
        home </Button>
     <Button style={menuItemStyles} type="submit" bsStyle="primary" 
@@ -41,7 +42,7 @@ let LeftMenu = ({dispatch}) => (
       e.preventDefault()
       dispatch(viewContent(CONSTANTS.VIEW_SUB_LINK_FORM))
     }}>
-       view sub link form (-)</Button>
+       view sub link form </Button>
     <Button style={menuItemStyles} type="submit" bsStyle="primary" 
       onClick={e => {
       e.preventDefault()

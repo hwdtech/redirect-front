@@ -2,16 +2,19 @@ import React, { PropTypes } from 'react'
 import MainLink from './MainLink'
 
 const MainLinkList = ({ mainLinks, selectedMainLink, onMainLinkClick }) => (
-  <ul>
-    {mainLinks.map(mainLink  =>
-      <MainLink
-        key={mainLink.id}
-        {...mainLink}
-        selectedMainLink={selectedMainLink}
-        onClick={() => onMainLinkClick(mainLink.id)}
-      />
-    )}
-  </ul>
+  <div>
+    <h4>Main Links</h4>
+    <ul>
+      {mainLinks.map(mainLink  =>
+        <MainLink
+          key={mainLink.id}
+          {...mainLink}
+          selectedMainLink={selectedMainLink}
+          onClick={() => onMainLinkClick(mainLink.id)}
+        />
+      )}
+    </ul>
+    </div>
 )
 
 MainLinkList.propTypes = {

@@ -11,6 +11,7 @@ let AddMainLink = ({ dispatch }) => {
 
   return (
     <div>
+      <h4>AddMainLink</h4>
       <form onSubmit={e => {
         e.preventDefault()
         if (!title.value.trim()) {
