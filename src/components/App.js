@@ -2,6 +2,7 @@ import React from 'react'
 import AddMainLink from '../containers/AddMainLink'
 import AddSubLink from '../containers/AddSubLink'
 import VisibleMainLinkList from '../containers/VisibleMainLinkList'
+import VisibleSubLinkList from '../containers/VisibleSubLinkList'
 import Header from './Header'
 import LeftMenu from './LeftMenu'
 
@@ -32,7 +33,7 @@ const App = () => (
 	  		<VisibleMainLinkList />
 
         <h4>Sub Links</h4>
-        <p>soon</p>
+        <VisibleSubLinkList />
 
   		</div>
       <LeftMenu />  
