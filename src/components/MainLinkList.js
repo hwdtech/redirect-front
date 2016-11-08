@@ -1,12 +1,13 @@
 import React, { PropTypes } from 'react'
 import MainLink from './MainLink'
 
-const MainLinkList = ({ mainLinks, onMainLinkClick }) => (
+const MainLinkList = ({ mainLinks, selectedMainLink, onMainLinkClick }) => (
   <ul>
-    {mainLinks.map(mainLink =>
+    {mainLinks.map(mainLink  =>
       <MainLink
         key={mainLink.id}
         {...mainLink}
+        selectedMainLink={selectedMainLink}
         onClick={() => onMainLinkClick(mainLink.id)}
       />
     )}
@@ -20,6 +21,7 @@ MainLinkList.propTypes = {
     defaultLink: PropTypes.string.isRequired,
     subLinkIdList: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired
   }).isRequired).isRequired,
+  selectedMainLink: PropTypes.number.isRequired,
   onMainLinkClick: PropTypes.func.isRequired
 }
 

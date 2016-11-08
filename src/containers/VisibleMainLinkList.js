@@ -6,7 +6,8 @@ import MainLinkList from '../components/MainLinkList'
 const mapStateToProps = (state) => {
   console.log(state)
   return {
-    mainLinks: state.mainLinks
+    mainLinks: state.mainLinks,
+    selectedMainLink: state.selectedMainLink,
   }
 }
 
