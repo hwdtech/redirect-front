@@ -1,14 +1,19 @@
 import React from 'react'
-import { Input, Button, FormGroup, ControlLabel, FormControl, HelpBlock} from 'react-bootstrap';
+import { Button, Form, FormGroup, ControlLabel, FormControl, HelpBlock } from 'react-bootstrap';
 import { connect } from 'react-redux'
 import { addSubLink, connectSubToMain } from '../actions'
 
-function FieldGroup({ id, label, help, placeholder}) {
-  console.log(placeholder);
+//const form ID
+const inputTitle = 'formSubLinkTitle'
+const inputRuleType = 'formSubLinkRuleType'
+const inputRule = 'formSubLinkRule'
+
+
+function FieldGroup({ id, label, help, type, placeholder  }) {
   return (
     <FormGroup controlId={id}>
       <ControlLabel>{label}</ControlLabel>
-      <FormControl placeholder={placeholder}/>
+      <FormControl type={type} placeholder={placeholder} />
       {help && <HelpBlock>{help}</HelpBlock>}
     </FormGroup>
   );
@@ -17,24 +22,43 @@ function FieldGroup({ id, label, help, placeholder}) {
 let AddSubLink = ({ dispatch, selectedMainLink, currentSubLink }) => {
   return (
     <div>
-      <form onSubmit={e => {
+      <Form horizontal
+       onSubmit={e => {
         e.preventDefault()
-        //console.log(selectedMainLink);
-        dispatch(addSubLink('Title', "rules.value"))//stub
+
+        //fix by bootstrap
+        let t = document.getElementById(inputRuleType)
+        dispatch(addSubLink(
+          document.getElementById(inputTitle).value, 
+          t.options[t.selectedIndex].value
+          ))
         dispatch(connectSubToMain(selectedMainLink, currentSubLink))
+
+        document.getElementById(inputTitle).value ='';
+      
       }}>
 
         <FieldGroup
-          id="formControlsText"
+          id={inputTitle}
           type="text"
-          label="Text"
-          placeholder="Enter text"
+          label="Title"
+          placeholder="Enter title"
         />
+ 
+        <FormGroup 
+          controlId={inputRuleType}>
+          <ControlLabel>RuleType</ControlLabel>
+            <FormControl componentClass="select">
+              <option value="text">text</option>
+              <option value="email">email</option>
+              <option value="password">password</option>
+            </FormControl>
+        </FormGroup>
 
         <Button type="submit" bsStyle="primary">
           addSubLink
         </Button>
-      </form>
+      </Form>
     </div>
   )
 }

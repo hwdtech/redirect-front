@@ -1,19 +1,9 @@
 import React from 'react'
-import { Button, FormGroup, ControlLabel, FormControl, HelpBlock} from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import { connect } from 'react-redux'
 import { addMainLink } from '../actions'
 
 
-function FieldGroup({ id, label, help, props }) {
-  console.log(props)
-  return (
-    <FormGroup controlId={id}>
-      <ControlLabel>{label}</ControlLabel>
-      <FormControl {...props} />
-      {help && <HelpBlock>{help}</HelpBlock>}
-    </FormGroup>
-  );
-}
 
 let AddMainLink = ({ dispatch }) => {
   let title

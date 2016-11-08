@@ -6,18 +6,22 @@ const leftMenuStyles = {
 	margin: '0 0 0px',
 	height: '100%', /* 100% Full-height */
   position: 'fixed', /* Stay in place */
-  left: 0
+  left: 0,
+  display: 'block'
 };
+const menuItemStyles = {
+  width: 160,
+}
 
 function handleSelect(selectedKey) {
-  alert('selected ' + selectedKey);
+  console.log('selected ' + selectedKey);
 }
 
 const LeftMenu = () => (
   <Nav className="well" style={leftMenuStyles} bsStyle="pills" activeKey={1} onSelect={handleSelect}>
-    <NavItem eventKey={1} href="/home">NavItem 1 content -----------------------------------</NavItem>
-    <NavItem eventKey={2} title="Item">NavItem 2 content</NavItem>
-    <NavItem eventKey={3} disabled>NavItem 3 content</NavItem>
+    <NavItem style={menuItemStyles} eventKey={1} href="/home"> Home </NavItem>
+    <NavItem style={menuItemStyles} eventKey={2} > Main link List </NavItem>
+    <NavItem style={menuItemStyles} eventKey={3} disabled> ... </NavItem>
   </Nav>
 )
 

@@ -8,9 +8,10 @@ import LeftMenu from './LeftMenu'
 
 const mainStyles = {
   maxWidth: 800, 
-  minWidth: 0,
   height: '100%',
   right: 0,
+  margin: '0 auto 10px',
+  padding: '2em',
   backgroundColor: '#eeeeee',
   position: 'fixed'
 };
@@ -22,13 +23,15 @@ const App = () => (
   		<div className="main" style={mainStyles}>
 
   			<h3>Main</h3>
+        <h4>AddMainLink</h4>
 	  		<AddMainLink />
+        <h4>AddSubLink</h4>
         <AddSubLink />
 
-        <h3>Main Links</h3>
+        <h4>Main Links</h4>
 	  		<VisibleMainLinkList />
 
-        <h3>Sub Links</h3>
+        <h4>Sub Links</h4>
         <p>soon</p>
 
   		</div>
