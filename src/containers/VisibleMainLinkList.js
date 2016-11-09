@@ -16,7 +16,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     onMainLinkClick: (id) => {
       dispatch(selectMainLink(id))
-    }
+    },
+    dispatch
   }
 }
 

@@ -1,5 +1,6 @@
 import * as actionTypes from '../actions/actionTypes'
 
+
 const subLink = (state, action) => {
   switch (action.type) {
     case actionTypes.ADD_SUB_LINK:
@@ -22,7 +23,7 @@ const subLinks = (state = [], action) => {
         subLink(undefined, action)
       ]
       case actionTypes.DELETE_SUB_LINK:
-        return state
+        return state.filter(t => t.id !== action.id)
     default:
       return state
   }

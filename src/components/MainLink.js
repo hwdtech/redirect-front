@@ -3,12 +3,11 @@ import VisibleSubLinkList from '../containers/VisibleSubLinkList'
 
 const MainLink = ({ onClick, id, title, defaultLink, subLinkIdList, selectedMainLink}) => (
   <li
-  	onClick={onClick}
   	style={{
       color: (selectedMainLink === id) ? 'red' : 'black'
     }}
   	>
-  	<h4> {title} </h4>
+  	<h4 onClick={onClick}> {title} </h4>
      <p> Default link: {defaultLink}</p>
      <p> List og sublink: {subLinkIdList.map(t => {return t+'|'})}</p>
      <VisibleSubLinkList mainId={id} />

@@ -2,7 +2,6 @@ import * as actionTypes from '../actions/actionTypes'
 
 let nextMainId = 0;
 export const addMainLink = (title, defaultLink) => {
-	//console.log(nextMainId)
 	return {
 		type: actionTypes.ADD_MAIN_LINK,
 		id: nextMainId++,
@@ -22,7 +21,6 @@ export const connectSubToMain = (mainId, subId) => {
 
 let nextSubId = 0;
 export const addSubLink = (mainId, title, rules) => {
-	//console.log(nextMainId)
 	return {
 		type: actionTypes.ADD_SUB_LINK,
 		id: nextSubId++,
@@ -31,6 +29,22 @@ export const addSubLink = (mainId, title, rules) => {
 		rules
 	}
 }
+
+export const deleteSubLink = (id) => {
+	return {
+		type: actionTypes.DELETE_SUB_LINK,
+		id
+	}
+}
+
+export const editSubLink = (title, rules) => {
+	return {
+		type: actionTypes.EDIT_SUB_LINK,
+		title,
+		rules
+	}
+}
+
 
 export const selectMainLink = (id) => {
 	return {

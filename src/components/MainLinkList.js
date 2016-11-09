@@ -27,7 +27,7 @@ MainLinkList.propTypes = {
     subLinkIdList: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired
   }).isRequired).isRequired,
   selectedMainLink: PropTypes.number.isRequired,
-  onMainLinkClick: PropTypes.func.isRequired
+  onMainLinkClick: PropTypes.func.isRequired,
 }
 
 export default MainLinkList
