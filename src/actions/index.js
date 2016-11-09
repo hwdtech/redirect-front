@@ -7,17 +7,9 @@ export const addMainLink = (title, defaultLink) => {
 		id: nextMainId++,
 		title,
 		defaultLink,
-		subLinkIdList: []
 	}
 }
 
-export const connectSubToMain = (mainId, subId) => {
-	return {
-		type: actionTypes.CONNECT_SUB_TO_MAIN,
-		mainId,
-		subId
-	}
-}
 
 let nextSubId = 0;
 export const addSubLink = (mainId, title, rules) => {

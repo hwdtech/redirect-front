@@ -9,7 +9,6 @@ const MainLink = ({ onClick, id, title, defaultLink, subLinkIdList, selectedMain
   	>
   	<h4 onClick={onClick}> {title} </h4>
      <p> Default link: {defaultLink}</p>
-     <p> List og sublink: {subLinkIdList.map(t => {return t+'|'})}</p>
      <VisibleSubLinkList mainId={id} />
   </li>
 )
@@ -19,7 +18,6 @@ MainLink.propTypes = {
   	id: PropTypes.number.isRequired,
   	title: PropTypes.string.isRequired,
   	defaultLink: PropTypes.string.isRequired,
-  	subLinkIdList: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
 }
 
 export default MainLink

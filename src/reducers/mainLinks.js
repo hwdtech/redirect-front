@@ -7,18 +7,7 @@ const mainLink = (state, action) => {
         id: action.id,
         title: action.title,
         defaultLink: action.defaultLink,
-        subLinkIdList: action.subLinkIdList
       }
-    case actionTypes.CONNECT_SUB_TO_MAIN:
-      
-      if (state.id !== action.mainId) {
-        return state
-      }
-
-      return Object.assign({}, state, {
-        subLinkIdList: [...state.subLinkIdList, action.subId]
-      })
-
     default:
       return state
   }
@@ -31,8 +20,6 @@ const mainLinks = (state = [], action) => {
         ...state,
         mainLink(undefined, action)
       ]
-    case actionTypes.CONNECT_SUB_TO_MAIN:
-      return state.map(t => mainLink(t, action))
     default:
       return state
   }

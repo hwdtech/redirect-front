@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button, Form, FormGroup, ControlLabel, FormControl, HelpBlock } from 'react-bootstrap';
 import { connect } from 'react-redux'
-import { addSubLink, connectSubToMain } from '../actions'
+import { addSubLink } from '../actions'
 import * as CONSTANTS from './CONSTANTS'
 import * as styles from '../styles'
 
@@ -21,7 +21,7 @@ function FieldGroup({ id, label, help, type, placeholder  }) {
   );
 }
 
-const SubLinkForm = ({ dispatch, selectedMainLink, currentSubLink, viewContent }) => (
+const SubLinkForm = ({ dispatch, selectedMainLink, viewContent }) => (
   <div style = {(viewContent === CONSTANTS.VIEW_SUB_LINK_FORM || selectedMainLink !== false) ? styles.defaultStyles : styles.hidenStyles}>
     <h4>AddSubLink</h4>
     <Form horizontal
@@ -35,8 +35,6 @@ const SubLinkForm = ({ dispatch, selectedMainLink, currentSubLink, viewContent }
         document.getElementById(inputTitle).value, 
         t.options[t.selectedIndex].value
         ))
-      dispatch(connectSubToMain(selectedMainLink, currentSubLink))
-
       document.getElementById(inputTitle).value ='';
     
     }}>

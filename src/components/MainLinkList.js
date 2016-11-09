@@ -24,7 +24,6 @@ MainLinkList.propTypes = {
     id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     defaultLink: PropTypes.string.isRequired,
-    subLinkIdList: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired
   }).isRequired).isRequired,
   selectedMainLink: PropTypes.number.isRequired,
   onMainLinkClick: PropTypes.func.isRequired,
