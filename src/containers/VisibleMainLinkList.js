@@ -8,6 +8,7 @@ const mapStateToProps = (state) => {
   return {
     mainLinks: state.mainLinks,
     selectedMainLink: state.selectedMainLink,
+    viewContent: state.viewContent
   }
 }
 

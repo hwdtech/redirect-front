@@ -1,42 +1,22 @@
-import React from 'react'
-import { Button } from 'react-bootstrap';
 import { connect } from 'react-redux'
-import { addMainLink } from '../actions'
+import MainLinkForm from '../components/MainLinkForm'
 
 
-
-let AddMainLink = ({ dispatch }) => {
-  let title
-  let defaultLink
-
-  return (
-    <div>
-      <h4>AddMainLink</h4>
-      <form onSubmit={e => {
-        e.preventDefault()
-        if (!title.value.trim()) {
-          return
-        }
-        dispatch(addMainLink(title.value, defaultLink.value))
-        title.value = ''
-        defaultLink.value = ''
-      }}>
-
-        <input ref={node => {
-          title = node
-        }} />
-
-        <input ref={node => {
-          defaultLink = node
-        }} />
-
-        <Button type="submit" bsStyle="primary">
-          addMainLink
-        </Button>
-      </form>
-    </div>
-  )
+const mapStateToProps = (state) => {
+  return {
+  viewContent: state.viewContent
+  }
 }
-AddMainLink = connect()(AddMainLink)
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    dispatch
+  }
+}
+
+const AddMainLink = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(MainLinkForm)
 
 export default AddMainLink

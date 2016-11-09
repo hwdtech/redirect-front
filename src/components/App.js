@@ -1,9 +1,10 @@
 import React from 'react'
 import * as styles from '../styles'
+import Header from './Header'
 import AddMainLink from '../containers/AddMainLink'
 import AddSubLink from '../containers/AddSubLink'
 import VisibleMainLinkList from '../containers/VisibleMainLinkList'
-import Header from './Header'
+
 import LeftMenu from './LeftMenu'
 
 
@@ -16,7 +17,9 @@ const App = () => (
 	  		<VisibleMainLinkList />
         <AddSubLink />
   		</div>
+
       <LeftMenu />  
+      
   		<div>footer</div>
   	</div>
 )

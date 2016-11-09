@@ -1,3 +1,5 @@
 export const VIEW_HOME_CONTENT = "HOME"
+export const VIEW_MAIN_LINK_LIST = "MAIN_LINK_LIST"
+export const VIEW_MAIN_LINK_FORM = "MAIN_LINK_FORM"
 export const VIEW_SUB_LINK_LIST = "SUB_LINK_LIST"
 export const VIEW_SUB_LINK_FORM = "SUB_LINK_FORM"
