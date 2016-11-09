@@ -43,12 +43,6 @@ let LeftMenu = ({dispatch}) => (
       dispatch(viewContent(CONSTANTS.VIEW_SUB_LINK_FORM))
     }}>
        view sub link form </Button>
-    <Button style={menuItemStyles} type="submit" bsStyle="primary" 
-      onClick={e => {
-      e.preventDefault()
-      dispatch(viewContent(CONSTANTS.VIEW_SUB_LINK_LIST))
-    }}>
-       view sub link list </Button>
     </div>
 )
 

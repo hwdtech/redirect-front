@@ -31,6 +31,7 @@ const SubLinkForm = ({ dispatch, selectedMainLink, currentSubLink, viewContent }
       //fix by bootstrap
       let t = document.getElementById(inputRuleType)
       dispatch(addSubLink(
+        selectedMainLink,
         document.getElementById(inputTitle).value, 
         t.options[t.selectedIndex].value
         ))

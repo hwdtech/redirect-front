@@ -6,7 +6,7 @@ import * as styles from '../styles'
 
 
 const SubLinkList = ({ subLinks, selectedMainLink, viewContent }) => (
-  <div style = {(viewContent === CONSTANTS.VIEW_SUB_LINK_LIST) ? styles.defaultStyles : styles.hidenStyles}>
+  <div style = {(viewContent === CONSTANTS.VIEW_SUB_LINK_LIST || selectedMainLink !== false) ? styles.defaultStyles : styles.hidenStyles}>
     <h4>Sub Links</h4>
     <ul>
       {subLinks.map(subLink  =>

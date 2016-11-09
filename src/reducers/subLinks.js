@@ -5,6 +5,7 @@ const subLink = (state, action) => {
     case actionTypes.ADD_SUB_LINK:
       return {
         id: action.id,
+        mainId: action.mainId,
         title: action.title,
         rules: action.rules
       }

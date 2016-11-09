@@ -21,11 +21,12 @@ export const connectSubToMain = (mainId, subId) => {
 }
 
 let nextSubId = 0;
-export const addSubLink = (title, rules) => {
+export const addSubLink = (mainId, title, rules) => {
 	//console.log(nextMainId)
 	return {
 		type: actionTypes.ADD_SUB_LINK,
 		id: nextSubId++,
+		mainId,
 		title,
 		rules
 	}

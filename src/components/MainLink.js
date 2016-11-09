@@ -1,8 +1,5 @@
 import React, { PropTypes } from 'react'
-
-// const isSelected = () => {
-// 	return
-// }
+import VisibleSubLinkList from '../containers/VisibleSubLinkList'
 
 const MainLink = ({ onClick, id, title, defaultLink, subLinkIdList, selectedMainLink}) => (
   <li
@@ -14,7 +11,7 @@ const MainLink = ({ onClick, id, title, defaultLink, subLinkIdList, selectedMain
   	<h4> {title} </h4>
      <p> Default link: {defaultLink}</p>
      <p> List og sublink: {subLinkIdList.map(t => {return t+'|'})}</p>
-
+     <VisibleSubLinkList mainId={id} />
   </li>
 )
 
