@@ -5,7 +5,8 @@ export const mainStyles = {
   margin: '0 auto 10px',
   padding: '2em',
   backgroundColor: '#eeeeee',
-  position: 'fixed'
+  position: 'fixed',
+  overflow: 'auto'
 };
 
 export const defaultStyles = {
