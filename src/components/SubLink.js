@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react'
 import { Button } from 'react-bootstrap'
-import { deleteSubLink, editSubLink} from '../actions'
+import { deleteSubLink, editSubLink, changeInputMode} from '../actions'
 
 // const isSelected = () => {
 // 	return
@@ -12,7 +12,10 @@ const SubLink = ({ id, title, rules, selectedMainLink, dispatch}) => (
      <p> Rules: {rules}</p>
      <Button onClick={
      	() => { dispatch(deleteSubLink(id)) }
-     }> </Button>
+     }> Delete</Button>
+     <Button onClick={
+      () => { dispatch(changeInputMode()) }
+     }> Edit</Button>
   </li>
 )
 

@@ -59,3 +59,18 @@ export const viewContent = (content) => {
 		visibleContent: content
 	}
 }
+
+export const changeInputMode = () => {
+	return {
+		type: actionTypes.CHANGE_INPUT_MODE,
+		'ADD': 'EDIT',
+		'EDIT': 'ADD'
+	}
+}
+
+export const defaultInputMode = () => {
+	return {
+		type: actionTypes.DEFAULT_INPUT_MODE,
+		mode: 'ADD'
+	}
+}
