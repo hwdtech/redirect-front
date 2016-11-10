@@ -10,6 +10,21 @@ export const addMainLink = (title, defaultLink) => {
 	}
 }
 
+export const editMainLink = (id, title, defaultLink) => {
+	return {
+		type: actionTypes.EDIT_MAIN_LINK,
+		id,
+		title,
+		defaultLink,
+	}
+}
+
+export const deleteMainLink = (id) => {
+	return {
+		type: actionTypes.DELETE_MAIN_LINK,
+		id
+	}
+}
 
 let nextSubId = 0;
 export const addSubLink = (mainId, title, rules) => {
@@ -29,9 +44,17 @@ export const deleteSubLink = (id) => {
 	}
 }
 
-export const editSubLink = (title, rules) => {
+export const deleteSubLinkListByMainId = (id) => {
+	return {
+		type: actionTypes.DELETE_SUB_LINK_LIST_BY_MAIN_ID,
+		id
+	}
+}
+
+export const editSubLink = (id, title, rules) => {
 	return {
 		type: actionTypes.EDIT_SUB_LINK,
+		id,
 		title,
 		rules
 	}
@@ -52,7 +75,7 @@ export const selectSubLink = (id) => {
 	}
 }
 
-export const viewContent = (content) => {
+export const showContent = (content) => {
 	return {
 		type: actionTypes.VIEW_CONTENT,
 		visibleContent: content

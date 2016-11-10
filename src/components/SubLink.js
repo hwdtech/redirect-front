@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react'
 import { Button } from 'react-bootstrap'
-import { deleteSubLink, changeInputMode, viewContent} from '../actions'
+import { deleteSubLink, changeInputMode, showContent, selectSubLink} from '../actions'
 import * as CONSTANTS from './CONSTANTS'
 // const isSelected = () => {
 // 	return
@@ -16,7 +16,8 @@ const SubLink = ({ id, title, rules, selectedMainLink, dispatch}) => (
      <Button onClick={
       () => { 
         dispatch(changeInputMode())
-        dispatch(viewContent(CONSTANTS.VIEW_SUB_LINK_FORM))
+        dispatch(showContent(CONSTANTS.VIEW_SUB_LINK_FORM))
+        dispatch(selectSubLink(id))
       }
      }> Edit</Button>
   </li>

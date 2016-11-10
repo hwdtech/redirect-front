@@ -14,7 +14,7 @@ const select = (state = {mainLink: false, subLink: false}, action) => {
         }) 
       }
     case actionTypes.SELECT_SUB_LINK:
-      if (state.mainLink === action.selected) {
+      if (state.subLink === action.selected) {
         return Object.assign({}, state, {
           subLink: false,
         }) 

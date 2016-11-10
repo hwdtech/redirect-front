@@ -1,12 +1,12 @@
 import React from 'react'
 import { Button } from 'react-bootstrap';
-import { addMainLink } from '../actions'
+import { addMainLink, editMainLink, changeInputMode, showContent, selectMainLink } from '../actions'
 import * as CONSTANTS from './CONSTANTS'
 import * as styles from '../styles'
 
 
-const MainLinkForm = ({ dispatch, viewContent }) => {
-  let title
+const MainLinkForm = ({ dispatch, viewContent, selected, inputMode, formContent }) => {
+  let title 
   let defaultLink
 
   return (
@@ -17,7 +17,15 @@ const MainLinkForm = ({ dispatch, viewContent }) => {
         if (!title.value.trim()) {
           return
         }
-        dispatch(addMainLink(title.value, defaultLink.value))
+        if (inputMode === 'ADD') {
+          dispatch(addMainLink(title.value, defaultLink.value))
+        } else {
+          dispatch(editMainLink(selected.mainLink, title.value, defaultLink.value))
+          dispatch(changeInputMode())
+          dispatch(showContent(CONSTANTS.VIEW_MAIN_LINK_LIST))
+          dispatch(selectMainLink(false))
+
+        }
         title.value = ''
         defaultLink.value = ''
       }}>

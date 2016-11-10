@@ -4,7 +4,10 @@ import MainLinkForm from '../components/MainLinkForm'
 
 const mapStateToProps = (state) => {
   return {
-  viewContent: state.viewContent
+  	formContent: state.mainLinks.filter(t => (t.id === state.selected.mainLink))[0],
+  	viewContent: state.viewContent,
+  	selected: state.selected,
+  	inputMode: state.inputMode,
   }
 }
 

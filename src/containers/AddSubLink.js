@@ -4,6 +4,7 @@ import SubLinkForm from '../components/SubLinkForm'
 
 const mapStateToProps = (state) => {
   return {
+  formContent: state.subLinks.filter(t => (t.id === state.selected.subLink))[0],
   selected: state.selected,
   viewContent: state.viewContent,
   inputMode: state.inputMode
@@ -12,7 +13,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    dispatch
+    dispatch,
+    onClick: () => {
+
+    }
   }
 }
 

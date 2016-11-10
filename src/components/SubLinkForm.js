@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button, Form, FormGroup, ControlLabel, FormControl, HelpBlock } from 'react-bootstrap';
 import { connect } from 'react-redux'
-import { addSubLink } from '../actions'
+import { addSubLink, editSubLink, showContent, changeInputMode, selectSubLink } from '../actions'
 import * as CONSTANTS from './CONSTANTS'
 import * as styles from '../styles'
 
@@ -11,32 +11,43 @@ const inputRuleType = 'formSubLinkRuleType'
 const inputRule = 'formSubLinkRule'
 
 
-function FieldGroup({ id, label, help, type, placeholder  }) {
+function FieldGroup({ id, label, help, type, placeholder, defaultValue  }) {
   return (
     <FormGroup controlId={id}>
       <ControlLabel>{label}</ControlLabel>
-      <FormControl type={type} placeholder={placeholder} />
+      <FormControl type={type} placeholder={placeholder} defaultValue={defaultValue}/>
       {help && <HelpBlock>{help}</HelpBlock>}
     </FormGroup>
   );
 }
 
-const SubLinkForm = ({ dispatch, selected, viewContent,inputMode }) => (
+const SubLinkForm = ({ dispatch, selected, viewContent, inputMode, formContent ={}}) => (
   <div style = {(viewContent === CONSTANTS.VIEW_SUB_LINK_FORM || selected.mainLink !== false) ? styles.defaultStyles : styles.hidenStyles}>
     <h4>AddSubLink</h4>
     <Form horizontal
      onSubmit={e => {
       e.preventDefault()
-
       //fix by bootstrap
       let t = document.getElementById(inputRuleType)
-      dispatch(addSubLink(
-        selected.mainLink,
-        document.getElementById(inputTitle).value, 
-        t.options[t.selectedIndex].value
-        ))
-      document.getElementById(inputTitle).value ='';
+      
+      if (inputMode === 'ADD') {
+        dispatch(addSubLink(
+          selected.mainLink,
+          document.getElementById(inputTitle).value, 
+          t.options[t.selectedIndex].value
+          ))
+      } else {
+        dispatch(editSubLink(
+          selected.subLink,
+          document.getElementById(inputTitle).value, 
+          t.options[t.selectedIndex].value
+          ))
+        dispatch(changeInputMode())
+        dispatch(selectSubLink())
+      }
+      dispatch(showContent(CONSTANTS.VIEW_MAIN_LINK_LIST))
     
+      document.getElementById(inputTitle).value =''
     }}>
 
       <FieldGroup
@@ -44,6 +55,7 @@ const SubLinkForm = ({ dispatch, selected, viewContent,inputMode }) => (
         type="text"
         label="Title"
         placeholder="Enter title"
+        defaultValue={formContent.title}
       />
 
       <FormGroup 

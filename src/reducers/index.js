@@ -5,6 +5,7 @@ import selected from './selected'
 import viewContent from './viewContent'
 import inputMode from './inputMode'
 
+
 const app = combineReducers({
   mainLinks,
   subLinks,

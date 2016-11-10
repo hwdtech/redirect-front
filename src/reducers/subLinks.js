@@ -10,7 +10,7 @@ const subLink = (state, action) => {
         title: action.title,
         rules: action.rules
       }
-    case actionTypes.EDIT_SUB_LINK: 
+    case actionTypes.EDIT_SUB_LINK:
       if (state.id !== action.id) {
         return state
       }
@@ -32,6 +32,8 @@ const subLinks = (state = [], action) => {
       ]
       case actionTypes.DELETE_SUB_LINK:
         return state.filter(t => t.id !== action.id)
+      case actionTypes.DELETE_SUB_LINK_LIST_BY_MAIN_ID:
+        return state.filter(t => t.mainId !== action.id)
       case actionTypes.EDIT_SUB_LINK:
         return state.map(t => subLink(t, action))
     default:
