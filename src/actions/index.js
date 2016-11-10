@@ -41,7 +41,14 @@ export const editSubLink = (title, rules) => {
 export const selectMainLink = (id) => {
 	return {
 		type: actionTypes.SELECT_MAIN_LINK,
-		selectedMainLink: id
+		selected: id
+	}
+}
+
+export const selectSubLink = (id) => {
+	return {
+		type: actionTypes.SELECT_SUB_LINK,
+		selected: id
 	}
 }
 

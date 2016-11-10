@@ -15,16 +15,22 @@ const mapStateToProps = (state, ownProps) => {
   return {
     subLinks: getVisibleSubLinks(
       state.subLinks, 
-      state.selectedMainLink,
+      state.selected.mainLink,
       ownProps.mainId
       ),
-    selectedMainLink: state.selectedMainLink,
+    selected: state.selected,
     viewContent: state.viewContent,
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    onDeleteSubLinkButtonClick: (id) => {
+
+    },
+    onEditSubLinkButtonClick: (id) => {
+
+    },
     dispatch
   }
 }

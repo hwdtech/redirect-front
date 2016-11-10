@@ -6,6 +6,7 @@ export const DELETE_SUB_LINK = 'DELETE_SUB_LINK'
 export const EDIT_SUB_LINK = 'DELETE_SUB_LINK'
 
 export const SELECT_MAIN_LINK = 'SELECT_MAIN_LINK'
+export const SELECT_SUB_LINK = 'SELECT_SUB_LINK'
 
 export const VIEW_CONTENT = 'VIEW_CONTENT'
 

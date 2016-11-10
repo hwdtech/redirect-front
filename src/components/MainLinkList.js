@@ -3,7 +3,7 @@ import MainLink from './MainLink'
 import * as CONSTANTS from './CONSTANTS'
 import * as styles from '../styles'
 
-const MainLinkList = ({ mainLinks, selectedMainLink, onMainLinkClick,  viewContent }) => (
+const MainLinkList = ({ mainLinks, selected, onMainLinkClick,  viewContent }) => (
   <div style = {(viewContent === CONSTANTS.VIEW_MAIN_LINK_LIST || viewContent === CONSTANTS.VIEW_HOME_CONTENT ) ? styles.defaultStyles : styles.hidenStyles}>
     <h4>Main Links</h4>
     <ul>
@@ -11,7 +11,7 @@ const MainLinkList = ({ mainLinks, selectedMainLink, onMainLinkClick,  viewConte
         <MainLink
           key={mainLink.id}
           {...mainLink}
-          selectedMainLink={selectedMainLink}
+          selected={selected}
           onClick={() => onMainLinkClick(mainLink.id)}
         />
       )}
@@ -25,7 +25,10 @@ MainLinkList.propTypes = {
     title: PropTypes.string.isRequired,
     defaultLink: PropTypes.string.isRequired,
   }).isRequired).isRequired,
-  selectedMainLink: PropTypes.number.isRequired,
+  selected: PropTypes.shape({
+    mainLink: PropTypes.number.isRequired,
+    subLink: PropTypes.number.isRequired,
+  }).isRequired,
   onMainLinkClick: PropTypes.func.isRequired,
 }
 

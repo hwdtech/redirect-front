@@ -5,8 +5,8 @@ import * as styles from '../styles'
 
 
 
-const SubLinkList = ({ dispatch, subLinks, selectedMainLink, viewContent }) => (
-  <div style = {(viewContent === CONSTANTS.VIEW_SUB_LINK_LIST || selectedMainLink !== false) ? styles.defaultStyles : styles.hidenStyles}>
+const SubLinkList = ({ dispatch, subLinks, selected, viewContent }) => (
+  <div style = {(viewContent === CONSTANTS.VIEW_SUB_LINK_LIST || selected.mainLink !== false) ? styles.defaultStyles : styles.hidenStyles}>
     <h4>Sub Links</h4>
     <ul>
       {subLinks.map(subLink  =>
@@ -14,7 +14,7 @@ const SubLinkList = ({ dispatch, subLinks, selectedMainLink, viewContent }) => (
           key={subLink.id}
           {...subLink}
           dispatch={dispatch}
-          selectedMainLink={selectedMainLink}
+          selected={selected}
         />
       )}
     </ul>
@@ -27,7 +27,10 @@ SubLinkList.propTypes = {
     title: PropTypes.string.isRequired,
     rules: PropTypes.string.isRequired,
   }).isRequired).isRequired,
-  selectedMainLink: PropTypes.number.isRequired,
+  selected: PropTypes.shape({
+    mainLink: PropTypes.number.isRequired,
+    subLink: PropTypes.number.isRequired,
+  }).isRequired,
   viewContent: PropTypes.string.isRequired,
 }
 

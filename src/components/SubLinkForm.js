@@ -21,8 +21,8 @@ function FieldGroup({ id, label, help, type, placeholder  }) {
   );
 }
 
-const SubLinkForm = ({ dispatch, selectedMainLink, viewContent }) => (
-  <div style = {(viewContent === CONSTANTS.VIEW_SUB_LINK_FORM || selectedMainLink !== false) ? styles.defaultStyles : styles.hidenStyles}>
+const SubLinkForm = ({ dispatch, selected, viewContent,inputMode }) => (
+  <div style = {(viewContent === CONSTANTS.VIEW_SUB_LINK_FORM || selected.mainLink !== false) ? styles.defaultStyles : styles.hidenStyles}>
     <h4>AddSubLink</h4>
     <Form horizontal
      onSubmit={e => {
@@ -31,7 +31,7 @@ const SubLinkForm = ({ dispatch, selectedMainLink, viewContent }) => (
       //fix by bootstrap
       let t = document.getElementById(inputRuleType)
       dispatch(addSubLink(
-        selectedMainLink,
+        selected.mainLink,
         document.getElementById(inputTitle).value, 
         t.options[t.selectedIndex].value
         ))

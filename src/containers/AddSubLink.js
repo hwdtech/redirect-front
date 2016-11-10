@@ -4,8 +4,9 @@ import SubLinkForm from '../components/SubLinkForm'
 
 const mapStateToProps = (state) => {
   return {
-  selectedMainLink: state.selectedMainLink,
-  viewContent: state.viewContent
+  selected: state.selected,
+  viewContent: state.viewContent,
+  inputMode: state.inputMode
   }
 }
 
