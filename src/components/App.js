@@ -1,6 +1,7 @@
 import React from 'react'
 import * as styles from '../styles'
 import Header from './Header'
+import Footer from './Footer'
 import AddMainLink from '../containers/AddMainLink'
 import AddSubLink from '../containers/AddSubLink'
 import VisibleMainLinkList from '../containers/VisibleMainLinkList'
@@ -9,7 +10,7 @@ import LeftMenu from './LeftMenu'
 
 
 const App = () => (
-  	<div>
+  	<div id="App" style={styles.appStyles}>
     	<Header />
   		
   		<div className="main" style={styles.mainStyles}>
@@ -20,7 +21,7 @@ const App = () => (
 
       <LeftMenu />  
       
-  		<div>footer</div>
+  		<Footer />
   	</div>
 )
 

@@ -3,7 +3,7 @@ import {PageHeader} from 'react-bootstrap'
 
 const Header = () => (
 	<PageHeader>
-		Example header <small>Subtext for header</small>
+		hwdtech/redirect-front <small>by Vitkyk</small>
 	</PageHeader>
 )
 

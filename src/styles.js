@@ -1,7 +1,18 @@
+export const appStyles = {
+
+};
+
+export const footerStyles = {
+    backgroundColor:'#ffffff', 
+    width: '100%',
+    position: 'absolute', 
+    bottom: 0,
+};
+
 export const mainStyles = {
   	maxWidth: 500, 
     width: 500,
-  	height: '100%',
+  	height: '80%',
   	right: 0,
   	margin: '0 auto 10px',
   	padding: '2em',
