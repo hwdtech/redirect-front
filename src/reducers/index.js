@@ -4,6 +4,7 @@ import subLinks from './subLinks'
 import selected from './selected'
 import viewContent from './viewContent'
 import inputMode from './inputMode'
+import ruleType from './ruleType'
 
 
 const app = combineReducers({
@@ -11,7 +12,8 @@ const app = combineReducers({
   subLinks,
   selected,
   viewContent,
-  inputMode
+  inputMode,
+  ruleType
 })
 
 export default app

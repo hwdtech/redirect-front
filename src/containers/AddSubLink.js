@@ -7,7 +7,8 @@ const mapStateToProps = (state) => {
   formContent: state.subLinks.filter(t => (t.id === state.selected.subLink))[0],
   selected: state.selected,
   viewContent: state.viewContent,
-  inputMode: state.inputMode
+  inputMode: state.inputMode,
+  ruleType: state.ruleType
   }
 }
 

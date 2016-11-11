@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button, Form, FormGroup, ControlLabel, FormControl, HelpBlock } from 'react-bootstrap';
 import { connect } from 'react-redux'
-import { addSubLink, editSubLink, showContent, changeInputMode, selectSubLink } from '../actions'
+import { addSubLink, editSubLink, showContent, changeInputMode, selectSubLink, selectRuleType } from '../actions'
 import * as CONSTANTS from './CONSTANTS'
 import * as styles from '../styles'
 import { RuleForm } from './RuleForms'
@@ -11,27 +11,12 @@ const inputTitle = 'formSubLinkTitle'
 const inputRuleType = 'formSubLinkRuleType'
 const inputRule = 'formSubLinkRule'
 
-
-function selectInputType() {
-  let t = document.getElementById(inputRuleType)
-  console.log(t.options[t.selectedIndex].value)
+function selectInputType(dispatch) {
+    let t = document.getElementById(inputRuleType)
+    dispatch(selectRuleType(t.options[t.selectedIndex].value))
 }
 
-function FieldGroup({ id, label, help, type, placeholder, defaultValue  }) {
-  return (
-    <FormGroup controlId={id}>
-      <ControlLabel>{label}</ControlLabel>
-      <FormControl type={type} placeholder={placeholder} defaultValue={defaultValue}/>
-      {help && <HelpBlock>{help}</HelpBlock>}
-    </FormGroup>
-  );
-}
-
-const SubLinkForm = ({ dispatch, selected, viewContent, inputMode, formContent ={}}) => (
-  <div style = {(viewContent === CONSTANTS.VIEW_SUB_LINK_FORM || selected.mainLink !== false) ? styles.defaultStyles : styles.hidenStyles}>
-    <h4>AddSubLink</h4>
-    <Form horizontal
-     onSubmit={e => {
+function sendForm(e, dispatch) {
       e.preventDefault()
       //fix by bootstrap
       let t = document.getElementById(inputRuleType)
@@ -54,7 +39,23 @@ const SubLinkForm = ({ dispatch, selected, viewContent, inputMode, formContent =
       dispatch(showContent(CONSTANTS.VIEW_MAIN_LINK_LIST))
     
       document.getElementById(inputTitle).value =''
-    }}>
+}
+
+function FieldGroup({ id, label, help, type, placeholder, defaultValue  }) {
+  return (
+    <FormGroup controlId={id}>
+      <ControlLabel>{label}</ControlLabel>
+      <FormControl type={type} placeholder={placeholder} defaultValue={defaultValue}/>
+      {help && <HelpBlock>{help}</HelpBlock>}
+    </FormGroup>
+  );
+}
+
+const SubLinkForm = ({ dispatch, selected, viewContent, inputMode, ruleType, formContent ={}}) => (
+  <div style = {(viewContent === CONSTANTS.VIEW_SUB_LINK_FORM || selected.mainLink !== false) ? styles.defaultStyles : styles.hidenStyles}>
+    <h4>AddSubLink</h4>
+    <Form horizontal
+     onSubmit={e => { sendForm(e, dispatch)}}>
 
       <FieldGroup
         id={inputTitle}
@@ -69,15 +70,15 @@ const SubLinkForm = ({ dispatch, selected, viewContent, inputMode, formContent =
         <ControlLabel>RuleType</ControlLabel>
           <FormControl 
             componentClass="select" 
-            onChange={selectInputType}>
+            onChange={ () => { selectInputType(dispatch) }}>
             <option value="default">...</option>
-            <option value="text">text</option>
-            <option value="email">email</option>
-            <option value="password">password</option>
+            <option value="TextRule">text</option>
+            <option value="EmailRule">email</option>
+            <option value="PasswordRule">password</option>
           </FormControl>
       </FormGroup>
 
-      <RuleForm type={selected.mainLink} />
+      <RuleForm type={ruleType} />
 
       <Button type="submit" bsStyle="primary">
         addSubLink

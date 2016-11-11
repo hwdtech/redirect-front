@@ -96,3 +96,10 @@ export const defaultInputMode = () => {
 		mode: 'ADD'
 	}
 }
+
+export const selectRuleType = (ruleType) => {
+	return {
+		type: actionTypes.SELECT_RULE_TYPE,
+		ruleType
+	}
+}
