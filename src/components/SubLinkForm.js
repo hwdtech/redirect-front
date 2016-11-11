@@ -4,12 +4,18 @@ import { connect } from 'react-redux'
 import { addSubLink, editSubLink, showContent, changeInputMode, selectSubLink } from '../actions'
 import * as CONSTANTS from './CONSTANTS'
 import * as styles from '../styles'
+import { RuleForm } from './RuleForms'
 
 //const form ID
 const inputTitle = 'formSubLinkTitle'
 const inputRuleType = 'formSubLinkRuleType'
 const inputRule = 'formSubLinkRule'
 
+
+function selectInputType() {
+  let t = document.getElementById(inputRuleType)
+  console.log(t.options[t.selectedIndex].value)
+}
 
 function FieldGroup({ id, label, help, type, placeholder, defaultValue  }) {
   return (
@@ -61,12 +67,17 @@ const SubLinkForm = ({ dispatch, selected, viewContent, inputMode, formContent =
       <FormGroup 
         controlId={inputRuleType}>
         <ControlLabel>RuleType</ControlLabel>
-          <FormControl componentClass="select">
+          <FormControl 
+            componentClass="select" 
+            onChange={selectInputType}>
+            <option value="default">...</option>
             <option value="text">text</option>
             <option value="email">email</option>
             <option value="password">password</option>
           </FormControl>
       </FormGroup>
+
+      <RuleForm type={selected.mainLink} />
 
       <Button type="submit" bsStyle="primary">
         addSubLink
