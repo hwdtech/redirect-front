@@ -2,9 +2,10 @@ import React, { PropTypes } from 'react'
 import MainLink from './MainLink'
 import * as CONSTANTS from './CONSTANTS'
 import * as styles from '../styles'
+import * as utils from '../utils'
 
 const MainLinkList = ({ mainLinks, selected, onMainLinkClick,  viewContent, dispatch }) => (
-  <div style = {(viewContent === CONSTANTS.VIEW_MAIN_LINK_LIST || viewContent === CONSTANTS.VIEW_HOME_CONTENT ) ? styles.defaultStyles : styles.hidenStyles}>
+  <div style = {utils.isVisible(viewContent, CONSTANTS.MAIN_LINK_LIST) ? styles.defaultStyles : styles.hidenStyles}>
     <h4>Main Links</h4>
     <ul>
       {mainLinks.map(mainLink  =>

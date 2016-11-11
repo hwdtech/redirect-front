@@ -60,7 +60,6 @@ export const editSubLink = (id, title, rules) => {
 	}
 }
 
-
 export const selectMainLink = (id) => {
 	return {
 		type: actionTypes.SELECT_MAIN_LINK,
@@ -75,10 +74,17 @@ export const selectSubLink = (id) => {
 	}
 }
 
-export const showContent = (content) => {
+export const setVisibleContent = (visibleContent) => {
 	return {
-		type: actionTypes.VIEW_CONTENT,
-		visibleContent: content
+		type: actionTypes.SET_VISIBLE_CONTENT,
+		visibleContent
+	}
+}
+
+export const addVisibleContent = (visibleContent) => {
+	return {
+		type: actionTypes.ADD_VISIBLE_CONTENT,
+		visibleContent
 	}
 }
 

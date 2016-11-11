@@ -2,11 +2,11 @@ import React, { PropTypes } from 'react'
 import SubLink from './SubLink'
 import * as CONSTANTS from './CONSTANTS'
 import * as styles from '../styles'
-
+import * as utils from '../utils'
 
 
 const SubLinkList = ({ dispatch, subLinks, selected, viewContent }) => (
-  <div style = {(viewContent === CONSTANTS.VIEW_SUB_LINK_LIST || selected.mainLink !== false) ? styles.defaultStyles : styles.hidenStyles}>
+  <div style = {(utils.isVisible(viewContent, CONSTANTS.SUB_LINK_LIST) || selected.mainLink !== false) ? styles.defaultStyles : styles.hidenStyles}>
     <h4>Sub Links</h4>
     <ul>
       {subLinks.map(subLink  =>
