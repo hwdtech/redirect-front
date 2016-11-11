@@ -27,13 +27,15 @@ export const deleteMainLink = (id) => {
 }
 
 let nextSubId = 0;
-export const addSubLink = (mainId, title, rules) => {
+export const addSubLink = (mainId, title, link, ruleType, rule) => {
 	return {
 		type: actionTypes.ADD_SUB_LINK,
 		id: nextSubId++,
 		mainId,
 		title,
-		rules
+        link,
+        ruleType,
+        rule,
 	}
 }
 
@@ -51,12 +53,14 @@ export const deleteSubLinkListByMainId = (id) => {
 	}
 }
 
-export const editSubLink = (id, title, rules) => {
+export const editSubLink = (id, title, link, ruleType, rule) => {
 	return {
 		type: actionTypes.EDIT_SUB_LINK,
 		id,
 		title,
-		rules
+        link,
+        ruleType,
+        rule,
 	}
 }
 

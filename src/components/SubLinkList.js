@@ -25,7 +25,9 @@ SubLinkList.propTypes = {
   subLinks: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
-    rules: PropTypes.string.isRequired,
+    link: PropTypes.string.isRequired,
+    ruleType: PropTypes.string.isRequired,
+    rule: PropTypes.string.isRequired,
   }).isRequired).isRequired,
   selected: PropTypes.shape({
     mainLink: PropTypes.number.isRequired,

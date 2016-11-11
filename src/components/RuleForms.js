@@ -13,7 +13,7 @@ function FieldGroup({ id, label, help, type, placeholder  }) {
 }
 
 const DefaultRule = () => (
-  <div>
+  <div id='DefaultRule'>
     <h4>Default</h4>
   </div>
 )
@@ -21,10 +21,10 @@ const DefaultRule = () => (
 const TextRule = () => (
   <div>
   	<FieldGroup
-        id={TextRule}
+        id="TextRule"
         type="text"
-        label="Title"
-        placeholder="Enter title"
+        label="Text"
+        placeholder="Enter text"
     />
   </div>
 )
@@ -45,7 +45,7 @@ const PasswordRule = () => (
   <div>
     <h4>Password</h4>
     <FieldGroup
-      id="formControlsPassword"
+      id="PasswordRule"
       label="Password"
       type="password"
     />
@@ -53,7 +53,7 @@ const PasswordRule = () => (
 )
 
 let Rules = {
-	'default': DefaultRule,
+	'DefaultRule': DefaultRule,
 	'TextRule': TextRule,
 	'EmailRule': EmailRule,
 	'PasswordRule': PasswordRule

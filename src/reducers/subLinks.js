@@ -8,7 +8,9 @@ const subLink = (state, action) => {
         id: action.id,
         mainId: action.mainId,
         title: action.title,
-        rules: action.rules
+        link: action.link,
+        ruleType: action.ruleType,
+        rule: action.rule,
       }
     case actionTypes.EDIT_SUB_LINK:
       if (state.id !== action.id) {
@@ -16,7 +18,9 @@ const subLink = (state, action) => {
       }
       return Object.assign({}, state, {
         title: action.title,
-        rules: action.rules
+        link: action.link,
+        ruleType: action.ruleType,
+        rule: action.rule,
       })
     default:
       return state

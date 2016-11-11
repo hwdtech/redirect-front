@@ -6,10 +6,12 @@ import * as CONSTANTS from './CONSTANTS'
 // 	return
 // }
 
-const SubLink = ({ id, title, rules, selectedMainLink, dispatch}) => (
+const SubLink = ({ id, title, link, ruleType, rule, selectedMainLink, dispatch}) => (
   <li>
   	<h4> {title} </h4>
-     <p> Rules: {rules}</p>
+    <p> Link: {link}</p>
+    <p> RuleType: {ruleType}</p>
+    <p> Rule: {rule}</p>
      <Button onClick={
      	() => { dispatch(deleteSubLink(id)) }
      }> Delete</Button>
@@ -25,9 +27,10 @@ const SubLink = ({ id, title, rules, selectedMainLink, dispatch}) => (
 
 SubLink.propTypes = {
   	id: PropTypes.number.isRequired,
-  	title: PropTypes.string.isRequired,
-    rules: PropTypes.string.isRequired,
-    dispatch: PropTypes.func.isRequired
+    title: PropTypes.string.isRequired,
+    link: PropTypes.string.isRequired,
+    ruleType: PropTypes.string.isRequired,
+    rule: PropTypes.string.isRequired
 }
 
 export default SubLink
