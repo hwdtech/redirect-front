@@ -5,7 +5,7 @@ import * as styles from '../styles'
 import * as utils from '../utils'
 
 
-const SubLinkList = ({ dispatch, subLinks, selected, viewContent }) => (
+const SubLinkList = ({ onDeleteSubLinkButtonClick, onEditSubLinkButtonClick, subLinks, selected, viewContent }) => (
   <div style = {(utils.isVisible(viewContent, CONSTANTS.SUB_LINK_LIST) || selected.mainLink !== false) ? styles.defaultStyles : styles.hidenStyles}>
     <h4>Sub Links</h4>
     <ul>
@@ -13,7 +13,8 @@ const SubLinkList = ({ dispatch, subLinks, selected, viewContent }) => (
         <SubLink
           key={subLink.id}
           {...subLink}
-          dispatch={dispatch}
+          onDeleteClick={onDeleteSubLinkButtonClick}
+          onEditClick={onEditSubLinkButtonClick}
           selected={selected}
         />
       )}
@@ -34,6 +35,8 @@ SubLinkList.propTypes = {
     subLink: PropTypes.number.isRequired,
   }).isRequired,
   viewContent: PropTypes.string.isRequired,
+  onDeleteSubLinkButtonClick: PropTypes.func.isRequired,
+  onEditSubLinkButtonClick: PropTypes.func.isRequired, 
 }
 
 export default SubLinkList

@@ -1,5 +1,7 @@
 import { connect } from 'react-redux'
 import SubLinkList from '../components/SubLinkList'
+import { deleteSubLink, changeInputMode, setVisibleContent, selectSubLink} from '../actions'
+import * as CONSTANTS from '../components/CONSTANTS'
 
 
 const getVisibleSubLinks = (subLinks, selectedMainLink, mainId) =>
@@ -26,12 +28,13 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     onDeleteSubLinkButtonClick: (id) => {
-
+      dispatch(deleteSubLink(id))
     },
     onEditSubLinkButtonClick: (id) => {
-
-    },
-    dispatch
+      dispatch(changeInputMode())
+      dispatch(setVisibleContent([CONSTANTS.SUB_LINK_FORM]))
+      dispatch(selectSubLink(id))
+    }
   }
 }
 
