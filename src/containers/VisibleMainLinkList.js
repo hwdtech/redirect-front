@@ -1,6 +1,7 @@
 import { connect } from 'react-redux'
-import { selectMainLink } from '../actions'
+import { selectMainLink, deleteMainLink, deleteSubLinkListByMainId, setVisibleContent, changeInputMode } from '../actions'
 import MainLinkList from '../components/MainLinkList'
+import * as CONSTANTS from '../components/CONSTANTS'
 
 
 const mapStateToProps = (state) => {
@@ -17,10 +18,20 @@ const mapDispatchToProps = (dispatch) => {
     onMainLinkClick: (id) => {
       dispatch(selectMainLink(id))
     },
-    dispatch
+    onDeleteMainLinkButtonClick: (id) => {
+      dispatch(deleteMainLink(id)) 
+      dispatch(deleteSubLinkListByMainId(id))
+      dispatch(selectMainLink(false))
+    },
+    onEditMainLinkButtonClick: (id, selectedMainLink) => {
+      dispatch(changeInputMode())
+      dispatch(setVisibleContent([CONSTANTS.MAIN_LINK_FORM]))
+      if (selectedMainLink === false) {
+        dispatch(selectMainLink(id))
+      }
+    }
   }
 }
-
 
 const VisibleMainLinkList = connect(
   mapStateToProps,

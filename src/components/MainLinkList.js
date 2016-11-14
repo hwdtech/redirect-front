@@ -4,7 +4,7 @@ import * as CONSTANTS from './CONSTANTS'
 import * as styles from '../styles'
 import * as utils from '../utils'
 
-const MainLinkList = ({ mainLinks, selected, onMainLinkClick,  viewContent, dispatch }) => (
+const MainLinkList = ({ mainLinks, selected, onMainLinkClick, onDeleteMainLinkButtonClick, onEditMainLinkButtonClick, viewContent}) => (
   <div style = {utils.isVisible(viewContent, CONSTANTS.MAIN_LINK_LIST) ? styles.defaultStyles : styles.hidenStyles}>
     <h4>Main Links</h4>
     <ul>
@@ -13,8 +13,9 @@ const MainLinkList = ({ mainLinks, selected, onMainLinkClick,  viewContent, disp
           key={mainLink.id}
           {...mainLink}
           selected={selected}
-          dispatch={dispatch}
           onClick={() => onMainLinkClick(mainLink.id)}
+          onDeleteClick={onDeleteMainLinkButtonClick}
+          onEditClick={onEditMainLinkButtonClick}
         />
       )}
     </ul>
@@ -32,6 +33,8 @@ MainLinkList.propTypes = {
     subLink: PropTypes.number.isRequired,
   }).isRequired,
   onMainLinkClick: PropTypes.func.isRequired,
+  onDeleteMainLinkButtonClick: PropTypes.func.isRequired,
+  onEditMainLinkButtonClick: PropTypes.func.isRequired, 
 }
 
 export default MainLinkList
