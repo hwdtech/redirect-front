@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import SubLinkList from '../components/SubLinkList'
-import { deleteSubLink, changeInputMode, setVisibleContent, selectSubLink} from '../actions'
+import { selectRuleType, deleteSubLink, changeInputMode, setVisibleContent, selectSubLink} from '../actions'
 import * as CONSTANTS from '../components/CONSTANTS'
 
 
@@ -10,6 +10,16 @@ const getVisibleSubLinks = (subLinks, selectedMainLink, mainId) =>
     return subLinks.filter(t => (t.mainId === selectedMainLink));
   } else {
     return [];
+  }
+}
+
+const formFiller = (title, link, ruleType, rule) => {
+  document.getElementById(CONSTANTS.INPUT_SUB_LINK_TITLE).value = title 
+  document.getElementById(CONSTANTS.INPUT_SUB_LINK_LINK).value = link
+  document.getElementById(CONSTANTS.INPUT_SUB_LINK_RULE_TYPE).value = ruleType
+  try {
+      document.getElementById(ruleType).value = rule
+  } catch (err) {  
   }
 }
 
@@ -30,10 +40,12 @@ const mapDispatchToProps = (dispatch) => {
     onDeleteSubLinkButtonClick: (id) => {
       dispatch(deleteSubLink(id))
     },
-    onEditSubLinkButtonClick: (id) => {
+    onEditSubLinkButtonClick: (id, title, link, ruleType, rule) => {
       dispatch(changeInputMode())
       dispatch(setVisibleContent([CONSTANTS.SUB_LINK_FORM]))
       dispatch(selectSubLink(id))
+      dispatch(selectRuleType(ruleType))
+      formFiller(title, link, ruleType, rule)
     }
   }
 }

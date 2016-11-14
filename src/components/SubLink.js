@@ -9,7 +9,7 @@ const SubLink = ({ id, title, link, ruleType, rule, selectedMainLink, onDeleteCl
     <p> RuleType: {ruleType}</p>
     <p> Rule: {rule}</p>
      <Button onClick={ () => onDeleteClick(id) }> Delete</Button>
-     <Button onClick={ () => onEditClick(id) }> Edit</Button>
+     <Button onClick={ () => onEditClick(id, title, link, ruleType, rule) }> Edit</Button>
   </li>
 )
 
