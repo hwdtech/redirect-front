@@ -1,13 +1,17 @@
-import * as actionTypes from '../actions/actionTypes'
+import SELECT_RULE_TYPE from '../actions/actionTypes'
+import { selectAction } from '../utils' 
 
+
+const select_rule_type = (state, action) => {
+	return action.ruleType
+}
+
+let ruleTypeActions = {
+	SELECT_RULE_TYPE: select_rule_type,
+}
 
 const ruleType = (state = "DefaultRule", action) => {
-  switch (action.type) {
-    case actionTypes.SELECT_RULE_TYPE:
-      return action.ruleType
-    default:
-      return state
-  }
+		return selectAction(ruleTypeActions, state, action)
 }
 
 export default ruleType

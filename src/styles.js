@@ -10,10 +10,11 @@ export const footerStyles = {
 };
 
 export const mainStyles = {
-  	maxWidth: 500, 
-    width: 500,
+  	minWidth: 400, 
+    width: "100%",
   	height: '80%',
-  	right: 0,
+    left: 200,
+  	//right: 0,
   	margin: '0 auto 10px',
   	padding: '2em',
   	backgroundColor: '#eeeeee',

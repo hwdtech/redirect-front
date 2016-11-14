@@ -1,13 +1,17 @@
-import * as actionTypes from '../actions/actionTypes'
+import CHANGE_INPUT_MODE from '../actions/actionTypes'
+import { selectAction } from '../utils' 
 
+
+const change_input_mode = (state, action) => {
+	return action[state]
+}
+
+let inputModeActions = {
+	CHANGE_INPUT_MODE: change_input_mode,
+}
 
 const inputMode = (state = 'ADD', action) => {
-  switch (action.type) {
-    case actionTypes.CHANGE_INPUT_MODE:
-      return action[state]
-    default:
-      return state
-  }
+	return selectAction(inputModeActions, state, action)
 }
 
 export default inputMode
