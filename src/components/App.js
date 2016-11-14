@@ -5,15 +5,14 @@ import Footer from './Footer'
 import AddMainLink from '../containers/AddMainLink'
 import AddSubLink from '../containers/AddSubLink'
 import VisibleMainLinkList from '../containers/VisibleMainLinkList'
-
-import LeftMenu from './LeftMenu'
+import LeftMenu from '../containers/LeftMenu'
 
 
 const App = () => (
   	<div id="App" style={styles.appStyles}>
     	<Header />
   		
-  		<div className="main" style={styles.mainStyles}>
+  		<div className="well" style={styles.mainStyles}>
 	  		<AddMainLink />
 	  		<VisibleMainLinkList />
         <AddSubLink />

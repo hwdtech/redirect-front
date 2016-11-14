@@ -15,7 +15,7 @@ let viewContentActions = {
 	ADD_VISIBLE_CONTENT: add_visible_content,
 }
 
-const viewContent = (state = [], action) => {
+const viewContent = (state = ["MAIN_LINK_LIST",], action) => {
 	return selectAction(viewContentActions, state, action)
 }
 
