@@ -33,9 +33,9 @@ export const addSubLink = (mainId, title, link, ruleType, rule) => {
 		id: nextSubId++,
 		mainId,
 		title,
-        link,
-        ruleType,
-        rule,
+		link,
+		ruleType,
+		rule,
 	}
 }
 
@@ -58,9 +58,9 @@ export const editSubLink = (id, title, link, ruleType, rule) => {
 		type: actionTypes.EDIT_SUB_LINK,
 		id,
 		title,
-        link,
-        ruleType,
-        rule,
+		link,
+		ruleType,
+		rule,
 	}
 }
 

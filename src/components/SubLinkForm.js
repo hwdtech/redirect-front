@@ -51,6 +51,7 @@ const SubLinkForm = ({ onClick, selectInputType, selected, viewContent, inputMod
 					<option value="TextRule">text</option>
 					<option value="EmailRule">email</option>
 					<option value="PasswordRule">password</option>
+					<option value="CountryRule">country</option>
 				</FormControl>
 			</FormGroup>
 

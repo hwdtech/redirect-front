@@ -2,6 +2,7 @@ import { connect } from 'react-redux'
 import SubLinkForm from '../components/SubLinkForm'
 import { addSubLink, editSubLink, setVisibleContent, changeInputMode, selectSubLink, selectRuleType } from '../actions'
 import * as CONSTANTS from '../components/CONSTANTS'
+import { Rules } from '../components/RuleForms'
 
 
 const mapStateToProps = (state) => {
@@ -20,13 +21,14 @@ const mapDispatchToProps = (dispatch) => {
 			e.preventDefault()
 			let t = document.getElementById(CONSTANTS.INPUT_SUB_LINK_RULE_TYPE)
 
+			
 			if (inputMode === 'ADD') {
 				dispatch(addSubLink(
 					selected.mainLink,
 					document.getElementById(CONSTANTS.INPUT_SUB_LINK_TITLE).value, 
 					document.getElementById(CONSTANTS.INPUT_SUB_LINK_LINK).value,
 					t.options[t.selectedIndex].value,
-					document.getElementById(ruleType).value
+					Rules[ruleType].getter()
 				))
 			} else {
 				dispatch(editSubLink(
@@ -34,7 +36,7 @@ const mapDispatchToProps = (dispatch) => {
 					document.getElementById(CONSTANTS.INPUT_SUB_LINK_TITLE).value, 
 					document.getElementById(CONSTANTS.INPUT_SUB_LINK_LINK).value,
 					t.options[t.selectedIndex].value,
-					document.getElementById(ruleType).value
+					Rules[ruleType].getter()
 				))
 				dispatch(changeInputMode())
 				dispatch(selectSubLink())
