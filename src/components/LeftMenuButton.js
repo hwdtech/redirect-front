@@ -4,8 +4,8 @@ import { menuItemStyles } from '../styles'
 
 
 const LeftMenuButton = ({onClick, text}) => (   
-    <Button style={menuItemStyles} type="submit" bsStyle="primary" 
-     onClick={onClick}> {text} </Button>
+	<Button style={menuItemStyles} type="submit" bsStyle="primary" 
+	onClick={onClick}> {text} </Button>
 )
 
 export default LeftMenuButton

@@ -1,8 +1,8 @@
 import React from 'react'
 import { Button, Form, FormGroup, ControlLabel, FormControl, HelpBlock } from 'react-bootstrap';
-import * as CONSTANTS from './CONSTANTS'
-import * as styles from '../styles'
-import * as utils from '../utils'
+import { MAIN_LINK_FORM, INPUT_MAIN_LINK_TITLE, INPUT_MAIN_LINK_DEFAULT_LINK } from './CONSTANTS'
+import { defaultStyles, hidenStyles } from '../styles'
+import { isVisible } from '../utils'
 
 
 function FieldGroup({ id, label, help, type, placeholder  }) {
@@ -16,19 +16,19 @@ function FieldGroup({ id, label, help, type, placeholder  }) {
 }
 
 const MainLinkForm = ({ onClick, viewContent, selected, inputMode, formContent }) => (
-	<div style = {utils.isVisible(viewContent, CONSTANTS.MAIN_LINK_FORM ) ? styles.defaultStyles : styles.hidenStyles}>
+	<div style = {isVisible(viewContent, MAIN_LINK_FORM ) ? defaultStyles : hidenStyles}>
 		<h4>AddMainLink</h4>
 		<form onSubmit={e => { onClick(e, inputMode, selected)}}>
 
 			<FieldGroup
-				id={CONSTANTS.INPUT_MAIN_LINK_TITLE}
+				id={INPUT_MAIN_LINK_TITLE}
 				type="text"
 				label="Title"
 				placeholder="Enter title"
 			/>
 
 			<FieldGroup
-				id={CONSTANTS.INPUT_MAIN_LINK_DEFAULT_LINK}
+				id={INPUT_MAIN_LINK_DEFAULT_LINK}
 				type="text"
 				label="Default Link"
 				placeholder="Enter link"

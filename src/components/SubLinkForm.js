@@ -1,9 +1,8 @@
 import React from 'react'
-import { Button, Form, FormGroup, ControlLabel, FormControl, HelpBlock } from 'react-bootstrap';
-import { connect } from 'react-redux'
-import * as CONSTANTS from './CONSTANTS'
-import * as styles from '../styles'
-import * as utils from '../utils'
+import { Button, Form, FormGroup, ControlLabel, FormControl, HelpBlock } from 'react-bootstrap'
+import { SUB_LINK_FORM, INPUT_SUB_LINK_TITLE, INPUT_SUB_LINK_LINK, INPUT_SUB_LINK_RULE_TYPE } from './CONSTANTS'
+import { defaultStyles, hidenStyles } from '../styles'
+import { isVisible } from '../utils'
 import { RuleForm } from './RuleForms'
 
 
@@ -18,7 +17,7 @@ function FieldGroup({ id, label, help, type, placeholder}) {
 }
 
 const SubLinkForm = ({ onClick, selectInputType, selected, viewContent, inputMode, ruleType, formContent ={}}) => (
-	<div style = {(utils.isVisible(viewContent, CONSTANTS.SUB_LINK_FORM) || selected.mainLink !== false) ? styles.defaultStyles : styles.hidenStyles}>
+	<div style = {(isVisible(viewContent, SUB_LINK_FORM) || selected.mainLink !== false) ? defaultStyles : hidenStyles}>
 		<h4>AddSubLink</h4>
 			<Form 
 				horizontal
@@ -26,21 +25,21 @@ const SubLinkForm = ({ onClick, selectInputType, selected, viewContent, inputMod
 			>
 
 			<FieldGroup
-				id={CONSTANTS.INPUT_SUB_LINK_TITLE}
+				id={INPUT_SUB_LINK_TITLE}
 				type="text"
 				label="Title"
 				placeholder="Enter title"
 			/>
 
 			<FieldGroup
-				id={CONSTANTS.INPUT_SUB_LINK_LINK}
+				id={INPUT_SUB_LINK_LINK}
 				type="text"
 				label="Link"
 				placeholder="Enter link"
 			/>
 
 			<FormGroup 
-				controlId={CONSTANTS.INPUT_SUB_LINK_RULE_TYPE}
+				controlId={INPUT_SUB_LINK_RULE_TYPE}
 			>
 				<ControlLabel>RuleType</ControlLabel>
 				<FormControl 
@@ -58,7 +57,7 @@ const SubLinkForm = ({ onClick, selectInputType, selected, viewContent, inputMod
 			<RuleForm type={ruleType} />
 
 			<Button type="submit" bsStyle="primary">
-				addSubLink
+				Save Sub Link
 			</Button>
 		</Form>
 	</div>
