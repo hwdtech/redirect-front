@@ -92,6 +92,20 @@ export const addVisibleContent = (visibleContent) => {
 	}
 }
 
+export const deleteVisibleContent = (visibleContent) => {
+	return {
+		type: actionTypes.DELETE_VISIBLE_CONTENT,
+		visibleContent
+	}
+}
+
+export const switchVisibleContent = (visibleContent) => {
+	return {
+		type: actionTypes.SWITCH_VISIBLE_CONTENT,
+		visibleContent
+	}
+}
+
 export const changeInputMode = () => {
 	return {
 		type: actionTypes.CHANGE_INPUT_MODE,

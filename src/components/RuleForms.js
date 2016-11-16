@@ -19,7 +19,7 @@ const simpleGetter = (ruleType) => {
 }
 
 const simpleSetter = (ruleType) => {
-	return (value) => { document.getElementById(ruleType).value = value}
+	return (value = '') => { document.getElementById(ruleType).value = value}
 }
 
 const DefaultRule = () => (
@@ -62,7 +62,6 @@ const PasswordRule = () => (
 	</div>
 )
 
-
 let Countries = ['Russia', 'USA', 'Italy']
 const CountryRule = () => (
 	<div>
@@ -80,6 +79,7 @@ const CountryRule = () => (
 		</FormGroup>
 	</div>
 )
+
 const getCountryRuleValue = () => {
 	if (document.getElementById("CountryRuleIdAll").checked) {
 		return ["All"]
@@ -87,36 +87,28 @@ const getCountryRuleValue = () => {
 		return Countries.filter(t => document.getElementById("CountryRuleId"+t).checked)
 	}
 }
-const setCountryRuleValue = (value) => {
-	//refreshed
+
+const setCountryRuleValue = (value = []) => {
+	document.getElementById("CountryRuleIdAll").checked = false
+	Countries.map(t => {document.getElementById("CountryRuleId"+t).checked = false})
 	value.map(t => {document.getElementById("CountryRuleId"+t).checked = true})
 }
 
 export const Rules = {
 	'DefaultRule': {
 		render: DefaultRule,
-		getter: () => '',
-		setter: (value) => '',
+		get: () => '',
+		set: (value = '') => {},
 	},
 	'TextRule': {
 		render: TextRule,
-		getter: simpleGetter('TextRule'),
-		setter: simpleSetter('TextRule'),
+		get: simpleGetter('TextRule'),
+		set: simpleSetter('TextRule'),
 	},
-	'EmailRule': {
-		render: EmailRule,
-		getter: simpleGetter('EmailRule'),
-		setter: simpleSetter('EmailRule')
-	}, 
-	'PasswordRule': {
-		render: PasswordRule,
-		getter: simpleGetter('PasswordRule'),
-		setter: simpleSetter('PasswordRule'),
-	}, 
 	'CountryRule': {
 		render: CountryRule,
-		getter: getCountryRuleValue,
-		setter: setCountryRuleValue,
+		get: getCountryRuleValue,
+		set: setCountryRuleValue,
 	}, 
 }
 

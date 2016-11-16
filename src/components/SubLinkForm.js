@@ -17,7 +17,7 @@ function FieldGroup({ id, label, help, type, placeholder}) {
 }
 
 const SubLinkForm = ({ onClick, selectInputType, selected, viewContent, inputMode, ruleType, formContent ={}}) => (
-	<div style = {(isVisible(viewContent, SUB_LINK_FORM) || selected.mainLink !== false) ? defaultStyles : hidenStyles}>
+	<div style = {(isVisible(viewContent, SUB_LINK_FORM)) ? defaultStyles : hidenStyles}>
 		<h4>AddSubLink</h4>
 			<Form 
 				horizontal
@@ -48,8 +48,6 @@ const SubLinkForm = ({ onClick, selectInputType, selected, viewContent, inputMod
 				>
 					<option value="DefaultRule">...</option>
 					<option value="TextRule">text</option>
-					<option value="EmailRule">email</option>
-					<option value="PasswordRule">password</option>
 					<option value="CountryRule">country</option>
 				</FormControl>
 			</FormGroup>

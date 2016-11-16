@@ -18,7 +18,7 @@ const formFiller = (title, link, ruleType, rule) => {
 	document.getElementById(CONSTANTS.INPUT_SUB_LINK_TITLE).value = title 
 	document.getElementById(CONSTANTS.INPUT_SUB_LINK_LINK).value = link
 	document.getElementById(CONSTANTS.INPUT_SUB_LINK_RULE_TYPE).value = ruleType
-	Rules[ruleType].setter(rule)
+	Rules[ruleType].set(rule)
 }
 
 const mapStateToProps = (state, ownProps) => {

@@ -6,7 +6,7 @@ import { isVisible } from '../utils'
 
 
 const SubLinkList = ({ onDeleteSubLinkButtonClick, onEditSubLinkButtonClick, subLinks, selected, viewContent }) => (
-	<div style = {(isVisible(viewContent, SUB_LINK_LIST) || selected.mainLink !== false) ? defaultStyles : hidenStyles}>
+	<div style = {(isVisible(viewContent, SUB_LINK_LIST)) ? defaultStyles : hidenStyles}>
 		<h4>Sub Links</h4>
 		<ul>
 			{subLinks.map(subLink  =>
