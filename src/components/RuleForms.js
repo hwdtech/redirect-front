@@ -62,17 +62,16 @@ const PasswordRule = () => (
 	</div>
 )
 
-let Countries = ['Russia', 'USA', 'Italy']
-const CountryRule = () => (
+const CheckboxForm = ({name, items}) => (
 	<div>
-		<h4>Country</h4>
-		<FormGroup controlId="CountryRule">
-			<Checkbox id="CountryRuleIdAll">All</Checkbox>
+		<h4>{name}</h4>
+		<FormGroup controlId={name+"Rule"}>
+			<Checkbox id={name+"RuleIdAll"}>All</Checkbox>
 
-			{Countries.map( value =>
+			{items.map( value =>
 				<CheckboxUnit 
-					key={"CountryRuleId"+value}
-					id={"CountryRuleId"+value}
+					key={name+"RuleId"+value}
+					id={name+"RuleId"+value}
 					value={value}
 				/>
 			)}
@@ -80,19 +79,33 @@ const CountryRule = () => (
 	</div>
 )
 
-const getCountryRuleValue = () => {
-	if (document.getElementById("CountryRuleIdAll").checked) {
-		return ["All"]
-	} else {
-		return Countries.filter(t => document.getElementById("CountryRuleId"+t).checked)
+const checkboxGetter = (name, items) => {
+	return () => {	
+		if (document.getElementById(name+"RuleIdAll").checked) {
+			return ["All"]
+		} else {
+			return items.filter(t => document.getElementById(name+"RuleId"+t).checked)
+		}
 	}
 }
 
-const setCountryRuleValue = (value = []) => {
-	document.getElementById("CountryRuleIdAll").checked = false
-	Countries.map(t => {document.getElementById("CountryRuleId"+t).checked = false})
-	value.map(t => {document.getElementById("CountryRuleId"+t).checked = true})
+const checkboxSetter = (name, items) => {
+	return (value = []) => { 
+		document.getElementById(name+"RuleIdAll").checked = false
+		items.map(t => {document.getElementById(name+"RuleId"+t).checked = false})
+		value.map(t => {document.getElementById(name+"RuleId"+t).checked = true})
+	}
 }
+
+let Countries = ['Russia', 'USA', 'Italy']
+const CountryRule = () => (
+	<CheckboxForm name="Country" items={Countries}/>
+)
+
+let Browsers = ['Chrom', 'Opera', 'Mozill']
+const BrowserRule = () => (
+	<CheckboxForm name="Browser" items={Browsers}/>
+)
 
 export const Rules = {
 	'DefaultRule': {
@@ -107,8 +120,13 @@ export const Rules = {
 	},
 	'CountryRule': {
 		render: CountryRule,
-		get: getCountryRuleValue,
-		set: setCountryRuleValue,
+		get: checkboxGetter("Country", Countries),
+		set: checkboxSetter("Country", Countries),
+	}, 
+	'BrowserRule': {
+		render: BrowserRule,
+		get: checkboxGetter("Browser", Browsers),
+		set: checkboxSetter("Browser", Browsers),
 	}, 
 }
 
