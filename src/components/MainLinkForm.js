@@ -15,10 +15,10 @@ function FieldGroup({ id, label, help, type, placeholder  }) {
 	)
 }
 
-const MainLinkForm = ({ onClick, viewContent, selected, inputMode, formContent }) => (
+const MainLinkForm = ({ onClick, onCancelClick, viewContent, selected, inputMode, formContent }) => (
 	<div style = {isVisible(viewContent, MAIN_LINK_FORM ) ? defaultStyles : hidenStyles}>
 		<h4>AddMainLink</h4>
-		<form onSubmit={e => { onClick(e, inputMode, selected)}}>
+		<Form horizontal>
 
 			<FieldGroup
 				id={INPUT_MAIN_LINK_TITLE}
@@ -34,10 +34,21 @@ const MainLinkForm = ({ onClick, viewContent, selected, inputMode, formContent }
 				placeholder="Enter link"
 			/>
 
-			<Button type="submit" bsStyle="primary">
-			Save Main Link
+			<Button 
+				type="submit" 
+				bsStyle="primary"
+				onClick={e => { onClick(e, inputMode, selected)}}
+			>
+				Save Main Link
 			</Button>
-		</form>
+			<Button 
+				type="submit" 
+				bsStyle="primary"
+				onClick={e => { onCancelClick(e, inputMode)}}
+			>
+				Cancel
+			</Button>
+		</Form>
 	</div>
 )
 

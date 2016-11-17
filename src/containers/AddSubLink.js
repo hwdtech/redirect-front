@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import SubLinkForm from '../components/SubLinkForm'
-import { addSubLink, editSubLink, setVisibleContent, addVisibleContent, changeInputMode, selectSubLink, selectRuleType } from '../actions'
+import { addSubLink, editSubLink, setVisibleContent, addVisibleContent, defaultInputMode, selectSubLink, selectRuleType } from '../actions'
 import * as CONSTANTS from '../components/CONSTANTS'
 import { Rules } from '../components/RuleForms'
 
@@ -33,7 +33,6 @@ const updateSubLinksByEdit = (dispatch, selected, ruleType) => {
 		t.options[t.selectedIndex].value,
 		Rules[ruleType].get()
 	))
-	dispatch(changeInputMode())
 	dispatch(selectSubLink())
 }
 
@@ -41,6 +40,13 @@ let updateSubLinks = {
 	'ADD': updateSubLinksByAdd,
 	'EDIT': updateSubLinksByEdit,
 }
+
+const setDefault = (e, dispatch, ruleType) => {
+	e.preventDefault()
+	dispatch(addVisibleContent([CONSTANTS.MAIN_LINK_LIST,CONSTANTS.SUB_LINK_LIST]))
+	refreshSubLinkForm(ruleType)
+	dispatch(defaultInputMode())
+} 
 
 const mapStateToProps = (state) => {
 	return {
@@ -55,12 +61,12 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
 	return {
 		onClick: (e, inputMode, selected, ruleType) => {
-			e.preventDefault()
-
 			updateSubLinks[inputMode](dispatch, selected, ruleType)
-			dispatch(addVisibleContent([CONSTANTS.MAIN_LINK_LIST,CONSTANTS.SUB_LINK_LIST]))
-			refreshSubLinkForm(ruleType)
+			setDefault(e, dispatch, ruleType)
 
+		},
+		onCancelClick: (e, ruleType) => {
+			setDefault(e, dispatch, ruleType)
 		},
 		selectInputType: () => {
 			let t = document.getElementById(CONSTANTS.INPUT_SUB_LINK_RULE_TYPE)

@@ -16,14 +16,10 @@ function FieldGroup({ id, label, help, type, placeholder}) {
 	)
 }
 
-const SubLinkForm = ({ onClick, selectInputType, selected, viewContent, inputMode, ruleType, formContent ={}}) => (
+const SubLinkForm = ({ onClick, onCancelClick, selectInputType, selected, viewContent, inputMode, ruleType, formContent ={}}) => (
 	<div style = {(isVisible(viewContent, SUB_LINK_FORM)) ? defaultStyles : hidenStyles}>
 		<h4>AddSubLink</h4>
-			<Form 
-				horizontal
-				onSubmit={e => { onClick(e, inputMode, selected, ruleType)}}
-			>
-
+		<Form horizontal>
 			<FieldGroup
 				id={INPUT_SUB_LINK_TITLE}
 				type="text"
@@ -56,8 +52,18 @@ const SubLinkForm = ({ onClick, selectInputType, selected, viewContent, inputMod
 
 			<RuleForm type={ruleType} />
 
-			<Button type="submit" bsStyle="primary">
+			<Button 
+				type="submit" 
+				bsStyle="primary"
+				onClick={e => { onClick(e, inputMode, selected, ruleType)}}
+			>
 				Save Sub Link
+			</Button>
+			<Button 
+				type="submit" 
+				bsStyle="primary" 
+				onClick={e => { onCancelClick(e, ruleType)}}>
+				Cancel
 			</Button>
 		</Form>
 	</div>
