@@ -107,6 +107,37 @@ const BrowserRule = () => (
 	<CheckboxForm name="Browser" items={Browsers}/>
 )
 
+const TimeRule = () => (
+	<div>
+		<h4>Time</h4>
+		<FieldGroup
+			id="beginTimeFormId"
+			type="time"
+			label="From"
+			placeholder="Enter time"
+		/>
+		<FieldGroup
+			id="endTimeFormId"
+			type="time"
+			label="To"
+			placeholder="Enter time"
+		/>
+	</div>
+)
+
+const timeGetter = () => {
+	return [
+		document.getElementById("beginTimeFormId").value,
+		document.getElementById("endTimeFormId").value,
+		]
+}
+
+const timeSetter = (value = []) => {
+	document.getElementById("beginTimeFormId").value = value[0]
+	document.getElementById("endTimeFormId").value = value[1]
+
+}
+
 export const Rules = {
 	'DefaultRule': {
 		render: DefaultRule,
@@ -127,6 +158,11 @@ export const Rules = {
 		render: BrowserRule,
 		get: checkboxGetter("Browser", Browsers),
 		set: checkboxSetter("Browser", Browsers),
+	}, 
+	'TimeRule': {
+		render: TimeRule,
+		get: timeGetter,
+		set: timeSetter,
 	}, 
 }
 

@@ -50,6 +50,7 @@ const SubLinkForm = ({ onClick, selectInputType, selected, viewContent, inputMod
 					<option value="TextRule">text</option>
 					<option value="CountryRule">country</option>
 					<option value="BrowserRule">browser</option>
+					<option value="TimeRule">time</option>
 				</FormControl>
 			</FormGroup>
 
