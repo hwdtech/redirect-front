@@ -5,6 +5,8 @@ import selected from './selected'
 import viewContent from './viewContent'
 import inputMode from './inputMode'
 import ruleType from './ruleType'
+import errors from './errors'
+import validateState from './validateState'
 
 
 const app = combineReducers({
@@ -13,7 +15,9 @@ const app = combineReducers({
   selected,
   viewContent,
   inputMode,
-  ruleType
+  ruleType,
+  errors,
+  validateState, 
 })
 
 export default app

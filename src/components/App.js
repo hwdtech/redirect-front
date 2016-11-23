@@ -6,6 +6,7 @@ import AddMainLink from '../containers/AddMainLink'
 import AddSubLink from '../containers/AddSubLink'
 import VisibleMainLinkList from '../containers/VisibleMainLinkList'
 import LeftMenu from '../containers/LeftMenu'
+import Errors from '../containers/Errors'
 
 
 const App = () => (
@@ -13,6 +14,7 @@ const App = () => (
 		<Header />
 
 		<div className="well" style={mainStyles}>
+			<Errors />
 			<AddMainLink />
 			<VisibleMainLinkList />
 			<AddSubLink />

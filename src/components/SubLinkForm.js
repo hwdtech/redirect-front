@@ -6,26 +6,73 @@ import { isVisible } from '../utils'
 import { RuleForm } from './RuleForms'
 
 
-function FieldGroup({ id, label, help, type, placeholder}) {
+/* //validate but crash edit
+class FormExample extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+    	value: '',
+    }
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  getValidationState() {
+    const length = this.state.value.length;
+    if (length > 10) return 'success';
+    else if (length > 5) return 'warning';
+    else if (length > 0) return 'error';
+  }
+
+  handleChange(e) {
+    this.setState({ value: e.target.value });
+  }
+
+  render() {
+    return (
+        <FormGroup
+          controlId={this.props.id}
+          validationState={this.getValidationState()}
+        >
+          <ControlLabel>{this.props.label}</ControlLabel>
+          <FormControl
+            type="text"
+            value={this.state.value}
+            placeholder="Enter text"
+            onChange={this.handleChange}
+          />
+          <FormControl.Feedback />
+          {this.props.help && <HelpBlock>{this.props.help}</HelpBlock>}
+        </FormGroup>
+    )
+  }
+}
+*/
+
+function FieldGroup({ id, label, help, type, placeholder, validation}) {
 	return (
-		<FormGroup controlId={id}>
+		<FormGroup 
+			controlId={id}
+		>
 			<ControlLabel>{label}</ControlLabel>
-			<FormControl type={type} placeholder={placeholder}/>
-			{help && <HelpBlock>{help}</HelpBlock>}
+			<FormControl 
+				type={type} 
+				placeholder={placeholder}
+			/>
 		</FormGroup>
 	)
 }
 
-const SubLinkForm = ({ onClick, onCancelClick, selectInputType, selected, viewContent, inputMode, ruleType, formContent ={}}) => (
+const SubLinkForm = ({ onClick, onCancelClick, selectInputType, selected, viewContent, inputMode, ruleType, formContent}) => (
 	<div style = {(isVisible(viewContent, SUB_LINK_FORM)) ? defaultStyles : hidenStyles}>
 		<h4>AddSubLink</h4>
 		<Form horizontal>
-			<FieldGroup
+			<FieldGroup 
 				id={INPUT_SUB_LINK_TITLE}
 				type="text"
 				label="Title"
 				placeholder="Enter title"
 			/>
+
 
 			<FieldGroup
 				id={INPUT_SUB_LINK_LINK}
@@ -62,7 +109,10 @@ const SubLinkForm = ({ onClick, onCancelClick, selectInputType, selected, viewCo
 			<Button 
 				type="submit" 
 				bsStyle="primary" 
-				onClick={e => { onCancelClick(e, ruleType)}}>
+				onClick={e => { 
+					onCancelClick(e, ruleType)
+					//console.log("?",document.getElementById(INPUT_SUB_LINK_TITLE).type)
+				}}>
 				Cancel
 			</Button>
 		</Form>

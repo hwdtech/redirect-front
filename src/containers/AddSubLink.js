@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import SubLinkForm from '../components/SubLinkForm'
-import { addSubLink, editSubLink, setVisibleContent, addVisibleContent, defaultInputMode, selectSubLink, selectRuleType } from '../actions'
+import { addSubLink, editSubLink, setVisibleContent, addVisibleContent, defaultInputMode, selectSubLink, selectRuleType, viewErrors } from '../actions'
 import * as CONSTANTS from '../components/CONSTANTS'
 import { Rules } from '../components/RuleForms'
 

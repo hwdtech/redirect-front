@@ -5,17 +5,20 @@ import { defaultStyles, hidenStyles } from '../styles'
 import { isVisible } from '../utils'
 
 
-function FieldGroup({ id, label, help, type, placeholder  }) {
+function FieldGroup({ id, label, help, status, type, placeholder, onChange  }) {
 	return (
-		<FormGroup controlId={id}>
+		<FormGroup 
+			controlId={id}
+			validationState={status}
+		>
 			<ControlLabel>{label}</ControlLabel>
-			<FormControl type={type} placeholder={placeholder}/>
+			<FormControl type={type} placeholder={placeholder} onChange={onChange}/>
 			{help && <HelpBlock>{help}</HelpBlock>}
 		</FormGroup>
 	)
 }
 
-const MainLinkForm = ({ onClick, onCancelClick, viewContent, selected, inputMode, formContent }) => (
+const MainLinkForm = ({ onClick, onCancelClick, viewContent, selected, inputMode, formContent, validate, validateState }) => (
 	<div style = {isVisible(viewContent, MAIN_LINK_FORM ) ? defaultStyles : hidenStyles}>
 		<h4>AddMainLink</h4>
 		<Form horizontal>
@@ -25,6 +28,11 @@ const MainLinkForm = ({ onClick, onCancelClick, viewContent, selected, inputMode
 				type="text"
 				label="Title"
 				placeholder="Enter title"
+				status = {validateState.title.status}
+				help = {validateState.title.help}
+				onChange={()=> {
+					validate('title', document.getElementById(INPUT_MAIN_LINK_TITLE).value)
+				}}
 			/>
 
 			<FieldGroup
@@ -37,7 +45,7 @@ const MainLinkForm = ({ onClick, onCancelClick, viewContent, selected, inputMode
 			<Button 
 				type="submit" 
 				bsStyle="primary"
-				onClick={e => { onClick(e, inputMode, selected)}}
+				onClick={e => { onClick(e, inputMode, selected, validateState)}}
 			>
 				Save Main Link
 			</Button>

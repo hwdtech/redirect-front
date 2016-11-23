@@ -9,3 +9,5 @@ export const INPUT_SUB_LINK_RULE_TYPE = 'formSubLinkRuleType'
 
 export const INPUT_MAIN_LINK_TITLE = 'formMainLinkTitle'
 export const INPUT_MAIN_LINK_DEFAULT_LINK = 'formMainLinkDefaultLink'
+
+export const ERROR_BLOCK = 'ERROR_BLOCK'

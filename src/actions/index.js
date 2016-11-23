@@ -127,3 +127,24 @@ export const selectRuleType = (ruleType) => {
 		ruleType
 	}
 }
+
+export const viewErrors = (errors) => {
+	return {
+		type: actionTypes.VIEW_ERRORS,
+		errors
+	}
+}
+
+export const validateInput = (inputType, data) => {
+	return {
+		type: actionTypes.VALIDATE_INPUT,
+		inputType,
+		data
+	}
+}
+
+export const validateReset = () => {
+	return {
+		type: actionTypes.VALIDATE_RESET
+	}
+}

@@ -1,7 +1,8 @@
 import React, { PropTypes } from 'react'
 import VisibleSubLinkList from '../containers/VisibleSubLinkList'
 import { Button } from 'react-bootstrap'
-
+import { targetTitle } from '../styles'
+ 
 
 const MainLink = ({ onClick, onDeleteClick, onEditClick, id, title, defaultLink, subLinkIdList, selected}) => (
 	<li
@@ -9,7 +10,12 @@ const MainLink = ({ onClick, onDeleteClick, onEditClick, id, title, defaultLink,
 			color: (selected.mainLink === id) ? 'red' : 'black'
 		}}>
 		
-		<h4 onClick={onClick}> {title} </h4>
+		<h4 className='bytarget'
+			onClick={onClick}  
+
+		> 
+			{title} 
+		</h4>
 		<p> Default link: {defaultLink} </p>
 
 		<Button onClick={() => onDeleteClick(id)}> Delete</Button>
