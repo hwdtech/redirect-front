@@ -1,4 +1,4 @@
-import { VALIDATE_INPUT } from '../actions/actionTypes'
+import { VALIDATE_INPUT, VALIDATE_RESET, VALIDATE_EDIT } from '../actions/actionTypes'
 import { selectAction } from '../utils' 
 
 const validate_title = (data) => {
@@ -30,13 +30,24 @@ const validate_input = (state, action) => {
 		return state	
 	}
 }
+
 const validate_reset = (state, action) => {
 	return defaultState
+}
+
+const validate_edit = (state, action) => {
+	let keys = action.inputTypes
+	let newState = {} 
+	for (let i = 0; i < keys.length; i++) {
+		newState[keys[i]] = {status:'success'}
+	}
+	return Object.assign({}, state, newState)
 }
 
 let validateStateActions = {
 	VALIDATE_INPUT: validate_input,
 	VALIDATE_RESET: validate_reset,
+	VALIDATE_EDIT: validate_edit,
 }
 
 const validateState = (state = defaultState, action) => {

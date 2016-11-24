@@ -6,63 +6,20 @@ import { isVisible } from '../utils'
 import { RuleForm } from './RuleForms'
 
 
-/* //validate but crash edit
-class FormExample extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-    	value: '',
-    }
-    this.handleChange = this.handleChange.bind(this);
-  }
-
-  getValidationState() {
-    const length = this.state.value.length;
-    if (length > 10) return 'success';
-    else if (length > 5) return 'warning';
-    else if (length > 0) return 'error';
-  }
-
-  handleChange(e) {
-    this.setState({ value: e.target.value });
-  }
-
-  render() {
-    return (
-        <FormGroup
-          controlId={this.props.id}
-          validationState={this.getValidationState()}
-        >
-          <ControlLabel>{this.props.label}</ControlLabel>
-          <FormControl
-            type="text"
-            value={this.state.value}
-            placeholder="Enter text"
-            onChange={this.handleChange}
-          />
-          <FormControl.Feedback />
-          {this.props.help && <HelpBlock>{this.props.help}</HelpBlock>}
-        </FormGroup>
-    )
-  }
-}
-*/
-
-function FieldGroup({ id, label, help, type, placeholder, validation}) {
+function FieldGroup({ id, label, help, status, type, placeholder, onChange  }) {
 	return (
 		<FormGroup 
 			controlId={id}
+			validationState={status}
 		>
 			<ControlLabel>{label}</ControlLabel>
-			<FormControl 
-				type={type} 
-				placeholder={placeholder}
-			/>
+			<FormControl type={type} placeholder={placeholder} onChange={onChange}/>
+			{help && <HelpBlock>{help}</HelpBlock>}
 		</FormGroup>
 	)
 }
 
-const SubLinkForm = ({ onClick, onCancelClick, selectInputType, selected, viewContent, inputMode, ruleType, formContent}) => (
+const SubLinkForm = ({ onClick, onCancelClick, selectInputType, selected, viewContent, inputMode, ruleType, formContent, validate, validateState}) => (
 	<div style = {(isVisible(viewContent, SUB_LINK_FORM)) ? defaultStyles : hidenStyles}>
 		<h4>AddSubLink</h4>
 		<Form horizontal>
@@ -71,6 +28,11 @@ const SubLinkForm = ({ onClick, onCancelClick, selectInputType, selected, viewCo
 				type="text"
 				label="Title"
 				placeholder="Enter title"
+				status = {validateState.title.status}
+				help = {validateState.title.help}
+				onChange={()=> {
+					validate('title', document.getElementById(INPUT_SUB_LINK_TITLE).value)
+				}}
 			/>
 
 
@@ -102,7 +64,7 @@ const SubLinkForm = ({ onClick, onCancelClick, selectInputType, selected, viewCo
 			<Button 
 				type="submit" 
 				bsStyle="primary"
-				onClick={e => { onClick(e, inputMode, selected, ruleType)}}
+				onClick={e => { onClick(e, inputMode, selected, ruleType, validateState)}}
 			>
 				Save Sub Link
 			</Button>

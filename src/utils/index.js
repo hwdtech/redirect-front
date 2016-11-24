@@ -9,3 +9,17 @@ export const selectAction = (someActions, state, action) => {
 		return state
 	}
 }
+
+export const isValid = (validateState, keys) => {
+	for (let i = 0; i < keys.length; i++) {
+		try {
+			if (validateState[keys[i]].status !== 'success') {
+				return false
+			}
+		} catch (err) {
+			console.log(keys[i],' doesn`t exist in validateState')
+			return false
+		}
+	}
+	return true
+}

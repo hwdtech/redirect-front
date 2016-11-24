@@ -1,8 +1,12 @@
 import { connect } from 'react-redux'
 import SubLinkForm from '../components/SubLinkForm'
-import { addSubLink, editSubLink, setVisibleContent, addVisibleContent, defaultInputMode, selectSubLink, selectRuleType, viewErrors } from '../actions'
+import { addSubLink, editSubLink } from '../actions'
+import { setVisibleContent, addVisibleContent, deleteVisibleContent } from '../actions'
+import { defaultInputMode, selectSubLink, selectRuleType, viewErrors } from '../actions'
+import { validateInput, validateReset } from '../actions'
 import * as CONSTANTS from '../components/CONSTANTS'
 import { Rules } from '../components/RuleForms'
+import { isValid } from '../utils'
 
 
 const refreshSubLinkForm = (ruleType) => {
@@ -46,6 +50,8 @@ const setDefault = (e, dispatch, ruleType) => {
 	dispatch(addVisibleContent([CONSTANTS.MAIN_LINK_LIST,CONSTANTS.SUB_LINK_LIST]))
 	refreshSubLinkForm(ruleType)
 	dispatch(defaultInputMode())
+	dispatch(deleteVisibleContent(["ERROR_BLOCK"]))
+	dispatch(validateReset())
 } 
 
 const mapStateToProps = (state) => {
@@ -54,15 +60,22 @@ const mapStateToProps = (state) => {
 		selected: state.selected,
 		viewContent: state.viewContent,
 		inputMode: state.inputMode,
-		ruleType: state.ruleType
+		ruleType: state.ruleType,
+		validateState: state.validateState,
 	}
 }
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		onClick: (e, inputMode, selected, ruleType) => {
-			updateSubLinks[inputMode](dispatch, selected, ruleType)
-			setDefault(e, dispatch, ruleType)
+		onClick: (e, inputMode, selected, ruleType, validateState) => {
+			if (isValid(validateState,['title'])) {
+				updateSubLinks[inputMode](dispatch, selected, ruleType)
+				setDefault(e, dispatch, ruleType)
+			} else {
+				e.preventDefault()
+				dispatch(viewErrors(['Title uncorrect!']))
+				dispatch(addVisibleContent(["ERROR_BLOCK"]))
+			}
 
 		},
 		onCancelClick: (e, ruleType) => {
@@ -71,7 +84,10 @@ const mapDispatchToProps = (dispatch) => {
 		selectInputType: () => {
 			let t = document.getElementById(CONSTANTS.INPUT_SUB_LINK_RULE_TYPE)
 			dispatch(selectRuleType(t.options[t.selectedIndex].value))
-		}
+		},
+		validate: (type, data) => {
+			dispatch(validateInput(type, data))
+		},
 	}
 }
 

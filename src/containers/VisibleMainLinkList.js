@@ -1,5 +1,6 @@
 import { connect } from 'react-redux'
 import { selectMainLink, deleteMainLink, deleteSubLinkListByMainId, setVisibleContent, changeInputMode, switchVisibleContent } from '../actions'
+import { validateEdit } from '../actions'
 import MainLinkList from '../components/MainLinkList'
 import * as CONSTANTS from '../components/CONSTANTS'
 
@@ -32,6 +33,9 @@ const mapDispatchToProps = (dispatch) => {
 		onEditMainLinkButtonClick: (id, selectedMainLink, title, defaultLink) => {
 			dispatch(changeInputMode())
 			dispatch(setVisibleContent([CONSTANTS.MAIN_LINK_FORM]))
+
+			dispatch(validateEdit(['title']))
+
 			if (selectedMainLink === false) {
 				dispatch(selectMainLink(id))
 			}

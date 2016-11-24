@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import SubLinkList from '../components/SubLinkList'
-import { selectRuleType, deleteSubLink, changeInputMode, setVisibleContent, selectSubLink} from '../actions'
+import { selectRuleType, deleteSubLink, changeInputMode, setVisibleContent, selectSubLink, validateEdit} from '../actions'
 import * as CONSTANTS from '../components/CONSTANTS'
 import { Rules } from '../components/RuleForms'
 
@@ -41,6 +41,9 @@ const mapDispatchToProps = (dispatch) => {
 		onEditSubLinkButtonClick: (id, title, link, ruleType, rule) => {
 			dispatch(changeInputMode())
 			dispatch(setVisibleContent([CONSTANTS.SUB_LINK_FORM]))
+
+			dispatch(validateEdit(['title']))
+			
 			dispatch(selectSubLink(id))
 			dispatch(selectRuleType(ruleType))
 			formFiller(title, link, ruleType, rule)

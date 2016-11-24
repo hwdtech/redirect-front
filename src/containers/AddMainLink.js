@@ -1,18 +1,12 @@
 import { connect } from 'react-redux'
 import MainLinkForm from '../components/MainLinkForm'
-import { addMainLink, editMainLink, defaultInputMode, setVisibleContent, addVisibleContent, deleteVisibleContent, selectMainLink, viewErrors, validateInput, validateReset } from '../actions'
+import { addMainLink, editMainLink} from '../actions'
+import { setVisibleContent, addVisibleContent, deleteVisibleContent } from '../actions'
+import { defaultInputMode, selectMainLink, viewErrors } from '../actions'
+import { validateInput, validateReset } from '../actions'
 import * as CONSTANTS from '../components/CONSTANTS'
+import { isValid } from '../utils'
 
-
-const validateMainLink = (validateState) => {
-	let keys = Object.keys(validateState)
-	for (let i = 0; i < keys.length; i++) {
-		if (validateState[keys[i]].status !== 'success') {
-			return false
-		}
-	}
-	return true
-}
 
 const updateMainLinksByAdd = (dispatch, selected) => {
 	dispatch(addMainLink(
@@ -61,7 +55,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
 	return {
 		onClick: (e, inputMode, selected, validateState) => {
-			if (validateMainLink(validateState)) {
+			if (isValid(validateState,['title'])) {
 				updateMainLinks[inputMode](dispatch, selected)
 				setDefault(e, dispatch, inputMode)
 			} else {

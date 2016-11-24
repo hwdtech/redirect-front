@@ -148,3 +148,10 @@ export const validateReset = () => {
 		type: actionTypes.VALIDATE_RESET
 	}
 }
+
+export const validateEdit = (inputTypes) => {
+	return {
+		type: actionTypes.VALIDATE_EDIT,
+		inputTypes,
+	}
+}
