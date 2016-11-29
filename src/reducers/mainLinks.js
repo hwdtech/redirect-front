@@ -45,10 +45,15 @@ const edit_main_links = (state, action) => {
     return state.map(t => mainLink(t, action))
 }
 
+const get_main_links_response = (state, action) => {
+    return action.payload
+}
+
 let mainLinksActions = {
     ADD_MAIN_LINK: add_main_links, 
     DELETE_MAIN_LINK: delete_main_links,
     EDIT_MAIN_LINK: edit_main_links,
+    GET_MAIN_LINKS_RESPONSE: get_main_links_response,
 
 }
 

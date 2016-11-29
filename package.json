@@ -17,7 +17,11 @@
   },
   "homepage": "https://github.com/hwdtech/redirect-front#readme",
   "dependencies": {
+    "axios": "^0.15.2",
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
     "immutable": "^3.8.1",
+    "node-static": "^0.7.9",
     "react": "^15.4.0",
     "react-bootstrap": "^0.30.6",
     "react-dom": "^15.3.2",
@@ -25,7 +29,10 @@
     "react-redux": "^4.4.5",
     "redux": "^3.6.0",
     "redux-api-middleware": "^1.0.2",
-    "socket.io": "^1.5.1"
+    "redux-http-middleware": "^2.1.0",
+    "sequelize": "^3.27.0",
+    "socket.io": "^1.5.1",
+    "sqlite3": "^3.1.8"
   },
   "devDependencies": {
     "babel-core": "^6.18.2",
