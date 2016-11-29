@@ -54,7 +54,6 @@ let mainLinksActions = {
     DELETE_MAIN_LINK: delete_main_links,
     EDIT_MAIN_LINK: edit_main_links,
     GET_MAIN_LINKS_RESPONSE: get_main_links_response,
-
 }
 
 const mainLinks = (state = [], action) => {

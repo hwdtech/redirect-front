@@ -14,7 +14,7 @@ const MainLinkList = ({ mainLinks, selected, onMainLinkClick, onDeleteMainLinkBu
 					key={mainLink.id}
 					{...mainLink}
 					selected={selected}
-					onClick={() => onMainLinkClick(mainLink.id)}
+					onClick={() => onMainLinkClick(mainLink.id, selected.mainLink)}
 					onDeleteClick={onDeleteMainLinkButtonClick}
 					onEditClick={onEditMainLinkButtonClick}
 				/>

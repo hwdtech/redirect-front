@@ -5,7 +5,7 @@ import { selectAction } from '../utils'
 const add_sub_link = (state, action) => {
   return {
     id: action.id,
-    mainId: action.mainId,
+    mainlinkId: action.mainlinkId,
     title: action.title,
     link: action.link,
     ruleType: action.ruleType,
@@ -46,11 +46,15 @@ const delete_sub_links = (state, action) => {
 }
 
 const delete_sub_links_by_main_id = (state, action) => {
-  return state.filter(t => t.mainId !== action.id)
+  return state.filter(t => t.mainlinkId !== action.id)
 }
 
 const edit_sub_links = (state, action) => {
   return state.map(t => subLink(t, action))
+}
+
+const get_sub_links_response = (state, action) => {
+  return action.payload
 }
 
 let subLinksActions = {
@@ -58,6 +62,7 @@ let subLinksActions = {
   DELETE_SUB_LINK: delete_sub_links,
   DELETE_SUB_LINK_LIST_BY_MAIN_ID: delete_sub_links_by_main_id,
   EDIT_SUB_LINK: edit_sub_links,
+  GET_SUB_LINKS_RESPONSE: get_sub_links_response,
 }
 
 const subLinks = (state = [], action) => {

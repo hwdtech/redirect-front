@@ -21,9 +21,14 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		onMainLinkClick: (id) => {
+		onMainLinkClick: (id, selectedMainLink) => {
 			dispatch(selectMainLink(id))
-			dispatch(switchVisibleContent([CONSTANTS.SUB_LINK_FORM, CONSTANTS.SUB_LINK_LIST]))
+			console.log(id, selectedMainLink)
+			if (id === selectedMainLink){
+				dispatch(switchVisibleContent([CONSTANTS.SUB_LINK_FORM, CONSTANTS.SUB_LINK_LIST]))
+			} else if (!selectedMainLink) {
+				dispatch(switchVisibleContent([CONSTANTS.SUB_LINK_FORM, CONSTANTS.SUB_LINK_LIST]))
+			}
 		},
 		onDeleteMainLinkButtonClick: (id) => {
 			dispatch(deleteMainLink(id)) 

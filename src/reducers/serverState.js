@@ -12,15 +12,12 @@ const post_server_state_response = (state, action) => {
 }
 
 let serverStateActions = {
-	GET_SERVER_STATE_REQUEST: get_server_state,
-	GET_SERVER_STATE_RESPONSE: get_server_state,
-	GET_SERVER_STATE_ERROR: get_server_state,
-	POST_SERVER_STATE_REQUEST: get_server_state,
-	POST_SERVER_STATE_RESPONSE: post_server_state_response,
-	POST_SERVER_STATE_ERROR: get_server_state,
 	GET_MAIN_LINKS_REQUEST: get_server_state,
 	GET_MAIN_LINKS_RESPONSE: get_server_state,
 	GET_MAIN_LINKS_ERROR: get_server_state,
+	GET_SUB_LINKS_REQUEST: get_server_state,
+	GET_SUB_LINKS_RESPONSE: get_server_state,
+	GET_SUB_LINKS_ERROR: get_server_state,
 }
 
 const serverState = (state = '', action) => {

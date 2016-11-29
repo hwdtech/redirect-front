@@ -15,8 +15,11 @@ let store = createStore(
   )
 )
 
-import { getServerState, getMainLinks, postServerState } from './middleware'
+import { getMainLinks, getSubLinks, postToServer } from './middleware'
 store.dispatch(getMainLinks())
+store.dispatch(getSubLinks())
+//store.dispatch(postToServer({body:{title:'body'}, suburl:'/add/mainlink/'}))
+
 //store.dispatch(getServerState())
 //store.dispatch(postServerState({body:{body:'body'}}))
 //store.dispatch(postServerState({body:{body:'body'}, suburl:'/add/mainlink/'}))

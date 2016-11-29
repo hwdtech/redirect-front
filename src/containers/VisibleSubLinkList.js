@@ -8,7 +8,7 @@ import { Rules } from '../components/RuleForms'
 const getVisibleSubLinks = (subLinks, selectedMainLink, mainId) =>
 {
 	if (mainId === selectedMainLink) {
-		return subLinks.filter(t => (t.mainId === selectedMainLink));
+		return subLinks.filter(t => (t.mainlinkId === selectedMainLink));
 	} else {
 		return [];
 	}

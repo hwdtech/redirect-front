@@ -38,16 +38,33 @@ function saveToDB(Table, data) {
    Table.sync();
 }
 
+function editNoteOfDB(Table, id, data) {
+   Table.findById(id).then(function (note) {
+         if (note) { note.updateAttributes(data) }
+      })
+   Table.sync();
+}
+
+function deleteNoteOfDB(Table, id) {
+   Table.findById(id).then(function (note) {
+         note.destroy();
+      })
+   Table.sync();
+}
+
 function loadFromDB(Table, res, condition = {}) {
    Table
       .findAll({
          where: condition
       })
-      .then(function(notes){
-         // console.log('loadFromDB... ')
+      .then(function(notes) {
          res.end(JSON.stringify( notes.map(temp => temp.dataValues) ));
    });
 }
+// editNoteOfDB(MainLinks, 1, {
+//    title: 'Edit 2',
+// });
+//deleteNoteOfDB(MainLinks, 2);
 // saveToDB(MainLinks, {
 //    title: 'Sequelize.STRING',
 //    description: 'Sequelize.TEXT',
@@ -131,29 +148,22 @@ app.get('/style.css', function (req, res) {
 	res.sendFile( dirname + '/style.css' );
 })
 /*------------------End Static--------------------*/
-// app.get('/process_get', function (req, res) {
-//    // Prepare output in JSON format
-//    response = {
-//       first_name:req.query.first_name,
-//       last_name:req.query.last_name
-//    };
-//    console.log(response);
-//    res.end(JSON.stringify(response));
-// })
 /*------------------HTTP POST--------------------*/
-app.post('/', function (req, res) {
-   console.log("POST /");
-   console.log(req.body)
-   res.send('Hello, POST /');
-})
+// app.post('/', function (req, res) {
+//    console.log("POST /");
+//    console.log(req.body)
+//    res.send('Hello, POST /');
+// })
 app.post('/add/mainlink/', function (req, res) {
-   console.log("POST /add/mainlink/");
-   console.log(req.body)
-   saveToDB(MainLinks, {
-      title: 'Sequelize.STRING',
-      description: 'Sequelize.TEXT',
-      defaultLink: 'Sequelize.STRING',
-   });
+   console.log("POST " + req.url); 
+   //console.log(req.body)
+   saveToDB(MainLinks, req.body);
+   // loadFromDB(MainLinks, res);
+})
+app.post('/add/sublink/', function (req, res) {
+   console.log("POST " + req.url); 
+   //console.log(req.body)
+   saveToDB(SubLinks, req.body);
    // loadFromDB(MainLinks, res);
 })
 /*------------------End HTTP POST--------------------*/
@@ -163,12 +173,6 @@ app.delete('/del_user', function (req, res) {
    console.log("Got a DELETE request for /del_user");
    res.send('Hello DELETE');
 })
-
-// This responds a GET request for abcd, abxcd, ab123cd, and so on
-// app.get('/ab*cd', function(req, res) {   
-//    console.log("Got a GET request for /ab*cd");
-//    res.send('Page Pattern Match');
-// })
 
 var server = app.listen(5000, function () {
 
