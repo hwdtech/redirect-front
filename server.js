@@ -52,27 +52,37 @@ function deleteNoteOfDB(Table, id) {
    Table.sync();
 }
 
-function loadFromDB(Table, res, condition = {}) {
+function loadFromDB(Table, res, prepare, condition = {}) {
    Table
       .findAll({
          where: condition
       })
       .then(function(notes) {
-         res.end(JSON.stringify( notes.map(temp => temp.dataValues) ));
+         res.end(JSON.stringify( notes.map(temp => prepare(temp.dataValues)) ));
    });
 }
 /*------------------End Sequelize--------------------*/
 /*------------------HTTP GET--------------------*/
+function prepareSubLinkDataToLoad(data) {
+   data.rule = JSON.parse(data.rule)
+   console.log('Prepare(load)',data.rule)
+   return data
+}
+
+function prepareMainLinkDataToLoad(data) {
+   return data
+}
+
 app.get('/', function (req, res) {
    //res.sendFile( dirname + 'index.html' );
    console.log("GET /");  
    //console.log(res);
-   loadFromDB(MainLinks, res);
+   loadFromDB(MainLinks, res, prepareMainLinkDataToLoad);
 })
 
 app.get('/mainlinks/', function (req, res) {
    console.log("GET /mainlinks/");  
-   loadFromDB(MainLinks, res);
+   loadFromDB(MainLinks, res, prepareMainLinkDataToLoad);
 })
 
 function getId(url) {
@@ -86,12 +96,12 @@ function getId(url) {
 app.get('/mainlinks/*/', function (req, res) {
    console.log("GET " + req.url);  
    let id = getId(req.url); 
-   loadFromDB(MainLinks, res, {id});
+   loadFromDB(MainLinks, res, prepareMainLinkDataToLoad, {id});
 })
 
 app.get('/sublinks/', function (req, res) {
    console.log("GET /mainlinks/");  
-   loadFromDB(SubLinks, res);
+   loadFromDB(SubLinks, res, prepareSubLinkDataToLoad);
 })
 
 function getMainId(url) {
@@ -105,13 +115,13 @@ function getMainId(url) {
 app.get('/sublinks/mainId=*/', function (req, res) {
    console.log("GET " + req.url);  
    let mainlinkId = getMainId(req.url);
-   loadFromDB(SubLinks, res, {mainlinkId});
+   loadFromDB(SubLinks, res, prepareSubLinkDataToLoad, {mainlinkId});
 })
 
 app.get('/sublinks/*/', function (req, res) {
    console.log("GET " + req.url);  
    let id = getId(req.url); 
-   loadFromDB(SubLinks, res, {id});
+   loadFromDB(SubLinks, res, prepareSubLinkDataToLoad, {id});
 })
 
 /*------------------End HTTP GET--------------------*/
@@ -132,6 +142,13 @@ app.get('/style.css', function (req, res) {
 })
 /*------------------End Static--------------------*/
 /*------------------HTTP POST--------------------*/
+function prepareSubLinkDataToSave(data) {
+   data.rule = JSON.stringify(data.rule)
+   console.log('Prepare(save)',data.rule)
+   //console.log('unPrepare', JSON.parse(data.rule))
+   return data
+}
+
 app.post('/add/mainlink/', function (req, res) {
    console.log("POST " + req.url); 
    saveToDB(MainLinks, req.body);
@@ -139,7 +156,7 @@ app.post('/add/mainlink/', function (req, res) {
 
 app.post('/add/sublink/', function (req, res) {
    console.log("POST " + req.url); 
-   saveToDB(SubLinks, req.body);
+   saveToDB(SubLinks, prepareSubLinkDataToSave(req.body));
 })
 
 app.post('/patch/mainlink/', function (req, res) {
@@ -149,7 +166,7 @@ app.post('/patch/mainlink/', function (req, res) {
 
 app.post('/patch/sublink/', function (req, res) {
    console.log("POST " + req.url + req.body.id);
-   editNoteOfDB(SubLinks, req.body.id, req.body.data)
+   editNoteOfDB(SubLinks, req.body.id, prepareSubLinkDataToSave(req.body.data))
 })
 /*------------------End HTTP POST--------------------*/
 /*------------------HTTP PATCH--------------------*/
