@@ -167,7 +167,7 @@ app.delete('/del/mainlink/', function (req, res) {
    res.send('DELETE SUCCESS');
 })
 
-app.delete('/del/sublinks/', function (req, res) {
+app.delete('/del/sublink/', function (req, res) {
    console.log("DELETE " + req.url + req.body.id); 
    deleteNoteOfDB(SubLinks, req.body.id);
    res.send('DELETE SUCCESS');

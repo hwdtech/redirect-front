@@ -4,6 +4,7 @@ import { addSubLink, editSubLink } from '../actions'
 import { setVisibleContent, addVisibleContent, deleteVisibleContent } from '../actions'
 import { defaultInputMode, selectSubLink, selectRuleType, viewErrors } from '../actions'
 import { validateInput, validateReset } from '../actions'
+import { postToServer, patchNoteOfServer } from '../middleware'
 import * as CONSTANTS from '../components/CONSTANTS'
 import { Rules } from '../components/RuleForms'
 import { isValid } from '../utils'
@@ -25,6 +26,16 @@ const updateSubLinksByAdd = (dispatch, selected, ruleType) => {
 		t.options[t.selectedIndex].value,
 		Rules[ruleType].get()
 	))
+	dispatch(postToServer({
+		body:{
+			mainlinkId: selected.mainLink,
+			title: document.getElementById(CONSTANTS.INPUT_SUB_LINK_TITLE).value, 
+			link: document.getElementById(CONSTANTS.INPUT_SUB_LINK_LINK).value,
+			ruleType: t.options[t.selectedIndex].value,
+			rule: Rules[ruleType].get()
+		}, 
+		target:'sublink',
+	}))
 }
 
 const updateSubLinksByEdit = (dispatch, selected, ruleType) => {
@@ -37,6 +48,21 @@ const updateSubLinksByEdit = (dispatch, selected, ruleType) => {
 		t.options[t.selectedIndex].value,
 		Rules[ruleType].get()
 	))
+
+	dispatch(patchNoteOfServer({
+		body:{
+			id: selected.subLink,
+			data: {
+				mainlinkId: selected.mainLink,
+				title: document.getElementById(CONSTANTS.INPUT_SUB_LINK_TITLE).value, 
+				link: document.getElementById(CONSTANTS.INPUT_SUB_LINK_LINK).value,
+				ruleType: t.options[t.selectedIndex].value,
+				rule: Rules[ruleType].get()
+			}
+		}, 
+		target:'sublink',
+	}))
+	
 	dispatch(selectSubLink())
 }
 

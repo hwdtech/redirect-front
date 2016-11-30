@@ -3,9 +3,9 @@ import { GET, POST, DELETE, PATCH } from 'redux-http-middleware'
 
 const url = window.location.origin
 
-export const postToServer = ({ body, suburl='' }) => ({
+export const postToServer = ({ body, target='' }) => ({
   POST,
-  url: url+suburl,
+  url: url+'/add/'+target+'/',
   headers: {
     "Content-Type": 'application/json',
     // Authorization: 'token OAUTH-TOKEN' // token needs to be retrieved (e.g. from a cookie) 

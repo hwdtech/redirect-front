@@ -1,6 +1,7 @@
 import { connect } from 'react-redux'
 import SubLinkList from '../components/SubLinkList'
 import { selectRuleType, deleteSubLink, changeInputMode, setVisibleContent, selectSubLink, validateEdit} from '../actions'
+import { deleteFromServer } from '../middleware'
 import * as CONSTANTS from '../components/CONSTANTS'
 import { Rules } from '../components/RuleForms'
 
@@ -37,6 +38,8 @@ const mapDispatchToProps = (dispatch) => {
 	return {
 		onDeleteSubLinkButtonClick: (id) => {
 			dispatch(deleteSubLink(id))
+			//server mode
+			dispatch(deleteFromServer({id, target:'sublink'}))
 		},
 		onEditSubLinkButtonClick: (id, title, link, ruleType, rule) => {
 			dispatch(changeInputMode())
