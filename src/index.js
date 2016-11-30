@@ -15,9 +15,10 @@ let store = createStore(
   )
 )
 
-import { getMainLinks, getSubLinks, postToServer } from './middleware'
+import { getMainLinks, getSubLinks, postToServer, deleteFromServer } from './middleware'
 store.dispatch(getMainLinks())
 store.dispatch(getSubLinks())
+// store.dispatch(deleteFromServer({id: 10, target:'mainlink'}))
 //store.dispatch(postToServer({body:{title:'body'}, suburl:'/add/mainlink/'}))
 
 //store.dispatch(getServerState())

@@ -61,23 +61,6 @@ function loadFromDB(Table, res, condition = {}) {
          res.end(JSON.stringify( notes.map(temp => temp.dataValues) ));
    });
 }
-// editNoteOfDB(MainLinks, 1, {
-//    title: 'Edit 2',
-// });
-//deleteNoteOfDB(MainLinks, 2);
-// saveToDB(MainLinks, {
-//    title: 'Sequelize.STRING',
-//    description: 'Sequelize.TEXT',
-//    defaultLink: 'Sequelize.STRING',
-// });
-// saveToDB(SubLinks, {
-//    title: 'Sequelize.STRING',
-//    description: 'Sequelize.TEXT',
-//    link: 'Sequelize.STRING',
-//    rule: 'Sequelize.STRING',
-//    ruleType: 'Sequelize.TEXT',
-//    mainlinkId: 1,
-// });
 /*------------------End Sequelize--------------------*/
 /*------------------HTTP GET--------------------*/
 app.get('/', function (req, res) {
@@ -149,31 +132,48 @@ app.get('/style.css', function (req, res) {
 })
 /*------------------End Static--------------------*/
 /*------------------HTTP POST--------------------*/
-// app.post('/', function (req, res) {
-//    console.log("POST /");
-//    console.log(req.body)
-//    res.send('Hello, POST /');
-// })
 app.post('/add/mainlink/', function (req, res) {
    console.log("POST " + req.url); 
-   //console.log(req.body)
    saveToDB(MainLinks, req.body);
-   // loadFromDB(MainLinks, res);
-})
-app.post('/add/sublink/', function (req, res) {
-   console.log("POST " + req.url); 
-   //console.log(req.body)
-   saveToDB(SubLinks, req.body);
-   // loadFromDB(MainLinks, res);
-})
-/*------------------End HTTP POST--------------------*/
-//DELETE
-// This responds a DELETE request for the /del_user page.
-app.delete('/del_user', function (req, res) {
-   console.log("Got a DELETE request for /del_user");
-   res.send('Hello DELETE');
 })
 
+app.post('/add/sublink/', function (req, res) {
+   console.log("POST " + req.url); 
+   saveToDB(SubLinks, req.body);
+})
+
+app.post('/patch/mainlink/', function (req, res) {
+   console.log("POST " + req.url + req.body.id);
+   editNoteOfDB(MainLinks, req.body.id, req.body.data)
+})
+
+app.post('/patch/sublink/', function (req, res) {
+   console.log("POST " + req.url + req.body.id);
+   editNoteOfDB(SubLinks, req.body.id, req.body.data)
+})
+/*------------------End HTTP POST--------------------*/
+/*------------------HTTP PATCH--------------------*/
+// app.patch('/patch/mainlink/', function (req, res) {
+//    console.log("PATCH " + req.url + req.body.id); 
+// })
+// app.patch('/patch/sublink/', function (req, res) {
+//    console.log("PATCH " + req.url + req.body.id);
+// })
+/*------------------EndHTTP PATCH--------------------*/
+/*------------------HTTP DELETE--------------------*/
+app.delete('/del/mainlink/', function (req, res) {
+   console.log("DELETE " + req.url + req.body.id); 
+   deleteNoteOfDB(MainLinks, req.body.id);
+   res.send('DELETE SUCCESS');
+})
+
+app.delete('/del/sublinks/', function (req, res) {
+   console.log("DELETE " + req.url + req.body.id); 
+   deleteNoteOfDB(SubLinks, req.body.id);
+   res.send('DELETE SUCCESS');
+})
+/*------------------End HTTP DELETE--------------------*/
+/*------------------Init server--------------------*/
 var server = app.listen(5000, function () {
 
    var host = server.address().address
@@ -181,3 +181,4 @@ var server = app.listen(5000, function () {
 
    console.log("Example app listening at http://%s:%s", host, port)
 })
+/*------------------End Init server--------------------*/

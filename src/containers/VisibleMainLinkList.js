@@ -1,5 +1,6 @@
 import { connect } from 'react-redux'
 import { selectMainLink, deleteMainLink, deleteSubLinkListByMainId, setVisibleContent, changeInputMode, switchVisibleContent } from '../actions'
+import { deleteFromServer } from '../middleware'
 import { validateEdit } from '../actions'
 import MainLinkList from '../components/MainLinkList'
 import * as CONSTANTS from '../components/CONSTANTS'
@@ -34,6 +35,8 @@ const mapDispatchToProps = (dispatch) => {
 			dispatch(deleteMainLink(id)) 
 			dispatch(deleteSubLinkListByMainId(id))
 			dispatch(selectMainLink(false))
+			//server mode
+			dispatch(deleteFromServer({id, target:'mainlink'}))
 		},
 		onEditMainLinkButtonClick: (id, selectedMainLink, title, defaultLink) => {
 			dispatch(changeInputMode())

@@ -18,6 +18,12 @@ let serverStateActions = {
 	GET_SUB_LINKS_REQUEST: get_server_state,
 	GET_SUB_LINKS_RESPONSE: get_server_state,
 	GET_SUB_LINKS_ERROR: get_server_state,
+	DELETE_FROM_SERVER_REQUEST: get_server_state,
+	DELETE_FROM_SERVER_RESPONSE: get_server_state,
+	DELETE_FROM_SERVER_ERROR: get_server_state,
+	PATCH_NOTE_OF_SERVER_REQUEST: get_server_state,
+	PATCH_NOTE_OF_SERVER_RESPONSE: get_server_state,
+	PATCH_NOTE_OF_SERVER_ERROR: get_server_state,
 }
 
 const serverState = (state = '', action) => {

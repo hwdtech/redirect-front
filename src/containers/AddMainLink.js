@@ -4,7 +4,7 @@ import { addMainLink, editMainLink} from '../actions'
 import { setVisibleContent, addVisibleContent, deleteVisibleContent } from '../actions'
 import { defaultInputMode, selectMainLink, viewErrors } from '../actions'
 import { validateInput, validateReset } from '../actions'
-import { postToServer } from '../middleware'
+import { postToServer, patchNoteOfServer } from '../middleware'
 import * as CONSTANTS from '../components/CONSTANTS'
 import { isValid } from '../utils'
 
@@ -19,7 +19,7 @@ const updateMainLinksByAdd = (dispatch, selected) => {
 			title: document.getElementById(CONSTANTS.INPUT_MAIN_LINK_TITLE).value, 
 			defaultLink: document.getElementById(CONSTANTS.INPUT_MAIN_LINK_DEFAULT_LINK).value,
 		}, 
-		suburl:'/add/mainlink/'
+		suburl:'/add/mainlink/',
 	}))
 }
 
@@ -29,6 +29,16 @@ const updateMainLinksByEdit = (dispatch, selected) => {
 		document.getElementById(CONSTANTS.INPUT_MAIN_LINK_TITLE).value, 
 		document.getElementById(CONSTANTS.INPUT_MAIN_LINK_DEFAULT_LINK).value,
 	))
+	dispatch(patchNoteOfServer({
+		body:{
+			id: selected.mainLink,
+			data: {
+				title: document.getElementById(CONSTANTS.INPUT_MAIN_LINK_TITLE).value, 
+				defaultLink: document.getElementById(CONSTANTS.INPUT_MAIN_LINK_DEFAULT_LINK).value,
+			}
+		},
+		target: 'mainlink',
+	}))
 }
 
 let updateMainLinks = {
@@ -63,6 +73,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
 	return {
 		onClick: (e, inputMode, selected, validateState) => {
+			e.preventDefault()//
 			if (isValid(validateState,['title'])) {
 				updateMainLinks[inputMode](dispatch, selected)
 				setDefault(e, dispatch, inputMode)
