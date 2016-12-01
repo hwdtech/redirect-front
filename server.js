@@ -74,9 +74,7 @@ function prepareMainLinkDataToLoad(data) {
 }
 
 app.get('/', function (req, res) {
-   //res.sendFile( dirname + 'index.html' );
    console.log("GET /");  
-   //console.log(res);
    loadFromDB(MainLinks, res, prepareMainLinkDataToLoad);
 })
 
@@ -123,7 +121,6 @@ app.get('/sublinks/*/', function (req, res) {
    let id = getId(req.url); 
    loadFromDB(SubLinks, res, prepareSubLinkDataToLoad, {id});
 })
-
 /*------------------End HTTP GET--------------------*/
 /*------------------Static--------------------*/
 app.get('/index.html', function (req, res) {
@@ -136,9 +133,9 @@ app.get('/bundle.js', function (req, res) {
 	res.sendFile( dirname + '/bundle.js' );
 })
 
-app.get('/style.css', function (req, res) {
-   console.log("GET /style.css")
-	res.sendFile( dirname + '/style.css' );
+app.get('/styles.css', function (req, res) {
+   console.log("GET /styles.css")
+	res.sendFile( dirname + '/styles.css' );
 })
 /*------------------End Static--------------------*/
 /*------------------HTTP POST--------------------*/

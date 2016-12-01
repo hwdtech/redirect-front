@@ -19,7 +19,7 @@ function FieldGroup({ id, label, help, status, type, placeholder, onChange  }) {
 	)
 }
 
-const SubLinkForm = ({ onClick, onCancelClick, selectInputType, selected, viewContent, inputMode, ruleType, formContent, validate, validateState}) => (
+const SubLinkForm = ({ onClick, onCancelClick, selectInputType, selected, viewContent, inputMode, ruleType, formContent, validate, validateState, formFiller}) => (
 	<div style = {(isVisible(viewContent, SUB_LINK_FORM)) ? defaultStyles : hidenStyles}>
 		<h4>AddSubLink</h4>
 		<Form horizontal>

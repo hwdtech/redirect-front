@@ -62,8 +62,6 @@ const updateSubLinksByEdit = (dispatch, selected, ruleType) => {
 		}, 
 		target:'sublink',
 	}))
-	
-	dispatch(selectSubLink())
 }
 
 let updateSubLinks = {
@@ -78,6 +76,7 @@ const setDefault = (e, dispatch, ruleType) => {
 	dispatch(defaultInputMode())
 	dispatch(deleteVisibleContent(["ERROR_BLOCK"]))
 	dispatch(validateReset())
+	dispatch(selectSubLink())
 } 
 
 const mapStateToProps = (state) => {
@@ -114,6 +113,14 @@ const mapDispatchToProps = (dispatch) => {
 		validate: (type, data) => {
 			dispatch(validateInput(type, data))
 		},
+		formFiller: (formContent) => {
+			if (formContent) {
+				document.getElementById(CONSTANTS.INPUT_SUB_LINK_TITLE).value = formContent.title 
+				document.getElementById(CONSTANTS.INPUT_SUB_LINK_LINK).value = formContent.link
+				document.getElementById(CONSTANTS.INPUT_SUB_LINK_RULE_TYPE).value = formContent.ruleType
+				Rules[formContent.ruleType].set(formContent.rule)
+			}
+		}
 	}
 }
 
