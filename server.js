@@ -33,14 +33,23 @@ MainLinks.hasMany(SubLinks)
 
 sequelize.sync();
 
-function saveToDB(Table, data) {
-   Table.create(data);
+function saveToDB(Table, res, data) {
+   Table.create(data).then(function (note) {
+      //res.end(JSON.stringify(note.dataValues))//may be...
+      res.end("Created");
+   });
    Table.sync();
 }
 
-function editNoteOfDB(Table, id, data) {
+function editNoteOfDB(Table, res, id, data) {
    Table.findById(id).then(function (note) {
-         if (note) { note.updateAttributes(data) }
+         if (note) { 
+            note.updateAttributes(data) 
+            //res.end(JSON.stringify(note.dataValues))//may be...
+            res.end("Edited");
+         } else {
+            res.end("Error! Node does`t exist!");
+         }
       })
    Table.sync();
 }
@@ -65,7 +74,6 @@ function loadFromDB(Table, res, prepare, condition = {}) {
 /*------------------HTTP GET--------------------*/
 function prepareSubLinkDataToLoad(data) {
    data.rule = JSON.parse(data.rule)
-   console.log('Prepare(load)',data.rule)
    return data
 }
 
@@ -141,29 +149,27 @@ app.get('/styles.css', function (req, res) {
 /*------------------HTTP POST--------------------*/
 function prepareSubLinkDataToSave(data) {
    data.rule = JSON.stringify(data.rule)
-   console.log('Prepare(save)',data.rule)
-   //console.log('unPrepare', JSON.parse(data.rule))
    return data
 }
 
 app.post('/add/mainlink/', function (req, res) {
    console.log("POST " + req.url); 
-   saveToDB(MainLinks, req.body);
+   saveToDB(MainLinks, res, req.body);
 })
 
 app.post('/add/sublink/', function (req, res) {
    console.log("POST " + req.url); 
-   saveToDB(SubLinks, prepareSubLinkDataToSave(req.body));
+   saveToDB(SubLinks, res, prepareSubLinkDataToSave(req.body));
 })
 
 app.post('/patch/mainlink/', function (req, res) {
    console.log("POST " + req.url + req.body.id);
-   editNoteOfDB(MainLinks, req.body.id, req.body.data)
+   editNoteOfDB(MainLinks, res, req.body.id, req.body.data)
 })
 
 app.post('/patch/sublink/', function (req, res) {
    console.log("POST " + req.url + req.body.id);
-   editNoteOfDB(SubLinks, req.body.id, prepareSubLinkDataToSave(req.body.data))
+   editNoteOfDB(SubLinks, res, req.body.id, prepareSubLinkDataToSave(req.body.data))
 })
 /*------------------End HTTP POST--------------------*/
 /*------------------HTTP PATCH--------------------*/

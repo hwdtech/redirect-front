@@ -5,9 +5,7 @@ node v7.0.0
 #Install
 
 ```shell
-$ npm install --save react react-dom redux react-redux immutable react-bootstrap redux-api-middleware
-
-$ npm install --save-dev webpack babel-loader babel-preset-es2015 babel-preset-react babel-core static
+$ npm install 
 ```
 
 #Run 
@@ -15,5 +13,9 @@ $ npm install --save-dev webpack babel-loader babel-preset-es2015 babel-preset-r
 ```shell
 $ webpack
 
-$ static &
+$ node server.js
 ```
+
+#Entry point
+
+http://localhost:5000/index.html
