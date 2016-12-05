@@ -1,17 +1,16 @@
-import { VIEW_ERRORS } from '../actions/actionTypes'
-import { selectAction } from '../utils' 
+import { selectAction } from '../utils';
 
 
-const view_errors = (state, action) => {
-	return [...action.errors]
-}
+const viewErrors = (state, action) => (
+  [...action.errors]
+);
 
-let errorsActions = {
-	VIEW_ERRORS: view_errors,
-}
+const errorsActions = {
+  VIEW_ERRORS: viewErrors,
+};
 
-const errors = (state = [], action) => {
-	return selectAction(errorsActions, state, action)
-}
+const errors = (state = [], action) => (
+  selectAction(errorsActions, state, action)
+);
 
-export default errors
+export default errors;

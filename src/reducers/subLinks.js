@@ -1,72 +1,69 @@
-import { ADD_SUB_LINK, DELETE_SUB_LINK, DELETE_SUB_LINK_LIST_BY_MAIN_ID, EDIT_SUB_LINK } from '../actions/actionTypes'
-import { selectAction } from '../utils' 
+import { selectAction } from '../utils';
 
 
-const add_sub_link = (state, action) => {
-  return {
-    id: action.id,
-    mainlinkId: action.mainlinkId,
-    title: action.title,
-    link: action.link,
-    ruleType: action.ruleType,
-    rule: action.rule,
-  }
-}
+const addSubLink = (state, action) => ({
+  id: action.id,
+  mainlinkId: action.mainlinkId,
+  title: action.title,
+  link: action.link,
+  ruleType: action.ruleType,
+  rule: action.rule,
+});
 
-const edit_sub_link = (state, action) => {
+const editSubLink = (state, action) => {
   if (state.id !== action.id) {
-    return state
+    return state;
   }
   return Object.assign({}, state, {
     title: action.title,
     link: action.link,
     ruleType: action.ruleType,
     rule: action.rule,
-  })
-}
+  });
+};
 
-let subLinkActions = {
-  ADD_SUB_LINK: add_sub_link,
-  EDIT_SUB_LINK: edit_sub_link,
-}
+const subLinkActions = {
+  ADD_SUB_LINK: addSubLink,
+  EDIT_SUB_LINK: editSubLink,
+};
 
-const subLink = (state, action) => {
-  return selectAction(subLinkActions, state, action)
-}
+const subLink = (state, action) => (
+  selectAction(subLinkActions, state, action)
+);
 
-const add_sub_links = (state, action) => {
-  return [
+const addSubLinks = (state, action) => (
+  [
     ...state,
-    subLink(undefined, action)
+    subLink(undefined, action),
   ]
-}
+);
 
-const delete_sub_links = (state, action) => {
-  return state.filter(t => t.id !== action.id)
-}
+const deleteSubLinks = (state, action) => (
+  state.filter(t => t.id !== action.id)
+);
 
-const delete_sub_links_by_main_id = (state, action) => {
-  return state.filter(t => t.mainlinkId !== action.id)
-}
+const deleteSubLinksByMainId = (state, action) => (
+  state.filter(t => t.mainlinkId !== action.id)
+);
 
-const edit_sub_links = (state, action) => {
-  return state.map(t => subLink(t, action))
-}
+const editSubLinks = (state, action) => (
+  state.map(t => subLink(t, action))
+);
 
-const get_sub_links_response = (state, action) => {
-  return action.payload
-}
+const getSubLinksResponse = (state, action) => (
+  action.payload
+);
 
-let subLinksActions = {
-  ADD_SUB_LINK: add_sub_links,
-  DELETE_SUB_LINK: delete_sub_links,
-  DELETE_SUB_LINK_LIST_BY_MAIN_ID: delete_sub_links_by_main_id,
-  EDIT_SUB_LINK: edit_sub_links,
-  GET_SUB_LINKS_RESPONSE: get_sub_links_response,
-}
+const subLinksActions = {
+  ADD_SUB_LINK: addSubLinks,
+  DELETE_SUB_LINK: deleteSubLinks,
+  DELETE_SUB_LINK_LIST_BY_MAIN_ID: deleteSubLinksByMainId,
+  EDIT_SUB_LINK: editSubLinks,
+  GET_SUB_LINKS_RESPONSE: getSubLinksResponse,
+};
 
-const subLinks = (state = [], action) => {
-  return selectAction(subLinksActions, state, action)
-}
+const subLinks = (state = [], action) => (
+  selectAction(subLinksActions, state, action)
+);
 
-export default subLinks
+export default subLinks;

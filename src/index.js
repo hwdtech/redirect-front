@@ -1,27 +1,27 @@
-import React from 'react'
-import { render } from 'react-dom'
-import { Provider } from 'react-redux'
-import { createStore, applyMiddleware } from 'redux'
-import { reduxHttpMiddleware} from 'redux-http-middleware'
-import axios from 'axios'
-import app from './reducers'
-import App from './components/App'
-import { getMainLinks, getSubLinks } from './middleware'
+import React from 'react';
+import { render } from 'react-dom';
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
+import { reduxHttpMiddleware } from 'redux-http-middleware';
+import axios from 'axios';
+import app from './reducers';
+import App from './components/App';
+import { getMainLinks, getSubLinks } from './middleware';
 
 
-let store = createStore(
+const store = createStore(
   app,
   applyMiddleware(
-    reduxHttpMiddleware(axios)
-  )
-)
+    reduxHttpMiddleware(axios),
+  ),
+);
 
-store.dispatch(getMainLinks())
-store.dispatch(getSubLinks())
+store.dispatch(getMainLinks());
+store.dispatch(getSubLinks());
 
 render(
   <Provider store={store}>
     <App />
   </Provider>,
-  document.getElementById('root')
-)
+  document.getElementById('root'),
+);

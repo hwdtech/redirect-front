@@ -1,17 +1,16 @@
-import SELECT_RULE_TYPE from '../actions/actionTypes'
-import { selectAction } from '../utils' 
+import { selectAction } from '../utils';
 
 
-const select_rule_type = (state, action) => {
-	return action.ruleType
-}
+const selectRuleType = (state, action) => (
+  action.ruleType
+);
 
-let ruleTypeActions = {
-	SELECT_RULE_TYPE: select_rule_type,
-}
+const ruleTypeActions = {
+  SELECT_RULE_TYPE: selectRuleType,
+};
 
-const ruleType = (state = "DefaultRule", action) => {
-		return selectAction(ruleTypeActions, state, action)
-}
+const ruleType = (state = 'DefaultRule', action) => (
+  selectAction(ruleTypeActions, state, action)
+);
 
-export default ruleType
+export default ruleType;

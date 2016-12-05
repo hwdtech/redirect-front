@@ -1,42 +1,41 @@
-import { ADD_VISIBLE_CONTENT, SET_VISIBLE_CONTENT, DELETE_VISIBLE_CONTENT, SWITCH_VISIBLE_CONTENT } from '../actions/actionTypes'
-import { selectAction } from '../utils' 
+import { selectAction } from '../utils';
 
 
 const deleteDuplicate = (array, subArray) => (
-	array.filter(temp => !subArray.some(t => t === temp))
-)
+  array.filter(temp => !subArray.some(t => t === temp))
+);
 
-const add_visible_content = (state, action) => {
-	return [
-		...state, 
-		...deleteDuplicate(action.visibleContent, state)
-	]
-}
+const addVisibleContent = (state, action) => (
+  [
+    ...state,
+    ...deleteDuplicate(action.visibleContent, state),
+  ]
+);
 
-const set_visible_content = (state, action) => {
-	return [...action.visibleContent]
-}
+const setVisibleContent = (state, action) => (
+  [...action.visibleContent]
+);
 
-const delete_visible_content = (state, action) => {
-	return deleteDuplicate(state, action.visibleContent)
-}
+const deleteVisibleContent = (state, action) => (
+  deleteDuplicate(state, action.visibleContent)
+);
 
-const switch_visible_content = (state, action) => {
-	return [
-		...deleteDuplicate(state, action.visibleContent),
-		...deleteDuplicate(action.visibleContent, state) 
-	]
-}
+const switchVisibleContent = (state, action) => (
+  [
+    ...deleteDuplicate(state, action.visibleContent),
+    ...deleteDuplicate(action.visibleContent, state),
+  ]
+);
 
-let viewContentActions = {
-	SET_VISIBLE_CONTENT: set_visible_content,
-	ADD_VISIBLE_CONTENT: add_visible_content,
-	DELETE_VISIBLE_CONTENT: delete_visible_content,
-	SWITCH_VISIBLE_CONTENT: switch_visible_content,
-}
+const viewContentActions = {
+  SET_VISIBLE_CONTENT: setVisibleContent,
+  ADD_VISIBLE_CONTENT: addVisibleContent,
+  DELETE_VISIBLE_CONTENT: deleteVisibleContent,
+  SWITCH_VISIBLE_CONTENT: switchVisibleContent,
+};
 
-const viewContent = (state = ["MAIN_LINK_LIST",], action) => {
-	return selectAction(viewContentActions, state, action)
-}
+const viewContent = (state = ['MAIN_LINK_LIST'], action) => (
+  selectAction(viewContentActions, state, action)
+);
 
-export default viewContent
+export default viewContent;

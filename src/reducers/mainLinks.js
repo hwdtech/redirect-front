@@ -1,63 +1,59 @@
-import { ADD_MAIN_LINK, DELETE_MAIN_LINK, EDIT_MAIN_LINK } from '../actions/actionTypes'
-import { selectAction } from '../utils' 
+import { selectAction } from '../utils';
 
 
-const add_main_link = (state, action) => {
-    return {
-      id: action.id,
-      title: action.title,
-      defaultLink: action.defaultLink,
-    } 
-}
+const addMainLink = (state, action) => ({
+  id: action.id,
+  title: action.title,
+  defaultLink: action.defaultLink,
+});
 
-const edit_main_link = (state, action) => {
-    if (state.id !== action.id) {
-      return state
-    }
-    return Object.assign({}, state, {
-      title: action.title,
-      defaultLink: action.defaultLink,
-    })
-}
+const editMainLink = (state, action) => {
+  if (state.id !== action.id) {
+    return state;
+  }
+  return Object.assign({}, state, {
+    title: action.title,
+    defaultLink: action.defaultLink,
+  });
+};
 
-let mainLinkActions = {
-    ADD_MAIN_LINK: add_main_link, 
-    EDIT_MAIN_LINK: edit_main_link,
+const mainLinkActions = {
+  ADD_MAIN_LINK: addMainLink,
+  EDIT_MAIN_LINK: editMainLink,
+};
 
-}
+const mainLink = (state, action) => (
+  selectAction(mainLinkActions, state, action)
+);
 
-const mainLink = (state, action) => {
-    return selectAction(mainLinkActions, state, action)
-}
+const addMainLinks = (state, action) => (
+  [
+    ...state,
+    mainLink(undefined, action),
+  ]
+);
 
-const add_main_links = (state, action) => {
-    return [
-      ...state,
-      mainLink(undefined, action)
-    ]  
-}
+const deleteMainLinks = (state, action) => (
+  state.filter(t => t.id !== action.id)
+);
 
-const delete_main_links = (state, action) => {
-    return state.filter(t => t.id !== action.id)
-}
+const editMainLinks = (state, action) => (
+    state.map(t => mainLink(t, action))
+);
 
-const edit_main_links = (state, action) => {
-    return state.map(t => mainLink(t, action))
-}
+const getMainLinksResponse = (state, action) => (
+  action.payload
+);
 
-const get_main_links_response = (state, action) => {
-    return action.payload
-}
+const mainLinksActions = {
+  ADD_MAIN_LINK: addMainLinks,
+  DELETE_MAIN_LINK: deleteMainLinks,
+  EDIT_MAIN_LINK: editMainLinks,
+  GET_MAIN_LINKS_RESPONSE: getMainLinksResponse,
+};
 
-let mainLinksActions = {
-    ADD_MAIN_LINK: add_main_links, 
-    DELETE_MAIN_LINK: delete_main_links,
-    EDIT_MAIN_LINK: edit_main_links,
-    GET_MAIN_LINKS_RESPONSE: get_main_links_response,
-}
+const mainLinks = (state = [], action) => (
+  selectAction(mainLinksActions, state, action)
+);
 
-const mainLinks = (state = [], action) => {
-    return selectAction(mainLinksActions, state, action)
-}
-
-export default mainLinks
+export default mainLinks;
