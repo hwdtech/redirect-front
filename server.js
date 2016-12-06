@@ -5,6 +5,7 @@ const Sequelize = require('sequelize');
 const app = express();
 
 app.use(bodyParser.json());
+app.use(express.static(__dirname + '/static'));
 
 const dirname = __dirname;
 // var dirname = '/home/user/redirect-front'
@@ -131,22 +132,6 @@ app.get('/sublinks/*/', (req, res) => {
   loadFromDB(SubLinks, res, prepareSubLinkDataToLoad, { id });
 });
 /* ------------------End HTTP GET-------------------- */
-/* ------------------Static-------------------- */
-app.get('/index.html', (req, res) => {
-  console.log('GET /index.html');
-  res.sendFile(`${dirname}/index.html`);
-});
-
-app.get('/bundle.js', (req, res) => {
-  console.log('GET /bundle.js');
-  res.sendFile(`${dirname}/bundle.js`);
-});
-
-app.get('/styles.css', (req, res) => {
-  console.log('GET /styles.css');
-  res.sendFile(`${dirname}/styles.css`);
-});
-/* ------------------End Static-------------------- */
 /* ------------------HTTP POST-------------------- */
 function prepareSubLinkDataToSave(data) {
   return Object.assign({}, data, {

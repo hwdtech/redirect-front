@@ -43,7 +43,7 @@ export const deleteFromServer = ({ id, target = '' }) => ({
 
 export const getMainLinks = () => ({
   GET,
-  url,
+  url: `${url}/mainlinks/`,
   onRequest: 'GET_MAIN_LINKS_REQUEST',
   onResponse: 'GET_MAIN_LINKS_RESPONSE',
   onError: 'GET_MAIN_LINKS_ERROR',

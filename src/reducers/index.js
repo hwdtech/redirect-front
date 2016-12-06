@@ -7,7 +7,7 @@ import inputMode from './inputMode';
 import ruleType from './ruleType';
 import errors from './errors';
 import validateState from './validateState';
-import serverState from './serverState';
+
 
 const app = combineReducers({
   mainLinks,
@@ -18,7 +18,6 @@ const app = combineReducers({
   ruleType,
   errors,
   validateState,
-  serverState,
 });
 
 export default app;
