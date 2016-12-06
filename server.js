@@ -32,20 +32,18 @@ MainLinks.hasMany(SubLinks);
 
 sequelize.sync();
 
-function saveToDB(Table, res, data) {
-  Table.create(data).then(() => {
-    // res.end(JSON.stringify(note.dataValues)) // may be...
-    res.end('Created');
+function saveToDB(Table, res, prepare, data) {
+  Table.create(data).then((note) => {
+    res.json(prepare(note.dataValues));
   });
   Table.sync();
 }
 
-function editNoteOfDB(Table, res, id, data) {
+function editNoteOfDB(Table, res, prepare, id, data) {
   Table.findById(id).then((note) => {
     if (note) {
       note.updateAttributes(data);
-      // res.end(JSON.stringify(note.dataValues)) // may be...
-      res.end('Edited');
+      res.json(prepare(note.dataValues));
     } else {
       res.end('Error! Node does`t exist!');
     }
@@ -66,7 +64,7 @@ function loadFromDB(Table, res, prepare, condition = {}) {
       where: condition,
     })
     .then((notes) => {
-      res.end(JSON.stringify(notes.map(temp => prepare(temp.dataValues))));
+      res.json(notes.map(temp => prepare(temp.dataValues)));
     });
 }
 /* ------------------End Sequelize-------------------- */
@@ -145,22 +143,22 @@ function prepareSubLinkDataToSave(data) {
 
 app.post('/add/mainlink/', (req, res) => {
   console.log(`POST ${req.url}`);
-  saveToDB(MainLinks, res, req.body);
+  saveToDB(MainLinks, res, prepareMainLinkDataToLoad, req.body);
 });
 
 app.post('/add/sublink/', (req, res) => {
   console.log(`POST ${req.url}`);
-  saveToDB(SubLinks, res, prepareSubLinkDataToSave(req.body));
+  saveToDB(SubLinks, res, prepareSubLinkDataToLoad, prepareSubLinkDataToSave(req.body));
 });
 
 app.post('/patch/mainlink/', (req, res) => {
   console.log(`POST ${req.url}${req.body.id}`);
-  editNoteOfDB(MainLinks, res, req.body.id, req.body.data);
+  editNoteOfDB(MainLinks, res, prepareMainLinkDataToLoad, req.body.id, req.body.data);
 });
 
 app.post('/patch/sublink/', (req, res) => {
   console.log(`POST ${req.url}${req.body.id}`);
-  editNoteOfDB(SubLinks, res, req.body.id, prepareSubLinkDataToSave(req.body.data));
+  editNoteOfDB(SubLinks, res, prepareSubLinkDataToLoad, req.body.id, prepareSubLinkDataToSave(req.body.data));
 });
 /* ------------------End HTTP POST-------------------- */
 /* ------------------HTTP PATCH-------------------- */

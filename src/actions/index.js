@@ -1,41 +1,9 @@
 import * as actionTypes from '../actions/actionTypes';
 
-let nextMainId = 0;
-export const addMainLink = (title, defaultLink) => {
-  nextMainId += 1;
-  return {
-    type: actionTypes.ADD_MAIN_LINK,
-    id: nextMainId,
-    title,
-    defaultLink,
-  };
-};
-
-export const editMainLink = (id, title, defaultLink) => ({
-  type: actionTypes.EDIT_MAIN_LINK,
-  id,
-  title,
-  defaultLink,
-});
-
 export const deleteMainLink = id => ({
   type: actionTypes.DELETE_MAIN_LINK,
   id,
 });
-
-let nextSubId = 0;
-export const addSubLink = (mainlinkId, title, link, ruleType, rule) => {
-  nextSubId += 1;
-  return {
-    type: actionTypes.ADD_SUB_LINK,
-    id: nextSubId,
-    mainlinkId,
-    title,
-    link,
-    ruleType,
-    rule,
-  };
-};
 
 export const deleteSubLink = id => ({
   type: actionTypes.DELETE_SUB_LINK,
@@ -45,15 +13,6 @@ export const deleteSubLink = id => ({
 export const deleteSubLinkListByMainId = id => ({
   type: actionTypes.DELETE_SUB_LINK_LIST_BY_MAIN_ID,
   id,
-});
-
-export const editSubLink = (id, title, link, ruleType, rule) => ({
-  type: actionTypes.EDIT_SUB_LINK,
-  id,
-  title,
-  link,
-  ruleType,
-  rule,
 });
 
 export const selectMainLink = id => ({

@@ -1,16 +1,12 @@
 import { connect } from 'react-redux';
 import MainLinkForm from '../components/MainLinkForm';
-import { addMainLink, editMainLink, setVisibleContent, addVisibleContent, deleteVisibleContent, defaultInputMode, selectMainLink, viewErrors, validateInput, validateReset } from '../actions';
+import { setVisibleContent, addVisibleContent, deleteVisibleContent, defaultInputMode, selectMainLink, viewErrors, validateInput, validateReset } from '../actions';
 import { postToServer, patchNoteOfServer } from '../middleware';
 import * as CONSTANTS from '../components/CONSTANTS';
 import { isValid } from '../utils';
 
 
 const updateMainLinksByAdd = (dispatch) => {
-  dispatch(addMainLink(
-    document.getElementById(CONSTANTS.INPUT_MAIN_LINK_TITLE).value,
-    document.getElementById(CONSTANTS.INPUT_MAIN_LINK_DEFAULT_LINK).value,
-  ));
   dispatch(postToServer({
     body: {
       title: document.getElementById(CONSTANTS.INPUT_MAIN_LINK_TITLE).value,
@@ -21,11 +17,6 @@ const updateMainLinksByAdd = (dispatch) => {
 };
 
 const updateMainLinksByEdit = (dispatch, selected) => {
-  dispatch(editMainLink(
-    selected.mainLink,
-    document.getElementById(CONSTANTS.INPUT_MAIN_LINK_TITLE).value,
-    document.getElementById(CONSTANTS.INPUT_MAIN_LINK_DEFAULT_LINK).value,
-  ));
   dispatch(patchNoteOfServer({
     body: {
       id: selected.mainLink,

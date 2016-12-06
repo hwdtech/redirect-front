@@ -2,29 +2,34 @@ import { selectAction } from '../utils';
 
 
 const addSubLink = (state, action) => ({
-  id: action.id,
-  mainlinkId: action.mainlinkId,
-  title: action.title,
-  link: action.link,
-  ruleType: action.ruleType,
-  rule: action.rule,
+  id: action.payload.id,
+  mainlinkId: action.payload.mainlinkId,
+  title: action.payload.title,
+  link: action.payload.link,
+  ruleType: action.payload.ruleType,
+  rule: action.payload.rule,
+  description: action.payload.description,
+  createdAt: action.payload.createdAt,
+  updatedAt: action.payload.updatedAt,
 });
 
 const editSubLink = (state, action) => {
-  if (state.id !== action.id) {
+  if (state.id !== action.payload.id) {
     return state;
   }
   return Object.assign({}, state, {
-    title: action.title,
-    link: action.link,
-    ruleType: action.ruleType,
-    rule: action.rule,
+    title: action.payload.title,
+    link: action.payload.link,
+    ruleType: action.payload.ruleType,
+    rule: action.payload.rule,
+    description: action.payload.description,
+    updatedAt: action.payload.updatedAt,
   });
 };
 
 const subLinkActions = {
-  ADD_SUB_LINK: addSubLink,
-  EDIT_SUB_LINK: editSubLink,
+  POST_TO_SERVER_RESPONSE_SUBLINK: addSubLink,
+  PATCH_NOTE_OF_SERVER_RESPONSE_SUBLINK: editSubLink,
 };
 
 const subLink = (state, action) => (
@@ -55,10 +60,10 @@ const getSubLinksResponse = (state, action) => (
 );
 
 const subLinksActions = {
-  ADD_SUB_LINK: addSubLinks,
+  POST_TO_SERVER_RESPONSE_SUBLINK: addSubLinks,
   DELETE_SUB_LINK: deleteSubLinks,
   DELETE_SUB_LINK_LIST_BY_MAIN_ID: deleteSubLinksByMainId,
-  EDIT_SUB_LINK: editSubLinks,
+  PATCH_NOTE_OF_SERVER_RESPONSE_SUBLINK: editSubLinks,
   GET_SUB_LINKS_RESPONSE: getSubLinksResponse,
 };
 

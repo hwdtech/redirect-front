@@ -2,24 +2,29 @@ import { selectAction } from '../utils';
 
 
 const addMainLink = (state, action) => ({
-  id: action.id,
-  title: action.title,
-  defaultLink: action.defaultLink,
+  id: action.payload.id,
+  title: action.payload.title,
+  defaultLink: action.payload.defaultLink,
+  description: action.payload.description,
+  createdAt: action.payload.createdAt,
+  updatedAt: action.payload.updatedAt,
 });
 
 const editMainLink = (state, action) => {
-  if (state.id !== action.id) {
+  if (state.id !== action.payload.id) {
     return state;
   }
   return Object.assign({}, state, {
-    title: action.title,
-    defaultLink: action.defaultLink,
+    title: action.payload.title,
+    defaultLink: action.payload.defaultLink,
+    description: action.payload.description,
+    updatedAt: action.payload.updatedAt,
   });
 };
 
 const mainLinkActions = {
-  ADD_MAIN_LINK: addMainLink,
-  EDIT_MAIN_LINK: editMainLink,
+  POST_TO_SERVER_RESPONSE_MAINLINK: addMainLink,
+  PATCH_NOTE_OF_SERVER_RESPONSE_MAINLINK: editMainLink,
 };
 
 const mainLink = (state, action) => (
@@ -46,9 +51,9 @@ const getMainLinksResponse = (state, action) => (
 );
 
 const mainLinksActions = {
-  ADD_MAIN_LINK: addMainLinks,
+  POST_TO_SERVER_RESPONSE_MAINLINK: addMainLinks,
   DELETE_MAIN_LINK: deleteMainLinks,
-  EDIT_MAIN_LINK: editMainLinks,
+  PATCH_NOTE_OF_SERVER_RESPONSE_MAINLINK: editMainLinks,
   GET_MAIN_LINKS_RESPONSE: getMainLinksResponse,
 };
 

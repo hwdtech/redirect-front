@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import SubLinkForm from '../components/SubLinkForm';
-import { addSubLink, editSubLink, addVisibleContent, deleteVisibleContent, defaultInputMode, selectSubLink, selectRuleType, viewErrors, validateInput, validateReset } from '../actions';
+import { addVisibleContent, deleteVisibleContent, defaultInputMode, selectSubLink, selectRuleType, viewErrors, validateInput, validateReset } from '../actions';
 import { postToServer, patchNoteOfServer } from '../middleware';
 import * as CONSTANTS from '../components/CONSTANTS';
 import { Rules } from '../components/RuleForms';
@@ -16,13 +16,6 @@ const refreshSubLinkForm = (ruleType) => {
 const updateSubLinksByAdd = (dispatch, selected, ruleType) => {
   const t = document.getElementById(CONSTANTS.INPUT_SUB_LINK_RULE_TYPE);
 
-  dispatch(addSubLink(
-    selected.mainLink,
-    document.getElementById(CONSTANTS.INPUT_SUB_LINK_TITLE).value,
-    document.getElementById(CONSTANTS.INPUT_SUB_LINK_LINK).value,
-    t.options[t.selectedIndex].value,
-    Rules[ruleType].get(),
-  ));
   dispatch(postToServer({
     body: {
       mainlinkId: selected.mainLink,
@@ -37,14 +30,6 @@ const updateSubLinksByAdd = (dispatch, selected, ruleType) => {
 
 const updateSubLinksByEdit = (dispatch, selected, ruleType) => {
   const t = document.getElementById(CONSTANTS.INPUT_SUB_LINK_RULE_TYPE);
-
-  dispatch(editSubLink(
-    selected.subLink,
-    document.getElementById(CONSTANTS.INPUT_SUB_LINK_TITLE).value,
-    document.getElementById(CONSTANTS.INPUT_SUB_LINK_LINK).value,
-    t.options[t.selectedIndex].value,
-    Rules[ruleType].get(),
-  ));
 
   dispatch(patchNoteOfServer({
     body: {
