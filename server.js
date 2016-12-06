@@ -3,13 +3,11 @@ const bodyParser = require('body-parser');
 const Sequelize = require('sequelize');
 
 const app = express();
-
-app.use(bodyParser.json());
-app.use(express.static(__dirname + '/static'));
-
 const dirname = __dirname;
 // var dirname = '/home/user/redirect-front'
 
+app.use(bodyParser.json());
+app.use(express.static(`${dirname}/static`));
 /* ------------------Sequelize-------------------- */
 const sequelize = new Sequelize('database', null, null, {
   dialect: 'sqlite',
@@ -98,7 +96,10 @@ function getId(url) {
   let begin = end - 1;
   while (url[begin] !== '/') { begin -= 1; }
   const id = parseInt(url.substring(begin + 1, end), 10);
-  return id ? id : -1;
+  if (id) {
+    return id;
+  }
+  return -1;
 }
 
 app.get('/mainlinks/*/', (req, res) => {
@@ -117,7 +118,10 @@ function getMainId(url) {
   let end = url.indexOf('/', begin);
   end = end !== -1 ? end : url.length;
   const mainId = parseInt(url.substring(begin + 1, end), 10);
-  return mainId ? mainId : -1;
+  if (mainId) {
+    return mainId;
+  }
+  return -1;
 }
 
 app.get('/sublinks/mainId=*/', (req, res) => {
@@ -180,6 +184,12 @@ app.delete('/del/sublink/', (req, res) => {
   res.send('DELETE SUCCESS');
 });
 /* ------------------End HTTP DELETE-------------------- */
+/* ------------------404-------------------- */
+app.get('*', (req, res) => {
+  console.log(`GET 404 ${req.url}`);
+  res.status(404).send('404 Not Found');
+});
+/* ------------------End 404-------------------- */
 /* ------------------Init server-------------------- */
 const server = app.listen(5000, () => {
   const host = server.address().address;
