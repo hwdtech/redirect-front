@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
   	<head>
-	
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		
 	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -14,16 +13,22 @@
 
 	    <!-- Bootstrap core CSS -->
 		<link href="http://bootstrap-3.ru/dist/css/bootstrap.min.css" rel="stylesheet">
-
+		
 	    <!-- Custom styles for this template -->
-	    <link rel="stylesheet" type="text/css" href="styles.css"><!--my css -->
+	    <!--<link rel="stylesheet" type="text/css" href="styles.css">--><!--my css -->
+	    <script>
+			document.write(`<link rel="stylesheet" type="text/css" href="${window.location.origin}/styles.css">`);
+		</script>
 		<style id="holderjs-style" type="text/css"></style>
 
 	</head>
 
 	<body>
 	    <div id="root"></div>
-	    <script src="bundle.js"></script>
+	    <!--<script src="bundle.js">--></script>
+	    <script>
+			document.write(`<script src="${window.location.origin}/bundle.js"><//script>`);
+		</script>
         <!-- Bootstrap core JavaScript -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 		<script src="http://bootstrap-3.ru/dist/js/bootstrap.min.js"></script>

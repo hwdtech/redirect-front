@@ -5,7 +5,7 @@ import { createStore, applyMiddleware } from 'redux';
 import { reduxHttpMiddleware } from 'redux-http-middleware';
 import axios from 'axios';
 import app from './reducers';
-import App from './components/App';
+import Router from './Router';
 import { getMainLinks, getSubLinks } from './middleware';
 
 
@@ -21,7 +21,7 @@ store.dispatch(getSubLinks());
 
 render(
   <Provider store={store}>
-    <App />
+    <Router />
   </Provider>,
   document.getElementById('root'),
 );

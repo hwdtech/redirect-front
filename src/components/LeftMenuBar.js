@@ -6,9 +6,9 @@ const LeftMenuBar = ({ onHomeClick, onMainLinkFormClick, onMainLinkListClick, on
   <div className="col-sm-3 col-md-2 sidebar">
     <ul className="nav nav-sidebar">
       <LeftMenuButton onClick={onHomeClick} text="Home" />
-      <LeftMenuButton onClick={onMainLinkFormClick} text="Main Link Form" />
-      <LeftMenuButton onClick={onMainLinkListClick} text="Main Link List" />
-      <LeftMenuButton onClick={onSubLinkFormClick} text="Sub Link Form" />
+      <LeftMenuButton onClick={onMainLinkFormClick} text="Main Link Form" link="main-link-form" />
+      <LeftMenuButton onClick={onMainLinkListClick} text="Main Link List" link="links" />
+      <LeftMenuButton onClick={onSubLinkFormClick} text="Sub Link Form" link="sub-link-form" />
     </ul>
   </div>
 );

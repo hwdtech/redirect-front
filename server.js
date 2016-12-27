@@ -184,6 +184,10 @@ app.delete('/del/sublink/', (req, res) => {
 /* ------------------End HTTP DELETE-------------------- */
 /* ------------------404-------------------- */
 app.get('*', (req, res) => {
+  console.log(`GET 200 ${req.url}`);
+  res.status(200).sendFile(`${dirname}/static/index.html`);
+});
+app.get('*', (req, res) => {
   console.log(`GET 404 ${req.url}`);
   res.status(404).send('404 Not Found');
 });
