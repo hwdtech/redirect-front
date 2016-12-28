@@ -7,6 +7,7 @@ import inputMode from './inputMode';
 import ruleType from './ruleType';
 import errors from './errors';
 import validateState from './validateState';
+import chains from './chains';
 
 
 const app = combineReducers({
@@ -18,6 +19,7 @@ const app = combineReducers({
   ruleType,
   errors,
   validateState,
+  chains,
 });
 
 export default app;

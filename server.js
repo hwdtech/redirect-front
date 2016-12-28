@@ -133,6 +133,11 @@ app.get('/sublinks/*/', (req, res) => {
   const id = getId(req.url);
   loadFromDB(SubLinks, res, prepareSubLinkDataToLoad, { id });
 });
+
+app.get('/chains/', (req, res) => {
+  console.log(`GET ${req.url}`);
+  res.status(200).sendFile(`${dirname}/chains.json`);
+});
 /* ------------------End HTTP GET-------------------- */
 /* ------------------HTTP POST-------------------- */
 function prepareSubLinkDataToSave(data) {

@@ -1,0 +1,674 @@
+{
+  "maps": [
+    {
+      "id": "createInvoice",
+      "steps": [
+        {
+          "target": "call_this_chain_receiver",
+          "chain": "authenticate"
+        },
+        {
+          "target": "getAsyncOpsActor",
+          "handler": "getOperation",
+          "wrapper": {
+            "in_getToken": "message/token",
+            "out_setAsyncOperation": "message/asyncOperation"
+          }
+        },
+        {
+          "target": "convertFormatActor",
+          "handler": "convert",
+          "wrapper": {
+            "in_getFromObject": "message/schema",
+            "in_getConvertStrategy": "const/SchemaInner",
+            "out_setResultObject": "message/invoice"
+          }
+        },
+        {
+          "target" : "invoiceActor",
+          "handler" : "addDataFromProvider",
+          "wrapper" : {
+            "in_getProviderId" : "message/asyncOperation/asyncData/providerId",
+            "in_getServices" : "message/invoice/услуги",
+            "in_getTargetObject": "message/invoice",
+            "in_getOldNumber": "message/invoice/number",
+            "in_getType": "const/invoice",
+            "out_setProviderId": [
+              [
+                {
+                  "name": "fillNotExistFieldStrategy",
+                  "args": [ "local/value", "const/поставщик/id" ]
+                },
+                {
+                  "name": "target",
+                  "args": [ "message/invoice/поставщик" ]
+                }
+              ]
+            ],
+            "out_setFullProviderName": "message/invoice/полное-наименование",
+            "out_setShortProviderName": "message/invoice/короткое-наименование",
+            "out_setUserIdentifier": "message/invoice/userIdentifier",
+            "out_setUserIdentifyField": "message/invoice/userIdentifyField",
+            "out_setPaymentType": "message/invoice/paymentType",
+            "out_setNumber": "message/invoice/number"
+          }
+        },
+        {
+          "target" : "commissionActor",
+          "handler" : "addCommissionValueToInvoice",
+          "wrapper" : {
+            "in_getInvoice" : [
+              {
+                "name": "convertIObjectToInvoiceRule",
+                "args" : [
+                  "message/invoice"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "target": "marksActor",
+          "handler": "checkInvoiceIsMarked",
+          "wrapper": {
+            "in_getIsMarked": "message/invoice/добавить-метку",
+            "out_setIsMarkedFlag": "message/chainCondition"
+          }
+        },
+        {
+          "target": "condition_chain_selector",
+          "trueChain": "setMarkMap",
+          "falseChain": "emptyMap"
+        },
+        {
+          "target": "collectSearchDataActor",
+          "handler": "createFullTextSearchField",
+          "wrapper": {
+            "in_getDataObject": "message/invoice",
+            "out_setFullTextData": "message/invoice/searchData",
+            "in_getSimpleCopyFields": "config/invoiceFTSFields"
+          }
+        },
+        {
+          "target": "shoppingCartActorCollection",
+          "handler": "upsertInvoice",
+          "new" : {
+            "kind" : "actor",
+            "dependency" : "com.perspective.vpng.actor.shopping_cart.CacheShoppingCartActor",
+            "collectionName" : "shopping_cart"
+          },
+          "key": "in_getShoppingCartId",
+          "wrapper": {
+            "in_getShoppingCartId": [
+              {
+                "name" : "getFirstNotNullRule",
+                "args" : [
+                  "message/session/userId",
+                  "message/session/sessionId"
+                ]
+              }
+            ],
+            "in_getInvoice": "message/invoice",
+            "in_getInvoiceId": "message/invoiceId"
+          }
+        },
+        {
+          "target": "closeAsyncOpsActor",
+          "handler": "completeAsyncOp",
+          "wrapper": {
+            "in_getOperation": "message/asyncOperation",
+            "in_getOperationTokens": "message/session/tokens",
+            "in_getToken": "message/operationId"
+          }
+        },
+        {
+          "target": "call_this_chain_receiver",
+          "chain": "saveSessionAndRespond"
+        }
+      ],
+      "exceptional": [
+        {
+          "class": "com.perspective.vpng.actor.create_session.exception.CreateSessionException",
+          "chain": "exceptionHandlerChain"
+        },
+        {
+          "class": "com.perspective.vpng.actor.authentication.exception.AuthFailException",
+          "chain": "exceptionHandlerChain"
+        },
+        {
+          "class": "info.smart_tools.smartactors.async_operations.get_async_operation.exception.GetAsyncOperationActorException",
+          "chain": "exceptionHandlerChain"
+        },
+        {
+          "class": "com.perspective.vpng.actor.invoice.exceptions.InvoiceActorException",
+          "chain": "exceptionHandlerChain"
+        },
+        {
+          "class": "com.perspective.vpng.actor.commission.exceptions.CalculationCommissionException",
+          "chain": "exceptionHandlerChain"
+        },
+        {
+          "class": "com.perspective.vpng.actor.commission.exceptions.CommissionActorException",
+          "chain": "exceptionHandlerChain"
+        },
+        {
+          "class": "com.perspective.vpng.actor.shopping_cart.exception.ShoppingCartException",
+          "chain": "exceptionHandlerChain"
+        },
+        {
+          "class": "info.smart_tools.smartactors.base.exception.invalid_argument_exception.InvalidArgumentException",
+          "chain": "exceptionHandlerChain"
+        },
+        {
+          "class": "com.perspective.vpng.actor.save_session.exception.SaveSessionException",
+          "chain": "exceptionHandlerChain"
+        },
+        {
+          "class": "info.smart_tools.smartactors.endpoint.actor.response_sender_actor.exceptions.ResponseSenderActorException",
+          "chain": "exceptionHandlerChain"
+        }
+      ],
+      "externalAccess": true
+    },
+    {
+      "id": "updateInvoice",
+      "steps": [
+        {
+          "target": "call_this_chain_receiver",
+          "chain": "authenticate"
+        },
+        {
+          "target": "shoppingCartActorCollection",
+          "handler": "takeInvoiceById",
+          "new" : {
+            "kind" : "actor",
+            "dependency" : "com.perspective.vpng.actor.shopping_cart.CacheShoppingCartActor",
+            "collectionName" : "shopping_cart"
+          },
+          "key": "in_getShoppingCartId",
+          "wrapper": {
+            "in_getShoppingCartId": [
+              {
+                "name" : "getFirstNotNullRule",
+                "args" : [
+                  "message/session/userId",
+                  "message/session/sessionId"
+                ]
+              }
+            ],
+            "in_getId": "message/invoiceId",
+            "out_setInvoice": "message/existingInvoice"
+          }
+        },
+        {
+          "target": "convertFormatActor",
+          "handler": "convert",
+          "wrapper": {
+            "in_getFromObject": "message/invoice",
+            "in_getConvertStrategy": "const/SchemaInner",
+            "out_setResultObject": "message/invoice"
+          }
+        },
+        {
+          "target" : "invoiceActor",
+          "handler" : "addDataFromProvider",
+          "wrapper" : {
+            "in_getProviderId" : "message/existingInvoice/поставщик/id",
+            "in_getServices" : "message/invoice/услуги",
+            "in_getTargetObject": "message/invoice",
+            "in_getOldNumber": "message/existingInvoice/number",
+            "in_getType": "const/invoice",
+            "out_setProviderId": [
+              [
+                {
+                  "name": "fillNotExistFieldStrategy",
+                  "args": [ "local/value", "const/поставщик/id" ]
+                },
+                {
+                  "name": "target",
+                  "args": [ "message/invoice/поставщик" ]
+                }
+              ]
+            ],
+            "out_setFullProviderName": "message/invoice/полное-наименование",
+            "out_setShortProviderName": "message/invoice/короткое-наименование",
+            "out_setUserIdentifier": "message/invoice/userIdentifier",
+            "out_setUserIdentifyField": "message/invoice/userIdentifyField",
+            "out_setPaymentType": "message/invoice/paymentType",
+            "out_setNumber": "message/invoice/number"
+          }
+        },
+        {
+          "target" : "commissionActor",
+          "handler" : "addCommissionValueToInvoice",
+          "wrapper" : {
+            "in_getInvoice" : [
+              {
+                "name": "convertIObjectToInvoiceRule",
+                "args" : [
+                  "message/invoice"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "target": "collectSearchDataActor",
+          "handler": "createFullTextSearchField",
+          "wrapper": {
+            "in_getDataObject": "message/invoice",
+            "out_setFullTextData": "message/invoice/searchData",
+            "in_getSimpleCopyFields": "config/invoiceFTSFields"
+          }
+        },
+        {
+          "target": "shoppingCartActorCollection",
+          "handler": "upsertInvoice",
+          "new" : {
+            "kind" : "actor",
+            "dependency" : "com.perspective.vpng.actor.shopping_cart.CacheShoppingCartActor",
+            "collectionName" : "shopping_cart"
+          },
+          "key": "in_getShoppingCartId",
+          "wrapper": {
+            "in_getShoppingCartId": [
+              {
+                "name" : "getFirstNotNullRule",
+                "args" : [
+                  "message/session/userId",
+                  "message/session/sessionId"
+                ]
+              }
+            ],
+            "in_getInvoice": "message/invoice",
+            "in_getInvoiceId": "message/invoiceId"
+          }
+        },
+        {
+          "target": "call_this_chain_receiver",
+          "chain": "saveSessionAndRespond"
+        }
+      ],
+      "exceptional": [
+        {
+          "class": "com.perspective.vpng.actor.create_session.exception.CreateSessionException",
+          "chain": "exceptionHandlerChain"
+        },
+        {
+          "class": "com.perspective.vpng.actor.authentication.exception.AuthFailException",
+          "chain": "exceptionHandlerChain"
+        },
+        {
+          "class": "com.perspective.vpng.actor.shopping_cart.exception.ShoppingCartException",
+          "chain": "exceptionHandlerChain"
+        },
+        {
+          "class": "com.perspective.vpng.actor.get_form.exception.GetFormActorException",
+          "chain": "exceptionHandlerChain"
+        },
+        {
+          "class": "com.perspective.vpng.actor.invoice.exceptions.InvoiceActorException",
+          "chain": "exceptionHandlerChain"
+        },
+        {
+          "class": "com.perspective.vpng.actor.commission.exceptions.CalculationCommissionException",
+          "chain": "exceptionHandlerChain"
+        },
+        {
+          "class": "com.perspective.vpng.actor.commission.exceptions.CommissionActorException",
+          "chain": "exceptionHandlerChain"
+        },
+        {
+          "class": "com.perspective.vpng.actor.save_session.exception.SaveSessionException",
+          "chain": "exceptionHandlerChain"
+        },
+        {
+          "class": "info.smart_tools.smartactors.endpoint.actor.response_sender_actor.exceptions.ResponseSenderActorException",
+          "chain": "exceptionHandlerChain"
+        }
+      ],
+      "externalAccess": true
+    },
+    {
+      "id": "setMarkMap",
+      "steps": [
+        {
+          "target": "getUserActor",
+          "handler": "getUser",
+          "wrapper": {
+            "in_getUserId": "message/session/userId",
+            "out_setUser": "message/user"
+          }
+        },
+        {
+          "target": "marksActor",
+          "handler": "saveInvoiceToMarkedInvoices",
+          "wrapper": {
+            "in_getInvoice": "message/invoice",
+            "in_getUserId": "message/session/userId",
+            "in_getMark": "message/invoice/метка",
+            "in_getUserMarks": "message/user/userMarks",
+            "out_setUserMarks": "message/user/userMarks"
+          }
+        },
+        {
+          "target": "getUserActor",
+          "handler": "saveUser",
+          "wrapper": {
+            "in_getUser": "message/user"
+          }
+        }
+      ],
+      "exceptional": []
+    },
+    {
+      "id": "deleteInvoice",
+      "steps": [
+        {
+          "target": "call_this_chain_receiver",
+          "chain": "authenticate"
+        },
+        {
+          "target" : "shoppingCartActorCollection",
+          "handler" : "deleteInvoiceById",
+          "new" : {
+            "kind" : "actor",
+            "dependency" : "com.perspective.vpng.actor.shopping_cart.CacheShoppingCartActor",
+            "collectionName" : "shopping_cart"
+          },
+          "key" : "in_getShoppingCartId",
+          "wrapper" : {
+            "in_getShoppingCartId" : [
+              {
+                "name" : "getFirstNotNullRule",
+                "args" : [
+                  "message/session/userId",
+                  "message/session/sessionId"
+                ]
+              }
+            ],
+            "in_getId" : "message/invoiceId"
+          }
+        },
+        {
+          "target": "call_this_chain_receiver",
+          "chain": "saveSessionAndRespond"
+        }
+      ],
+      "exceptional": [
+        {
+          "class": "com.perspective.vpng.actor.create_session.exception.CreateSessionException",
+          "chain": "exceptionHandlerChain"
+        },
+        {
+          "class": "com.perspective.vpng.actor.authentication.exception.AuthFailException",
+          "chain": "exceptionHandlerChain"
+        },
+        {
+          "class": "com.perspective.vpng.actor.shopping_cart.exception.ShoppingCartException",
+          "chain": "exceptionHandlerChain"
+        },
+        {
+          "class": "com.perspective.vpng.actor.save_session.exception.SaveSessionException",
+          "chain": "exceptionHandlerChain"
+        },
+        {
+          "class": "info.smart_tools.smartactors.endpoint.actor.response_sender_actor.exceptions.ResponseSenderActorException",
+          "chain": "exceptionHandlerChain"
+        }
+      ],
+      "externalAccess": true
+    },
+    {
+      "id": "getInvoices",
+      "steps": [
+        {
+          "target": "call_this_chain_receiver",
+          "chain": "authenticate"
+        },
+        {
+          "target" : "shoppingCartActorCollection",
+          "handler" : "takeInvoicesPortion",
+          "new" : {
+            "kind" : "actor",
+            "dependency" : "com.perspective.vpng.actor.shopping_cart.CacheShoppingCartActor",
+            "collectionName" : "shopping_cart"
+          },
+          "key" : "in_getShoppingCartId",
+          "wrapper" : {
+            "in_getShoppingCartId" : [
+              {
+                "name" : "getFirstNotNullRule",
+                "args" : [
+                  "message/session/userId",
+                  "message/session/sessionId"
+                ]
+              }
+            ],
+            "in_getPortionSize" : "message/pageSize",
+            "in_getPortionNumber" : "message/pageNumber",
+            "out_setInvoices" : "message/invoices"
+          }
+        },
+        {
+          "target": "convertFormatActor",
+          "handler": "convertForEach",
+          "wrapper": {
+            "in_getFromObjects": "message/invoices",
+            "out_setFromObject": "message/invoice",
+            "in_getFromObject": "message/invoice",
+            "in_getConvertStrategy": "const/InnerSchema",
+            "out_setResultObject": "message/schema",
+            "in_getResultObject": "message/schema",
+            "out_setResultObjects": "response/invoices"
+          }
+        },
+        {
+          "target" : "invoiceActor",
+          "handler" : "addFieldsToSchema",
+          "wrapper" : {
+            "in_getFieldNames" : "config/invoiceSchemaFieldNames",
+            "in_getInvoices" : "message/invoices",
+            "in_getSchemas": "response/invoices",
+            "out_setResult": "response/invoices"
+          }
+        },
+        {
+          "target": "call_this_chain_receiver",
+          "chain": "saveSessionAndRespond"
+        }
+      ],
+      "exceptional": [
+        {
+          "class": "com.perspective.vpng.actor.create_session.exception.CreateSessionException",
+          "chain": "exceptionHandlerChain"
+        },
+        {
+          "class": "com.perspective.vpng.actor.authentication.exception.AuthFailException",
+          "chain": "exceptionHandlerChain"
+        },
+        {
+          "class": "com.perspective.vpng.actor.shopping_cart.exception.ShoppingCartException",
+          "chain": "exceptionHandlerChain"
+        },
+        {
+          "class": "com.perspective.vpng.actor.convert_format.exception.ConvertFormatException",
+          "chain": "exceptionHandlerChain"
+        },
+        {
+          "class": "com.perspective.vpng.actor.save_session.exception.SaveSessionException",
+          "chain": "exceptionHandlerChain"
+        },
+        {
+          "class": "info.smart_tools.smartactors.endpoint.actor.response_sender_actor.exceptions.ResponseSenderActorException",
+          "chain": "exceptionHandlerChain"
+        }
+      ],
+      "externalAccess": true
+    },
+    {
+      "id": "shoppingCartStepTwo",
+      "steps": [
+        {
+          "target": "call_this_chain_receiver",
+          "chain": "authenticate"
+        },
+        {
+          "target" : "shoppingCartActorCollection",
+          "handler" : "takeInvoicesPortion",
+          "new" : {
+            "kind" : "actor",
+            "dependency" : "com.perspective.vpng.actor.shopping_cart.CacheShoppingCartActor",
+            "collectionName" : "shopping_cart"
+          },
+          "key" : "in_getShoppingCartId",
+          "wrapper" : {
+            "in_getShoppingCartId" : [
+              {
+                "name" : "getFirstNotNullRule",
+                "args" : [
+                  "message/session/userId",
+                  "message/session/sessionId"
+                ]
+              }
+            ],
+            "in_getPortionSize" : "message/pageSize",
+            "in_getPortionNumber" : "message/pageNumber",
+            "out_setInvoices" : "message/invoices"
+          }
+        },
+        {
+          "target": "formatShoppingCartStepTwo",
+          "handler": "generateForm",
+          "wrapper": {
+            "in_getInvoices": "message/invoices",
+            "out_setResultForm": "response/invoices"
+          }
+        },
+        {
+          "target": "call_this_chain_receiver",
+          "chain": "saveSessionAndRespond"
+        }
+      ],
+      "exceptional": [
+        {
+          "class": "com.perspective.vpng.actor.create_session.exception.CreateSessionException",
+          "chain": "exceptionHandlerChain"
+        },
+        {
+          "class": "com.perspective.vpng.actor.authentication.exception.AuthFailException",
+          "chain": "exceptionHandlerChain"
+        },
+        {
+          "class": "com.perspective.vpng.actor.shopping_cart.exception.ShoppingCartException",
+          "chain": "exceptionHandlerChain"
+        },
+        {
+          "class": "com.perspective.vpng.actor.format_shopping_cart_form.exception.GenerateShoppingCartFormException",
+          "chain": "exceptionHandlerChain"
+        },
+        {
+          "class": "com.perspective.vpng.actor.save_session.exception.SaveSessionException",
+          "chain": "exceptionHandlerChain"
+        },
+        {
+          "class": "info.smart_tools.smartactors.endpoint.actor.response_sender_actor.exceptions.ResponseSenderActorException",
+          "chain": "exceptionHandlerChain"
+        }
+      ],
+      "externalAccess": true
+    },
+    {
+      "id": "finishAuthMap",
+      "steps": [
+        {
+          "target": "call_this_chain_receiver",
+          "chain": "authenticate"
+        },
+        {
+          "target": "userAuthByLoginActor",
+          "handler": "authenticateUser",
+          "wrapper": {
+            "in_getLogin": "message/form/email",
+            "in_getPassword": "message/form/пароль",
+            "out_setAuthStatus": "response/auth_status",
+            "out_setAuthMessage": "response/auth_message",
+            "out_setUserId": "message/session/userId"
+          }
+        },
+        {
+          "target": "shoppingCartActorCollection",
+          "handler": "takeAllInvoices",
+          "new" : {
+            "kind" : "actor",
+            "dependency" : "com.perspective.vpng.actor.shopping_cart.CacheShoppingCartActor",
+            "collectionName" : "shopping_cart"
+          },
+          "key": "in_getShoppingCartId",
+          "wrapper": {
+            "in_getShoppingCartId": "message/session/sessionId",
+            "out_setInvoices": "message/sessionInvoices"
+          }
+        },
+        {
+          "target": "shoppingCartActorCollection",
+          "handler": "upsertInvoices",
+          "new" : {
+            "kind" : "actor",
+            "dependency" : "com.perspective.vpng.actor.shopping_cart.CacheShoppingCartActor",
+            "collectionName" : "shopping_cart"
+          },
+          "key": "in_getShoppingCartId",
+          "wrapper": {
+            "in_getShoppingCartId": "message/session/userId",
+            "in_getInvoices": "message/sessionInvoices"
+          }
+        },
+        {
+          "target": "createSessionActor",
+          "handler": "changeSessionId",
+          "wrapper": {
+            "in_getCookies": "context/cookies",
+            "out_setSessionId": "message/session/sessionId",
+            "out_setCookies": "context/cookies"
+          }
+        },
+        {
+          "target": "call_this_chain_receiver",
+          "chain": "saveSessionAndRespond"
+        }
+      ],
+      "exceptional": [
+        {
+          "class": "com.perspective.vpng.actor.create_session.exception.CreateSessionException",
+          "chain": "exceptionHandlerChain"
+        },
+        {
+          "class": "com.perspective.vpng.actor.authentication.users.exceptions.AuthenticateUserException",
+          "chain": "responseChain"
+        },
+        {
+          "class": "com.perspective.vpng.actor.authentication.users.exceptions.AuthenticateUserException",
+          "chain": "exceptionHandlerChain"
+        },
+        {
+          "class": "com.perspective.vpng.actor.shopping_cart.exception.ShoppingCartException",
+          "chain": "exceptionHandlerChain"
+        },
+        {
+          "class": "com.perspective.vpng.actor.save_session.exception.SaveSessionException",
+          "chain": "exceptionHandlerChain"
+        },
+        {
+          "class": "com.perspective.vpng.actor.memcached.exception.MemcachedActorException",
+          "chain": "exceptionHandlerChain"
+        },
+        {
+          "class": "info.smart_tools.smartactors.endpoint.actor.response_sender_actor.exceptions.ResponseSenderActorException",
+          "chain": "exceptionHandlerChain"
+        }
+      ],
+      "externalAccess": true
+    }
+  ]
+}

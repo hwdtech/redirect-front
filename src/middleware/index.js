@@ -54,3 +54,11 @@ export const getSubLinks = () => ({
   onResponse: 'GET_SUB_LINKS_RESPONSE',
   onError: 'GET_SUB_LINKS_ERROR',
 });
+
+export const getChains = () => ({
+  GET,
+  url: '/chains/',
+  onRequest: 'GET_CHAINS_REQUEST',
+  onResponse: 'GET_CHAINS_RESPONSE',
+  onError: 'GET_CHAINS_ERROR',
+});

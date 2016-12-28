@@ -6,7 +6,7 @@ import { reduxHttpMiddleware } from 'redux-http-middleware';
 import axios from 'axios';
 import app from './reducers';
 import Router from './Router';
-import { getMainLinks, getSubLinks } from './middleware';
+import { getMainLinks, getSubLinks, getChains } from './middleware';
 
 
 const store = createStore(
@@ -18,6 +18,7 @@ const store = createStore(
 
 store.dispatch(getMainLinks());
 store.dispatch(getSubLinks());
+store.dispatch(getChains());
 
 render(
   <Provider store={store}>
