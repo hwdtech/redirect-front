@@ -19,8 +19,8 @@ const Chains = ({ chains }) => (
 Chains.propTypes = {
   chains: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
-    exeptional: PropTypes.arrayOf(PropTypes.shape.isRequired).isRequired,
-    steps: PropTypes.arrayOf(PropTypes.shape.isRequired).isRequired,
+    exeptional: PropTypes.array.isRequired,
+    steps: PropTypes.array.isRequired,
     externalAccess: PropTypes.bool.isRequired,
   }).isRequired).isRequired,
 };
