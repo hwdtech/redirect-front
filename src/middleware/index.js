@@ -62,3 +62,11 @@ export const getChains = () => ({
   onResponse: 'GET_CHAINS_RESPONSE',
   onError: 'GET_CHAINS_ERROR',
 });
+
+export const getActors = () => ({
+  GET,
+  url: '/actors/',
+  onRequest: 'GET_ACTORS_REQUEST',
+  onResponse: 'GET_ACTORS_RESPONSE',
+  onError: 'GET_ACTORS_ERROR',
+});

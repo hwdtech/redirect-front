@@ -1,8 +1,9 @@
 import React, { PropTypes } from 'react';
 import Chain from './Chain';
+import ChainStepEditor from './ChainStepEditor';
 
 
-const Chains = ({ chains }) => (
+const Chains = ({ chains, actors }) => (
   <div style={{ whiteSpace: 'nowrap' }}>
     <h2>Chains</h2>
     <ul>
@@ -13,6 +14,8 @@ const Chains = ({ chains }) => (
         />,
       )}
     </ul>
+    <h3>Add/Edit actor component</h3>
+    <ChainStepEditor targets={actors}/>
   </div>
 );
 

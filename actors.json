@@ -1,0 +1,52 @@
+[
+  {
+    "call_this_chain_receiver": {
+      "chain": [
+        "authenticate",
+        "saveSessionAndRespond"
+      ]
+    }
+  },
+  {
+    "getAsyncOpsActor": {
+      "handler": [
+        {
+          "getOperation": {
+            "wrapper": [
+              "in_getToken",
+              "out_setAsyncOperation"
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "convertFormatActor": {
+      "handler": [
+        {
+          "convert": {
+            "wrapper": [
+              "in_getFromObject",
+              "in_getConvertStrategy",
+              "out_setResultObject"
+            ]
+          }
+        },
+        {
+          "convertForEach": {
+            "wrapper": [
+              "in_getFromObject",
+              "out_setFromObject",
+              "in_getFromObject",
+              "in_getConvertStrategy",
+              "out_setResultObject",
+              "in_getResultObject",
+              "out_setResultObjects"
+            ]
+          }
+        }
+      ]
+    }
+  }
+]

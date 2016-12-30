@@ -138,6 +138,11 @@ app.get('/chains/', (req, res) => {
   console.log(`GET ${req.url}`);
   res.status(200).sendFile(`${dirname}/chains.json`);
 });
+
+app.get('/actors/', (req, res) => {
+  console.log(`GET ${req.url}`);
+  res.status(200).sendFile(`${dirname}/actors.json`);
+});
 /* ------------------End HTTP GET-------------------- */
 /* ------------------HTTP POST-------------------- */
 function prepareSubLinkDataToSave(data) {

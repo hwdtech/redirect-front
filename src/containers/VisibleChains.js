@@ -6,6 +6,7 @@ const mapStateToProps = (state) => {
   console.log(state.chains.maps);
   return {
     chains: state.chains.maps,
+    actors: state.actors,
   };
 };
 

@@ -23,3 +23,13 @@ export const isValid = (validateState, keys) => {
   }
   return true;
 };
+
+export const objToArr = (obj) => {
+    let index = 0;
+    let arr = [];
+    for (let key in obj) {
+      arr[index] = [key, obj[key]];
+      index += 1;
+    }
+    return arr;
+  }
