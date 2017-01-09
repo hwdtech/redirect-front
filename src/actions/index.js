@@ -80,3 +80,23 @@ export const validateEdit = inputTypes => ({
   type: actionTypes.VALIDATE_EDIT,
   inputTypes,
 });
+
+export const addActorToChain = (chainId, index, actor) => ({
+  type: 'ADD_ACTOR_TO_CHAIN',
+  chainId,
+  index,
+  actor,
+});
+
+export const editActorInChain = (chainId, index, actor) => ({
+  type: 'EDIT_ACTOR_IN_CHAIN',
+  chainId,
+  index,
+  actor,
+});
+
+export const deleteActorFromChain = (chainId, index) => ({
+  type: 'DELETE_ACTOR_FROM_CHAIN',
+  chainId,
+  index,
+});

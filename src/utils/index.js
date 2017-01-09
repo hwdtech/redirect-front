@@ -25,11 +25,11 @@ export const isValid = (validateState, keys) => {
 };
 
 export const objToArr = (obj) => {
-    let index = 0;
-    let arr = [];
-    for (let key in obj) {
-      arr[index] = [key, obj[key]];
-      index += 1;
-    }
-    return arr;
+  let index = 0;
+  let arr = [];
+  for (let key in obj) {
+    arr[index] = [key, obj[key]];
+    index += 1;
   }
+  return arr;
+};

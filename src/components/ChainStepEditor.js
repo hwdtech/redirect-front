@@ -1,19 +1,11 @@
 import React, { PureComponent, PropTypes } from 'react';
-import { Button, Form, FormGroup, ControlLabel, FormControl, HelpBlock } from 'react-bootstrap';
 
-import Wrapper from './Wrapper';
-import { objToArr } from '../utils';
 
 class ChainStepEditor extends PureComponent {
   constructor(props) {
     super(props);
 
-    this.state = { targetIndex: 0, current: this.setCurrent(0), currentHandler: []};
-  }
-
-  handleChange(event) {
-    this.setState({targetIndex: event.target.value});
-    this.setState({current: this.setCurrent(event.target.value)});
+    this.state = { targetIndex: 0, current: this.setCurrent(0), currentHandler: [] };
   }
 
   setCurrent(index) {
@@ -21,8 +13,17 @@ class ChainStepEditor extends PureComponent {
   }
 
   setCurrentHandler(index) {
-    const temp = this.state.current['handler'][index];
-    this.setState({currentHandler: temp[Object.keys(temp)[0]]['wrapper']});
+    const temp = this.state.current.handler[index];
+    this.setState({currentHandler: temp[Object.keys(temp)[0]].wrapper});
+  }
+
+  handleChange(event) {
+    this.setState({ targetIndex: event.target.value });
+    this.setState({ current: this.setCurrent(event.target.value) });
+    if (this.setCurrent(event.target.value).handler) {
+      const temp = this.setCurrent(event.target.value).handler[0];
+      this.setState({ currentHandler: temp[Object.keys(temp)[0]].wrapper });
+    }
   }
 
   render() {
@@ -64,7 +65,7 @@ class ChainStepEditor extends PureComponent {
           
           {this.state.current["handler"] && <div style={{display: 'flex', marginRight: 8,}}>
             <h4>handler</h4>
-            {this.setCurrentHandler(0)}
+
             <select onChange={(e) => { this.setCurrentHandler(e.target.value) }}>
             {this.state.current["handler"].map((value, index) =>
               <option value={index}>{Object.keys(value)[0]}</option>
@@ -75,7 +76,10 @@ class ChainStepEditor extends PureComponent {
           {this.state.current["handler"] && this.state.currentHandler && <div>
             <h4>wrapper:</h4>
             {this.state.currentHandler.map((value, index) =>
-              <p>{value}</p>
+              <div style={{display: 'flex', marginRight: 8,}}>
+                <p>{value}</p>
+                <input/>
+              </div>
             )}
           </div>}
 

@@ -6,7 +6,7 @@ import AddChainButton from './AddChainButton';
 class Chain extends PureComponent {
   constructor(props) {
     super(props);
-    this.state = {visible: false, editMode: false};
+    this.state = { visible: false, editMode: false };
   }
 
   hoverVisible() {
