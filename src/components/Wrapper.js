@@ -21,9 +21,16 @@ class Wrapper extends PureComponent {
     return (
       <div>
         {this.state.wrapper.map((action, index) =>
-          <p key={index}>
-            {action[0]}:{action[1]}
-          </p>,
+          <div key={index}>
+            {action[0]}:{(typeof(action[1]) !== 'object') && action[1]}
+            {(typeof(action[1]) === 'object') && action[1][0].map((subaction) =>
+              <div key={subaction.name}>
+                ->{subaction.name}:{subaction.args.map(value => 
+                  <div>->->{value},</div>
+                )}
+              </div>
+            )}
+          </div>,
         )}
       </div>
     );

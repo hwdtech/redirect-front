@@ -13,6 +13,10 @@ class ChainStep extends PureComponent {
     this.setState({ wrapperDescription: !this.state.wrapperDescription });
   }
 
+  onDeleteClick(chainId, stepId) {
+    console.log(chainId, stepId);
+  }
+
   render() {
     const { target, handler, chain, falseChain, trueChain, wrapper, editMode } = this.props;
     return (
@@ -33,7 +37,7 @@ class ChainStep extends PureComponent {
           }}
         >
           {editMode && <span>
-            <a style={{color: "red", marginRight: 8,}}>Delete</a>
+            <a style={{color: "red", marginRight: 8,}} onClick={() => this.props.onDeleteStepClick(this.props.chainId, this.props.stepId)}>Delete</a>
             <a style={{color: "yellow",}}>Edit</a>
           </span>}
           {target && <h4>target: {target}</h4>}
@@ -52,6 +56,8 @@ class ChainStep extends PureComponent {
 }
 
 ChainStep.propTypes = {
+  chainId: PropTypes.string.isRequired,
+  stepId: PropTypes.number.isRequired,
   target: PropTypes.string.isRequired,
   handler: PropTypes.string.isRequired,
   chain: PropTypes.string.isRequired,

@@ -1,14 +1,9 @@
 import { selectAction } from '../utils';
 
 
-/*
+//view doesn't update with state
 const getChains = (state, action) => (
-  action.payload
-);
-*/
-
-const getChains = (state, action) => (
-  JSON.parse(JSON.stringify(action.payload).replace(new RegExp('"key"', 'g'), '"chainKey"'))
+  JSON.parse(JSON.stringify(action.payload).replace(new RegExp('"key"', 'g'), '"chainKey"')).maps
 );
 
 const deleteActorFromChain = (state, action) => (
@@ -16,10 +11,8 @@ const deleteActorFromChain = (state, action) => (
     if (chain.id !== action.chainId) {
       return chain;
     }
-    return [
-      ...chain.slice(0, action.index),
-      ...chain.slice(action.index + 1)
-    ];
+    chain.steps.splice(action.index, 1);
+    return chain;
   })
 );
 
@@ -28,7 +21,7 @@ const editActorInChain = (state, action) => (
     if (chain.id !== action.chainId) {
       return chain;
     };
-    chain[action.index] = action.actor;
+    chain.steps[action.index] = action.actor;
     return chain;
     /*
     return [
@@ -45,11 +38,12 @@ const addActorToChain = (state, action) => (
     if (chain.id !== action.chainId) {
       return chain;
     };
-    return [
-      ...chain.slice(0, action.index),
+    chain.steps = [
+      ...chain.steps.slice(0, action.index),
       action.actor,
-      ...chain.slice(action.index),
+      ...chain.steps.slice(action.index),
     ];
+    return chain;
   })
 );
 
@@ -57,6 +51,7 @@ const chainActions = {
   GET_CHAINS_RESPONSE: getChains,
   ADD_ACTOR_TO_CHAIN: addActorToChain,
   EDIT_ACTOR_IN_CHAIN: editActorInChain,
+  DELETE_ACTOR_FROM_CHAIN: deleteActorFromChain,
 };
 
 const chains = (state = [], action) => (

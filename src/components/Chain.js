@@ -18,10 +18,10 @@ class Chain extends PureComponent {
   }
 
   render() {
-    const { id, exeptional, steps, externalAccess } = this.props;
+    const { chainId, id, exeptional, steps, externalAccess } = this.props;
     return (
       <li>
-        <h3> <a onClick={() => {this.hoverVisible()}}> {id} </a> </h3>
+        <h3> <a onClick={() => { this.hoverVisible()} }> {id} </a> </h3>
         {this.state.visible && <span>
           <a 
             style={{color: "red", marginRight: 8,}}
@@ -40,8 +40,11 @@ class Chain extends PureComponent {
           {steps.map((step, index) =>
             <ChainStep
               key={index}
+              chainId={chainId}
+              stepId={index}
               {...step}
               editMode={this.state.editMode}
+              onDeleteStepClick={this.props.onDeleteStepClick}
             />
           )}
         </div>}
@@ -51,9 +54,12 @@ class Chain extends PureComponent {
 }
 
 Chain.propTypes = {
+  chainId: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
   exeptional: PropTypes.array.isRequired,
   steps: PropTypes.array.isRequired,
+  new: PropTypes.shape.isRequired,
+  chainKey: PropTypes.string.isRequired,
   externalAccess: PropTypes.bool.isRequired,
 };
 
