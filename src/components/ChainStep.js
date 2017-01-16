@@ -1,6 +1,5 @@
 import React, { PureComponent, PropTypes } from 'react';
 import Wrapper from './Wrapper';
-import Wrapper2 from './Wrapper2';
 import AddChainButton from './AddChainButton';
 
 
@@ -24,7 +23,7 @@ const wrapperViewer = (key, value, context) => {
     }
     return (
       <div>
-        <a onClick={() => {context.hoverWrapper()}} >wrapper</a> {context.state.wrapperDescription && <Wrapper2 fields={fields} />}
+        <a onClick={() => {context.hoverWrapper()}} >wrapper</a> {context.state.wrapperDescription && <Wrapper fields={fields} />}
       </div>
     );
 }
@@ -129,7 +128,6 @@ class ChainStep extends PureComponent {
           {trueChain && <p>trueChain: {trueChain}</p>}
           {handler && <p>handler: {handler}</p>}
           {wrapper && <a onClick={() => {this.hoverWrapper()}} >wrapper</a>}
-          {this.state.wrapperDescription && false && <Wrapper wrapper={wrapper} />}
           <p>-----------------------------------------------------------</p>
           {this.universalViewer()}
         </div>
