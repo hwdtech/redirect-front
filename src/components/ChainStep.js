@@ -121,14 +121,7 @@ class ChainStep extends PureComponent {
             <a style={{color: "red", marginRight: 8,}} onClick={() => this.props.onDeleteStepClick(this.props.chainId, this.props.stepId)}>Delete</a>
             <a style={{color: "yellow",}}>Edit</a>
           </span>}
-          {target && <h4>target: {target}</h4>}
 
-          {chain && <p>chain: {chain}</p>}
-          {falseChain && <p>falseChain: {falseChain}</p>}
-          {trueChain && <p>trueChain: {trueChain}</p>}
-          {handler && <p>handler: {handler}</p>}
-          {wrapper && <a onClick={() => {this.hoverWrapper()}} >wrapper</a>}
-          <p>-----------------------------------------------------------</p>
           {this.universalViewer()}
         </div>
         {editMode && <AddChainButton />}
