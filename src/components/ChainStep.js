@@ -3,6 +3,23 @@ import Wrapper from './Wrapper';
 import AddChainButton from './AddChainButton';
 
 
+const defaultViewer = (key, value) => {
+  return (
+    <p>{key}:value</p>
+  );
+}
+
+const targetViewer = (key, value) => {
+  return (
+    <h4>{key}: {value}</h4>
+  );
+}
+
+const someViewers = {
+  default: defaultViewer,
+  target: targetViewer,
+};
+
 class ChainStep extends PureComponent {
   constructor(props) {
     super(props);
@@ -15,6 +32,28 @@ class ChainStep extends PureComponent {
 
   onDeleteClick(chainId, stepId) {
     console.log(chainId, stepId);
+  }
+
+  selectViewer(someViewers, key, value) {
+    try {
+      return someViewers[key](key, value);
+    } catch (err) {
+      return someViewers.default(key, value);
+    }
+  }
+
+  universalViewer() {
+    let fields = [];
+    for (let key in this.props) {
+      fields[fields.length] = {key: key, value: this.props[key]}
+    }
+    return (
+      <div>
+        {fields.map(field =>
+          this.selectViewer(someViewers, field.key, field.value)
+        )}
+      </div>
+    );
   }
 
   render() {
@@ -48,6 +87,8 @@ class ChainStep extends PureComponent {
           {handler && <p>handler: {handler}</p>}
           {wrapper && <a onClick={() => {this.hoverWrapper()}} >wrapper</a>}
           {this.state.wrapperDescription && <Wrapper wrapper={wrapper} />}
+          <p>-----------------------------------------------------------</p>
+          {this.universalViewer()}
         </div>
         {editMode && <AddChainButton />}
       </div>

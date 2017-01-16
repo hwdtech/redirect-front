@@ -58,7 +58,7 @@ Chain.propTypes = {
   id: PropTypes.string.isRequired,
   exeptional: PropTypes.array.isRequired,
   steps: PropTypes.array.isRequired,
-  new: PropTypes.shape.isRequired,
+  // new: PropTypes.shape.isRequired,
   chainKey: PropTypes.string.isRequired,
   externalAccess: PropTypes.bool.isRequired,
 };
