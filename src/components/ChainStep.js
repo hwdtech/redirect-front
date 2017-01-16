@@ -1,23 +1,56 @@
 import React, { PureComponent, PropTypes } from 'react';
 import Wrapper from './Wrapper';
+import Wrapper2 from './Wrapper2';
 import AddChainButton from './AddChainButton';
 
 
 const defaultViewer = (key, value) => {
   return (
-    <p>{key}:value</p>
+    <p key={key}>{key}:{value}</p>
   );
 }
 
 const targetViewer = (key, value) => {
   return (
-    <h4>{key}: {value}</h4>
+    <h4 key={key}>{key}: {value}</h4>
   );
+}
+
+const wrapperViewer = (key, value, context) => {
+    //console.log(context);// replace by bind
+    let fields = [];
+    for (let fieldKey in value) {
+      fields[fields.length] = {key: fieldKey, value: value[fieldKey]}
+    }
+    return (
+      <div>
+        <a onClick={() => {context.hoverWrapper()}} >wrapper</a> {context.state.wrapperDescription && <Wrapper2 fields={fields} />}
+      </div>
+    );
+}
+
+const newViewer = (key, value) => {
+    let fields = [];
+    for (let fieldKey in value) {
+      fields[fields.length] = {key: fieldKey, value: value[fieldKey]}
+    }
+    return (
+      <div>
+        new:
+        {fields.map((field) =>
+          <div>
+            {field.key}: {field.value}
+          </div>
+        )}
+      </div>
+    );
 }
 
 const someViewers = {
   default: defaultViewer,
   target: targetViewer,
+  wrapper: wrapperViewer,
+  new: newViewer,
 };
 
 class ChainStep extends PureComponent {
@@ -36,16 +69,26 @@ class ChainStep extends PureComponent {
 
   selectViewer(someViewers, key, value) {
     try {
-      return someViewers[key](key, value);
+      return someViewers[key](key, value, this);
     } catch (err) {
-      return someViewers.default(key, value);
+      return someViewers.default(key, value, this);
     }
+  }
+
+  isNotInExceptions(key, exceptions) {
+    for (let index = 0; index < exceptions.length; index+=1) {
+      if (key === exceptions[index]) return false;
+    }; 
+    return true;
   }
 
   universalViewer() {
     let fields = [];
+    const exceptions = ['chainId', 'stepId', 'editMode', 'onDeleteStepClick']; // will do with this something in the future
     for (let key in this.props) {
-      fields[fields.length] = {key: key, value: this.props[key]}
+      if (this.isNotInExceptions(key, exceptions)) {
+        fields[fields.length] = {key: key, value: this.props[key]}
+      }
     }
     return (
       <div>
@@ -86,7 +129,7 @@ class ChainStep extends PureComponent {
           {trueChain && <p>trueChain: {trueChain}</p>}
           {handler && <p>handler: {handler}</p>}
           {wrapper && <a onClick={() => {this.hoverWrapper()}} >wrapper</a>}
-          {this.state.wrapperDescription && <Wrapper wrapper={wrapper} />}
+          {this.state.wrapperDescription && false && <Wrapper wrapper={wrapper} />}
           <p>-----------------------------------------------------------</p>
           {this.universalViewer()}
         </div>
