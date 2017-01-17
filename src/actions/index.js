@@ -100,3 +100,8 @@ export const deleteActorFromChain = (chainId, index) => ({
   chainId,
   index,
 });
+
+export const deleteChain = (chainId) => ({
+  type: 'DELETE_CHAIN',
+  chainId,
+});

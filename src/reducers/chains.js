@@ -6,6 +6,17 @@ const getChains = (state, action) => (
   JSON.parse(JSON.stringify(action.payload).replace(new RegExp('"key"', 'g'), '"chainKey"')).maps
 );
 
+const deleteChain = (state, action) => {
+  let newState = [];
+  for (let index = 0; index < state.length; index += 1) {
+    if (state[index].id !== action.chainId) {
+      newState[newState.length] = state[index];
+    }
+  }
+  return newState;
+};
+
+
 const deleteActorFromChain = (state, action) => (
   state.map(chain => {
     if (chain.id !== action.chainId) {
@@ -52,6 +63,7 @@ const chainActions = {
   ADD_ACTOR_TO_CHAIN: addActorToChain,
   EDIT_ACTOR_IN_CHAIN: editActorInChain,
   DELETE_ACTOR_FROM_CHAIN: deleteActorFromChain,
+  DELETE_CHAIN: deleteChain,
 };
 
 const chains = (state = [], action) => (

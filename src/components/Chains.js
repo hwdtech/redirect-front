@@ -3,7 +3,7 @@ import Chain from './Chain';
 import ChainStepEditor from './ChainStepEditor';
 
 
-const Chains = ({ chains, actors, onDeleteStepClick }) => (
+const Chains = ({ chains, actors, onDeleteStepClick, onDeleteChainClick }) => (
   <div style={{ whiteSpace: 'nowrap' }}>
     <h2>Chains</h2>
     <ul>
@@ -13,6 +13,7 @@ const Chains = ({ chains, actors, onDeleteStepClick }) => (
           chainId={chain.id}
           {...chain}
           onDeleteStepClick={onDeleteStepClick}
+          onDeleteChainClick={onDeleteChainClick}
         />,
       )}
     </ul>
@@ -29,6 +30,7 @@ Chains.propTypes = {
     externalAccess: PropTypes.bool.isRequired,
   }).isRequired).isRequired,
   onDeleteStepClick: PropTypes.func.isRequired,
+  onDeleteChainClick: PropTypes.func.isRequired,
 };
 
 export default Chains;

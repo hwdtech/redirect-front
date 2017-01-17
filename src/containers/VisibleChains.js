@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import Chains from '../components/Chains';
-import { deleteActorFromChain } from '../actions';
+import { deleteActorFromChain, deleteChain } from '../actions';
 
 
 const mapStateToProps = (state) => {
@@ -18,6 +18,10 @@ const mapDispatchToProps = dispatch => ({
   onDeleteStepClick: (chainId, stepId) => {
     console.log(chainId, stepId);
     dispatch(deleteActorFromChain(chainId, stepId));
+  },
+  onDeleteChainClick: (chainId) => {
+    console.log(chainId);
+    dispatch(deleteChain(chainId));
   },
 });
 

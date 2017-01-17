@@ -18,13 +18,14 @@ class Chain extends PureComponent {
   }
 
   render() {
-    const { chainId, id, exeptional, steps, externalAccess } = this.props;
+    const { chainId, id, exeptional, steps, externalAccess, onDeleteChainClick } = this.props;
     return (
       <li>
         <h3> <a onClick={() => { this.hoverVisible()} }> {id} </a> </h3>
         {this.state.visible && <span>
           <a 
             style={{color: "red", marginRight: 8,}}
+            onClick={() => {onDeleteChainClick(chainId)}}
           >
             Delete
           </a>

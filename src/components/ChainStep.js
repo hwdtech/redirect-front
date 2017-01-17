@@ -114,7 +114,7 @@ class ChainStep extends PureComponent {
 
   throwStep(props) {
     let fields = [];
-    const exceptions = ['chainId', 'stepId', 'editMode', 'onDeleteStepClick']; // will do with this something in the future
+    const exceptions = ['chainId', 'stepId', 'editMode', 'onDeleteStepClick', 'reset']; // will do with this something in the future
     for (let key in props) {
       if (this.isNotInExceptions(key, exceptions)) {
         fields[fields.length] = {key: key, value: this.props[key]}
