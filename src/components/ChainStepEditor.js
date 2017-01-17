@@ -55,12 +55,10 @@ class ChainStepEditor extends PureComponent {
           </div>
 
           {this.state.current["chain"] && <div style={{display: 'flex', marginRight: 8,}}>
-            <h4>chain</h4>
-            <select>
-            {this.state.current["chain"].map( value =>
-              <option value={value}>{value}</option>
-            )}
-            </select>
+            <p>
+              chain
+              <input/>
+            </p>
           </div>}
           
           {this.state.current["handler"] && <div style={{display: 'flex', marginRight: 8,}}>
